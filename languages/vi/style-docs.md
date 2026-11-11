@@ -22,7 +22,7 @@ Có bốn điều mức tự nhiên vẫn giữ nghiêm như mức Strict: khôn
 
 ## 1. Thuật ngữ: viết như dev Việt viết
 
-Phần này dựa trên 102 bài viết tay của hai blog lập trình tiếng Việt. Số liệu đầy đủ và cách đếm nằm trong [`evidence.md`](evidence.md). Đây là văn blog của hai tác giả, nên hãy coi các bảng dưới đây là mặc định hợp lý chứ không phải chuẩn. Nếu nhóm bạn đã có bảng thuật ngữ riêng thì theo bảng đó.
+Phần này dựa trên 102 bài viết tay của hai blog lập trình tiếng Việt. Số liệu đầy đủ và cách đếm nằm trong [`evidence.md`](evidence.md). Đây là văn blog của hai tác giả, nên hãy coi các bảng dưới đây là điểm xuất phát hợp lý chứ không phải chuẩn. Nếu nhóm bạn đã có bảng thuật ngữ riêng thì theo bảng đó.
 
 Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. Với những từ nhiều nghĩa như "lớp", "nhóm", "triển khai", con số chỉ tính các lần dùng đúng nghĩa đang xét.
 
@@ -40,12 +40,14 @@ Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. V�
 | deploy (14) | triển khai (0) |
 | class (27) | lớp (5) |
 | variable (0) | biến (khoảng 22) |
+| library (6) | thư viện (30) |
+| default (2) | mặc định (15) |
 | test (26) | kiểm thử (3) |
 | team (31) | nhóm (khoảng 6) |
 | array (15) | mảng (3) |
 | build (26), API (29), link (26), performance (12) | |
 
-"Variable" là lựa chọn riêng của bộ quy tắc này, ngược với số liệu: trong mẫu, dev viết "biến" và không bài nào viết "variable". Lý do giữ tiếng Anh là để các khái niệm cùng nhóm (class, variable, function, property) được viết theo cùng một cách. Nếu nhóm bạn quen viết "biến" thì cứ giữ.
+"Variable", "library" và "default" là lựa chọn riêng của bộ quy tắc này, ngược với số liệu: trong mẫu, dev viết "biến", "thư viện", "mặc định" nhiều hơn hẳn. Lý do giữ tiếng Anh là để các khái niệm kỹ thuật được viết theo cùng một cách. Nếu nhóm bạn quen viết tiếng Việt cho ba từ này thì cứ giữ.
 
 "Triển khai" vẫn được dùng nhiều, nhưng theo nghĩa "implement": "triển khai phương thức này như sau". "Kiểm tra" cũng vậy, gần như luôn mang nghĩa "check" chứ không phải "test".
 
@@ -55,7 +57,6 @@ Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, toke
 
 | Viết | Ít gặp |
 |---|---|
-| thư viện (30) | library (6) |
 | người dùng (35) | user (8) |
 | hệ thống (39) | system (5) |
 | cài đặt (28) | install (1) |
@@ -65,7 +66,7 @@ Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, toke
 | khai báo (21), định nghĩa (14) | define (4) |
 | lỗi (31) | error (7) |
 | chức năng (25), tính năng (13) | feature (1) |
-| mặc định (15), quyền (16), thuật toán (11) | |
+| quyền (16), thuật toán (11) | |
 
 ### Cả hai cách đều phổ biến
 
@@ -133,7 +134,7 @@ Các điểm sau chưa tìm thấy nguồn tiếng Việt nào nêu tên. Chúng
 
 | Rườm rà | Gọn hơn |
 |---|---|
-| Thư viện này được sử dụng để xử lý ảnh. | Thư viện này dùng để xử lý ảnh. |
+| Library này được sử dụng để xử lý ảnh. | Library này dùng để xử lý ảnh. |
 | Tính năng này cho phép bạn xuất PDF. | Bạn có thể xuất PDF bằng tính năng này. |
 | Cache đóng một vai trò quan trọng trong hiệu năng. | Cache ảnh hưởng lớn tới hiệu năng. |
 | Hàm này trả về giá trị một cách nhanh chóng. | Hàm này trả về giá trị nhanh. |
@@ -153,7 +154,7 @@ Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính 
 | Tự ghép ra thuật ngữ mới | "từ chỉ mức độ chắc chắn", "từ rào đón" | Gọi bằng ví dụ: những từ như "có thể", "có lẽ" |
 | Dùng thuật ngữ ngữ pháp với người đọc không chuyên | "hư từ", "tình thái" | Giải thích bằng lời thường hoặc nêu ví dụ |
 | Tiêu đề và nhãn dịch từng chữ | "Đầu ra sạch", "Hệ quả cho quy tắc", "nằm ở lõi", "số liệu đứng sau quy tắc" | "Kết quả gọn", "Quy tắc cần điều chỉnh", "dùng cho mọi ngôn ngữ", "số liệu làm căn cứ cho quy tắc" |
-| Ô bảng và gạch đầu dòng chỉ là chuỗi cụm từ | "Python 3, chỉ dùng thư viện chuẩn, không gọi mạng." | "Một script Python 3 chỉ dùng thư viện chuẩn và không kết nối mạng." |
+| Ô bảng và gạch đầu dòng chỉ là chuỗi cụm từ | "Python 3, chỉ dùng standard library, không gọi mạng." | "Một script Python 3 chỉ dùng standard library và không kết nối mạng." |
 
 Cách tự kiểm tra: đọc to từng câu rồi tự hỏi "mình có nói câu này với đồng nghiệp không?". Nếu không thì viết lại ý đó đúng như khi nói.
 
@@ -215,8 +216,8 @@ Thêm đoạn sau vào `CLAUDE.md` của project. Muốn áp dụng cho mọi pr
 Khi viết tài liệu, README, mô tả PR, changelog hoặc báo cáo bằng tiếng Việt,
 theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Thuật ngữ: viết như dev Việt viết. Giữ tiếng Anh cho commit, PR, API, request, token,
-  server, database, file, framework, build, deploy, test, debug, class, variable.
-  Viết tiếng Việt cho thư viện, người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng, mặc định.
+  server, database, file, framework, library, build, deploy, test, debug, class,
+  variable, default. Viết tiếng Việt cho người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng.
   Không dùng bản dịch ít người dùng ("yêu cầu kéo", "điểm cuối", "mã thông báo").
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),
@@ -234,7 +235,7 @@ python3 scripts/ste-lint.py --lang vi --profile docs docs/
 python3 scripts/ste-lint.py --lang vi --profile report bao-cao.md
 ```
 
-Profile `docs` nới giới hạn độ dài câu lên 45 âm tiết và không cảnh báo "hay". Đừng dùng profile mặc định (`strict`) cho tài liệu, vì nó sẽ đẩy bạn về lối câu cụt.
+Profile `docs` nới giới hạn độ dài câu lên 45 âm tiết và không cảnh báo "hay". Đừng dùng profile default (`strict`) cho tài liệu, vì nó sẽ đẩy bạn về lối câu cụt.
 
 Các quy tắc liên quan: `calque-term`, `mt-phrase`, `title-case-heading`, `passive-voice`, `adverb-calque` (đều ở mức advisory).
 

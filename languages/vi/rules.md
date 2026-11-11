@@ -178,7 +178,7 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 
 ## Kiểm tra bằng linter
 
-`scripts/ste-lint.py` kiểm tra tiếng Việt khi chạy với `--lang auto` (mặc định) hoặc `--lang vi`. Các quy tắc linter:
+`scripts/ste-lint.py` kiểm tra tiếng Việt khi chạy với `--lang auto` (default) hoặc `--lang vi`. Các quy tắc linter:
 
 | Mã quy tắc | Mức | Kiểm tra |
 |---|---|---|

@@ -59,8 +59,8 @@ Error message là văn bản cho agent đọc, nên bản viết lại theo mứ
 | **Đa ngôn ngữ** | Skill tự nhận ra văn bản viết bằng tiếng gì và viết lại bằng đúng thứ tiếng đó, không tự ý dịch. |
 | **Hai mức văn phong** | Mức **Strict** dành cho văn bản agent đọc như error message, tool description, chỉ dẫn. Mức **tự nhiên** dành cho văn bản người đọc như README, tài liệu, mô tả PR, báo cáo. |
 | **Không đổi phỏng đoán thành khẳng định** | "Có thể đã thất bại" không bao giờ bị viết lại thành "đã thất bại". Bản viết lại cũng không thêm thông tin mà bản gốc không có. |
-| **Kết quả gọn** | Mặc định skill chỉ trả về văn bản đã viết lại, để bạn dán dùng ngay. Nếu muốn biết đã sửa những gì, hãy thêm "show the diff" vào yêu cầu. |
-| **Linter** | Một script Python 3 chỉ dùng thư viện chuẩn và không kết nối mạng. Script kiểm tra được cả tài liệu viết lẫn nhiều thứ tiếng. |
+| **Kết quả gọn** | Nếu bạn không yêu cầu gì thêm, skill chỉ trả về văn bản đã viết lại, để bạn dán dùng ngay. Nếu muốn biết đã sửa những gì, hãy thêm "show the diff" vào yêu cầu. |
+| **Linter** | Một script Python 3 chỉ dùng standard library và không kết nối mạng. Script kiểm tra được cả tài liệu viết lẫn nhiều thứ tiếng. |
 | **Văn phong tài liệu** | Hướng dẫn viết tài liệu và báo cáo tiếng Việt sao cho giống kỹ sư Việt viết: dùng thuật ngữ đúng thói quen của dev Việt, nối các ý với nhau thay vì viết câu cụt, không viết hoa mọi chữ trong tiêu đề. Hướng dẫn nằm ở [`languages/vi/style-docs.md`](languages/vi/style-docs.md), số liệu làm căn cứ nằm ở [`evidence.md`](languages/vi/evidence.md). | |
 | **Báo cáo cụ thể** | Hướng dẫn viết báo cáo tiến độ, báo cáo sự cố, báo cáo kết quả đo và báo cáo sau khi làm xong việc: kết luận lên đầu, con số thay cho tính từ, nói rõ đã kiểm chứng đến đâu. Hướng dẫn nằm ở [`languages/vi/style-reports.md`](languages/vi/style-reports.md). |
 | **Dễ mở rộng** | Muốn thêm một thứ tiếng, bạn chỉ cần thêm một thư mục tài liệu và một mục trong registry của linter. |
@@ -97,7 +97,7 @@ Rewrite this error message so an agent can't misparse it
 ## Linter
 
 ```bash
-python3 scripts/ste-lint.py README.md            # mọi ngôn ngữ (mặc định: --lang auto)
+python3 scripts/ste-lint.py README.md            # mọi ngôn ngữ (default: --lang auto)
 python3 scripts/ste-lint.py --lang vi docs/*.md  # chỉ quy tắc tiếng Việt
 python3 scripts/ste-lint.py --profile docs README.md  # văn bản tiếng Việt cho người đọc: nới giới hạn câu
 python3 scripts/ste-lint.py --profile report bao-cao.md  # báo cáo: cảnh báo thêm từ mơ hồ
@@ -119,12 +119,12 @@ $ echo "Tiến hành kiểm tra tệp, khong được bỏ qua. Dữ liệu đư
 | Mã thoát | Ý nghĩa |
 |---|---|
 | `0` | Số vi phạm hard không vượt `--baseline` |
-| `1` | Số vi phạm hard vượt `--baseline` (mặc định 0) |
+| `1` | Số vi phạm hard vượt `--baseline` (default là 0) |
 | `2` | Lỗi cách dùng: sai flag, sai mã quy tắc, không đọc được tệp |
 
 Ở chế độ `--lang auto`, linter chạy quy tắc của mọi thứ tiếng, và mỗi câu được đo theo giới hạn của chính thứ tiếng đó: 25 từ với tiếng Anh, 30 âm tiết với tiếng Việt. Nhờ vậy tài liệu trộn hai thứ tiếng vẫn được kiểm tra đúng.
 
-Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README hay tài liệu tiếng Việt, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các thay đổi này chỉ áp dụng cho dòng tiếng Việt, còn dòng tiếng Anh giữ nguyên mọi mức. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Với báo cáo, hãy dùng `--profile report`: ngoài các thiết lập của `docs`, profile này cảnh báo thêm từ chỉ lượng mơ hồ ("một số", "gần xong"), thời gian mơ hồ ("sẽ sớm") và lời khẳng định không kèm cách kiểm chứng ("chạy ổn"). Những từ như "may", "might", "có thể", "có lẽ" không bao giờ bị báo lỗi.
+Linter dùng profile `strict` làm default, dành cho văn bản agent đọc. Với README hay tài liệu tiếng Việt, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các thay đổi này chỉ áp dụng cho dòng tiếng Việt, còn dòng tiếng Anh giữ nguyên mọi mức. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Với báo cáo, hãy dùng `--profile report`: ngoài các thiết lập của `docs`, profile này cảnh báo thêm từ chỉ lượng mơ hồ ("một số", "gần xong"), thời gian mơ hồ ("sẽ sớm") và lời khẳng định không kèm cách kiểm chứng ("chạy ổn"). Những từ như "may", "might", "có thể", "có lẽ" không bao giờ bị báo lỗi.
 
 Danh sách quy tắc của tiếng Anh nằm trong [`README.en.md`](README.en.md), của tiếng Việt nằm trong [`languages/vi/rules.md`](languages/vi/rules.md#kiểm-tra-bằng-linter).
 
