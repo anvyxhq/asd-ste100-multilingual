@@ -2,7 +2,7 @@
 
 Tài liệu này ghi lại số liệu làm căn cứ cho các quy tắc trong `style-docs.md` và các mức cảnh báo của linter. Nhờ vậy ai cũng kiểm chứng được từng quy tắc, và sửa lại khi có dữ liệu tốt hơn.
 
-Một người rà soát độc lập đã chạy lại toàn bộ phép đếm và đọc từng lần xuất hiện của các từ nhiều nghĩa. Bản này đã sửa theo kết quả rà soát đó.
+Toàn bộ phép đếm đã có một người rà soát độc lập chạy lại. Người đó cũng đọc từng lần xuất hiện của các từ nhiều nghĩa.
 
 ## Ngữ liệu
 
@@ -32,7 +32,7 @@ Hai nhóm đối chứng được tách riêng vì văn phong khác hẳn nhóm 
 - Từ nhiều nghĩa bị máy đếm lẫn nghĩa. Với các dòng có ghi "đã đọc từng chỗ", con số là số lần dùng đúng nghĩa đang xét. Các dòng khác là số đếm thô.
 - Số đếm của từ tiếng Anh gồm cả tên kiểu dữ liệu và tiêu đề tiếng Anh, ví dụ `String`, `Task`, "Fetching Data from API".
 - Thuật ngữ Git (commit, branch, merge, pull request, repo) xuất hiện ở dưới 5 bài, nên chưa đủ dữ liệu để kết luận.
-- Hai nhóm đối chứng khác nhóm iOS 2020–2022 cả về chủ đề lẫn văn phong. Riêng nhóm iOS 2023–2024 có cùng chủ đề với nhóm iOS 2020–2022, nên chỉ ở nhóm này mới so sánh được văn phong một cách sạch.
+- Hai nhóm đối chứng khác nhóm iOS 2020–2022 cả về chủ đề lẫn văn phong. Riêng nhóm iOS 2023–2024 có cùng chủ đề với nhóm iOS 2020–2022, nên chỉ ở nhóm này mới so sánh riêng được văn phong.
 
 ## Thuật ngữ
 

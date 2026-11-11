@@ -68,7 +68,7 @@ Ngoài `rules.md`, một ngôn ngữ có thể có thêm hướng dẫn văn pho
 Sau khi thêm ngôn ngữ, bạn cập nhật các chỗ sau:
 
 - Bảng **Languages** trong `SKILL.md`.
-- Bảng ngôn ngữ ở đầu tệp này.
+- Bảng ngôn ngữ ở đầu file này.
 - Bảng **Ngôn ngữ hỗ trợ** trong `README.md`.
 - Thêm trigger của ngôn ngữ mới vào `description` trong `SKILL.md`.
 
@@ -80,7 +80,7 @@ Với thuật ngữ, hãy lấy mẫu từ bài viết thật của lập trình
 
 Có hai chuẩn quốc tế dẫn được cho mọi ngôn ngữ: ISO 24495-1:2023 (ngôn ngữ dễ hiểu) và ISO/TS 24620-1:2015 (ngôn ngữ có kiểm soát).
 
-Mỗi nhận định về ngôn ngữ trong `rules.md` cần có nguồn: sách ngữ pháp, quy định chính tả, style guide bản địa hóa (Microsoft, Mozilla), dữ liệu locale (CLDR). Ghi nguồn ở cuối tệp. Quy tắc nào không có nguồn thì ghi rõ là quy ước riêng.
+Mỗi nhận định về ngôn ngữ trong `rules.md` cần có nguồn: sách ngữ pháp, quy định chính tả, style guide bản địa hóa (Microsoft, Mozilla), dữ liệu locale (CLDR). Ghi nguồn ở cuối file. Quy tắc nào không có nguồn thì ghi rõ là quy ước riêng.
 
 ## Những nguyên tắc phải giữ
 
