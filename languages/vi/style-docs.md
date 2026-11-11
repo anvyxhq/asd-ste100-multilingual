@@ -20,13 +20,26 @@ Văn bản cho người đọc mà viết theo mức Strict sẽ nghe như văn 
 
 Có bốn điều mức tự nhiên vẫn giữ nghiêm như mức Strict: không đổi phỏng đoán thành khẳng định ("có thể" vẫn là "có thể"), không thêm thông tin, không dùng từ quảng cáo, viết đủ dấu.
 
-## 1. Thuật ngữ: viết như dev Việt viết
+## 1. Thuật ngữ: tiếng Anh khi nói về kỹ thuật
 
-Phần này dựa trên 102 bài viết tay của hai blog lập trình tiếng Việt. Số liệu đầy đủ và cách đếm nằm trong [`evidence.md`](evidence.md). Đây là văn blog của hai tác giả, nên hãy coi các bảng dưới đây là điểm xuất phát hợp lý chứ không phải chuẩn. Nếu nhóm bạn đã có bảng thuật ngữ riêng thì theo bảng đó.
+Nguyên tắc: **khi nói về kỹ thuật thì dùng thuật ngữ tiếng Anh, còn trong câu thường thì từ tiếng Việt cũng được.**
 
-Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. Với những từ nhiều nghĩa như "lớp", "nhóm", "triển khai", con số chỉ tính các lần dùng đúng nghĩa đang xét.
+Một từ thuộc ngữ cảnh kỹ thuật khi nó chỉ một thứ cụ thể trong code, trong hệ thống hoặc trong công cụ: một class, một variable, một permission trong IAM, một error mà function trả về. Cùng từ đó, khi dùng theo nghĩa thông thường để nói chuyện với người đọc, thì viết tiếng Việt vẫn tự nhiên.
 
-### Giữ tiếng Anh
+| Ngữ cảnh kỹ thuật | Câu thường |
+|---|---|
+| Function `refresh()` throw error khi token hết hạn. | Nếu gặp lỗi, bạn thử đăng nhập lại. |
+| Thêm permission `s3:GetObject` cho role. | Bạn cần có quyền admin để xem trang này. |
+| Bảng `users` lưu mỗi user một dòng. | Người dùng sẽ thấy màn hình đăng nhập. |
+| Giá trị default của `timeout` là 30 giây. | Ứng dụng mở trang chủ theo mặc định. |
+| Run test trước khi merge. | Chạy lệnh sau để cài đặt. |
+| Handle error ở tầng API. | Nhóm đã xử lý xong yêu cầu của khách hàng. |
+
+Trong cùng một tài liệu, một khái niệm ở cùng một ngữ cảnh thì giữ một cách viết. Đừng viết "user" ở câu trước rồi "người dùng" ở câu sau khi cả hai cùng chỉ một dòng trong bảng `users`.
+
+### Luôn viết tiếng Anh
+
+Với các thuật ngữ sau, từ tiếng Việt tương ứng gần như không ai dùng. Số trong ngoặc là số bài có dùng từ đó trong 102 bài viết tay của hai blog lập trình tiếng Việt (xem [`evidence.md`](evidence.md)).
 
 | Viết | Ít gặp hoặc không gặp |
 |---|---|
@@ -39,56 +52,25 @@ Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. V�
 | module (12) | mô-đun (0) |
 | deploy (14) | triển khai (0) |
 | class (27) | lớp (5) |
-| variable (0) | biến (khoảng 22) |
-| library (6) | thư viện (30) |
-| default (2) | mặc định (15) |
 | test (26) | kiểm thử (3) |
 | team (31) | nhóm (khoảng 6) |
 | array (15) | mảng (3) |
 | build (26), API (29), link (26), performance (12) | |
 
-"Variable", "library" và "default" là lựa chọn riêng của bộ quy tắc này, ngược với số liệu: trong mẫu, dev viết "biến", "thư viện", "mặc định" nhiều hơn hẳn. Lý do giữ tiếng Anh là để các khái niệm kỹ thuật được viết theo cùng một cách. Nếu nhóm bạn quen viết tiếng Việt cho ba từ này thì cứ giữ.
+Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, token, callback, middleware, payload cũng viết tiếng Anh.
 
 "Triển khai" vẫn được dùng nhiều, nhưng theo nghĩa "implement": "triển khai phương thức này như sau". "Kiểm tra" cũng vậy, gần như luôn mang nghĩa "check" chứ không phải "test".
 
-Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, token, callback, middleware, payload có quá ít dữ liệu trong mẫu. Nên giữ tiếng Anh cho các từ này, vì bản dịch của các hãng không thống nhất (xem bên dưới).
+### Tiếng Anh khi nói về kỹ thuật, tiếng Việt trong câu thường
 
-### Viết tiếng Việt
+| Nhóm | Thuật ngữ tiếng Anh | Từ tiếng Việt dùng trong câu thường |
+|---|---|---|
+| Code | variable, function, object, method, property, string, library | biến, hàm, đối tượng, phương thức, thuộc tính, chuỗi, thư viện |
+| Hệ thống | user, system, error, bug, permission, default, config, data, version | người dùng, hệ thống, lỗi, quyền, mặc định, cấu hình, dữ liệu, phiên bản |
+| Sản phẩm | feature, UI, app, project, tool, algorithm | tính năng, giao diện, ứng dụng, dự án, công cụ, thuật toán |
+| Thao tác | install, run, handle, support, define, fix, update, design | cài đặt, chạy, xử lý, hỗ trợ, khai báo, sửa, cập nhật, thiết kế |
 
-| Viết | Ít gặp |
-|---|---|
-| người dùng (35) | user (8) |
-| hệ thống (39) | system (5) |
-| cài đặt (28) | install (1) |
-| chạy (62) | run (9) |
-| xử lý (31) | handle (4) |
-| hỗ trợ (25) | support (2) |
-| khai báo (21), định nghĩa (14) | define (4) |
-| lỗi (31) | error (7) |
-| chức năng (25), tính năng (13) | feature (1) |
-| quyền (16), thuật toán (11) | |
-
-### Cả hai cách đều phổ biến
-
-| Tiếng Anh | Tiếng Việt |
-|---|---|
-| function (28) | hàm (39) |
-| object (15) | đối tượng (27) |
-| method (10) | phương thức (10) |
-| property (13) | thuộc tính (15) |
-| string (16) | chuỗi (7) |
-| data (19) | dữ liệu (48) |
-| UI (18) | giao diện (29) |
-| project (38) | dự án (36) |
-| app (31) | ứng dụng (44) |
-| version (15) | phiên bản (11) |
-| developer (39), dev (27) | lập trình viên (25) |
-| bug (13) | lỗi (31) |
-| fix (13) | sửa (27) |
-| config (8), tool (12) | cấu hình (9), công cụ (14) |
-| update (11), design (15) | cập nhật (20), thiết kế (27) |
-
-Với nhóm này, chọn một cách cho mỗi khái niệm rồi giữ trong cả tài liệu.
+Đây là lựa chọn riêng của bộ quy tắc này. Trong mẫu 102 bài, nhiều tác giả viết tiếng Việt cho nhóm này ngay cả khi nói về kỹ thuật, ví dụ "biến" (khoảng 22 bài, so với 0 bài viết "variable") hay "chạy" (62 bài, so với 9 bài viết "run"). Nếu nhóm bạn quen viết tiếng Việt thì cứ giữ, miễn là nhất quán. Nếu nhóm bạn đã có bảng thuật ngữ riêng thì theo bảng đó.
 
 ### Từ có trong bảng thuật ngữ của các hãng nhưng dev ít dùng
 
@@ -215,9 +197,10 @@ Thêm đoạn sau vào `CLAUDE.md` của project. Muốn áp dụng cho mọi pr
 
 Khi viết tài liệu, README, mô tả PR, changelog hoặc báo cáo bằng tiếng Việt,
 theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
-- Thuật ngữ: viết như dev Việt viết. Giữ tiếng Anh cho commit, PR, API, request, token,
+- Thuật ngữ: khi nói về kỹ thuật thì dùng tiếng Anh: commit, PR, API, request, token,
   server, database, file, framework, library, build, deploy, test, debug, class,
-  variable, default. Viết tiếng Việt cho người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng.
+  variable, function, user, error, permission, default, run, handle (và các thuật ngữ
+  kỹ thuật khác). Trong câu thường, từ tiếng Việt cũng được: người dùng, lỗi, chạy, cài đặt.
   Không dùng bản dịch ít người dùng ("yêu cầu kéo", "điểm cuối", "mã thông báo").
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),
