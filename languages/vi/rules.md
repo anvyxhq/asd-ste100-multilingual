@@ -10,12 +10,12 @@ Mục tiêu vẫn như cũ: mỗi câu chỉ có một cách hiểu, vì ngườ
 
 | Tiếng Anh | Tiếng Việt | Quy tắc cần điều chỉnh |
 |---|---|---|
-| Động từ chia thì | Động từ không biến đổi. Người viết có thể thêm hoặc không thêm "đã/đang/sẽ" | Thiếu "đã/đang/sẽ" có thể gây mơ hồ. Xem quy tắc 6 |
-| Câu luôn có chủ ngữ | Chủ ngữ thường bị lược | Văn bản mô tả và trạng thái phải nêu chủ ngữ. Xem quy tắc 2 |
-| Phrasal verb dễ bị hiểu nhiều nghĩa | Không có phrasal verb | Dễ bị hiểu nhiều nghĩa là các từ ngắn như "hay", "được", "rồi", "cho", "mà", "lại". Xem quy tắc 8 |
-| Một từ là một token | Một âm tiết là một token | Giới hạn độ dài tính theo âm tiết. Xem quy tắc 4 |
-| Cụm danh từ: bổ ngữ đứng trước | Bổ ngữ đứng sau danh từ chính | Chuỗi bổ ngữ dài làm mơ hồ quan hệ sở hữu. Xem quy tắc 5 |
-| Không có dấu thanh | Đổi dấu thanh là đổi nghĩa của từ | Bắt buộc viết đủ dấu. Xem quy tắc 1 |
+| Động từ chia thì | Động từ không biến đổi. Người viết có thể thêm hoặc không thêm "đã/đang/sẽ" | Thiếu "đã/đang/sẽ" có thể gây mơ hồ. Xem mục "Thời gian: nêu đủ, không nêu thừa" |
+| Câu luôn có chủ ngữ | Chủ ngữ thường bị lược | Văn bản mô tả và trạng thái phải nêu chủ ngữ. Xem mục "Câu chủ động, có chủ ngữ rõ ràng" |
+| Phrasal verb dễ bị hiểu nhiều nghĩa | Không có phrasal verb | Dễ bị hiểu nhiều nghĩa là các từ ngắn như "hay", "được", "rồi", "cho", "mà", "lại". Xem mục "Tránh từ ngắn đa nghĩa" |
+| Một từ là một token | Một âm tiết là một token | Giới hạn độ dài tính theo âm tiết. Xem mục "Độ dài câu" |
+| Cụm danh từ: bổ ngữ đứng trước | Bổ ngữ đứng sau danh từ chính | Chuỗi bổ ngữ dài làm mơ hồ quan hệ sở hữu. Xem mục "Cụm danh từ ngắn, quan hệ rõ ràng" |
+| Không có dấu thanh | Đổi dấu thanh là đổi nghĩa của từ | Bắt buộc viết đủ dấu. Xem mục "Viết đủ dấu" |
 
 ## Quy tắc cấu trúc — áp dụng đầy đủ
 

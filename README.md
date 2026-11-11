@@ -67,7 +67,7 @@ Error message là văn bản cho agent đọc, nên bản viết lại theo mứ
 
 ## Cài đặt
 
-**Cách 1 — skills CLI** (cho một project):
+**Cài bằng skills CLI** (cho một project):
 
 ```bash
 npx skills add anvyxhq/asd-ste100-multilingual
@@ -75,7 +75,7 @@ npx skills add anvyxhq/asd-ste100-multilingual
 
 Khi cài đặt, CLI này gửi telemetry ẩn danh. Nếu không muốn, bạn đặt environment variable `DISABLE_TELEMETRY=1` trước khi chạy.
 
-**Cách 2 — clone** (cho mọi project trên máy):
+**Cài bằng `git clone`** (cho mọi project trên máy):
 
 ```bash
 git clone https://github.com/anvyxhq/asd-ste100-multilingual ~/.claude/skills/asd-ste100

@@ -179,7 +179,7 @@ VI_RULES = [
     ("opaque-label", "advisory",
      re.compile(r"(?<![\wÀ-ỹ])(?i:cách|phương án|lựa chọn|giải pháp|phương pháp|hướng đi|hướng tiếp cận|option|approach)"
                 r"\s+(?:[A-Z](?![\wÀ-ỹ'’])"
-                r"|\d{1,2}(?=\s*(?:[:.,)\]](?!\d)|$|(?i:là|thì|và|hoặc|hay|sẽ|có|không|cũng|vẫn|dùng|nhanh|chậm|tốt|rẻ|đắt)(?![\wÀ-ỹ]))))"),
+                r"|\d{1,2}(?=\s*(?:[:.,)\]](?!\d)|[—–-]\s|$|(?i:là|thì|và|hoặc|hay|sẽ|có|không|cũng|vẫn|dùng|nhanh|chậm|tốt|rẻ|đắt)(?![\wÀ-ỹ]))))"),
      "Nhãn chữ cái hoặc số không cho biết đây là cách nào. Đặt cho mỗi cách một tên bằng danh từ nói rõ nội dung "
      "(\"cách dùng cache\", \"phương án tách service\") rồi dùng đúng tên đó trong cả tài liệu."),
     # Administrative-report wording. Each phrase is in 0 or 1 of 108 hand-written developer articles.
@@ -2908,6 +2908,7 @@ def selftest():
     assert [(f["rule"], f["match"]) for f in findings] == [
         ("opaque-label", "Cách A"), ("opaque-label", "Phương án 2"),
         ("opaque-label", "option B"), ("opaque-label", "cách 1")], findings
+    assert [f["match"] for f in lint("**Cách 1 — skills CLI** (cho một project):", lang="vi")[0]] == ["Cách 1"]
     for fine in ("Cách dùng cache nhanh hơn cách tách service.", "Hai máy đặt cách 2 mét.",
                  "Job chạy cách 5 phút một lần.", "Có 3 phương án và 2 cách làm.",
                  "Lựa chọn 1 trong 3 gói.", "Bảng cách 2,5 cm so với lề."):

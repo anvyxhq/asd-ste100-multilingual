@@ -1,6 +1,6 @@
 # Before / After Examples
 
-## Part 1 — Official STE Examples
+## Official STE Examples
 
 These illustrate real ASD-STE100 rules, drawn from public secondary sources (see `references/writing-rules.md`). They are paraphrased illustrations of the rule, not quotes from the standard itself.
 
@@ -13,13 +13,13 @@ These illustrate real ASD-STE100 rules, drawn from public secondary sources (see
 | Verb, not noun | "Perform an inspection of the filter." | "Inspect the filter." | The noun form hides the action and adds a filler verb that carries no meaning. |
 | No phrasal verbs | "Take off the access panel." | "Remove the access panel." | "Take off" also means "depart" and "deduct" — the two words together do not predict the meaning. |
 
-## Part 2 — Applied to Agent Output
+## Applied to Agent Output
 
 These are original examples built for this skill's actual use case: rewriting AI agent output so another agent, a translation layer, or a non-native reader can parse it without ambiguity. They are illustrations, not quotes from any real system.
 
 Word counts below are whitespace-separated tokens (`text.split()`), punctuation not counted separately. A different tokenizer will produce a different number.
 
-### Example A — Tool description
+### Example: tool description
 
 **Before:**
 > This tool will attempt to synchronize state across the various backends that have been configured, and if a conflict is detected it may resolve it automatically depending on the strategy that has been set, or otherwise it will surface the conflict for manual review.
@@ -36,7 +36,7 @@ Note what is *not* flagged: "will attempt to" and "may resolve". Those are hedge
 
 The last sentence branches on whether the conflict was resolved, not on what the strategy allows. That is what "or otherwise" meant in the original: the fallback covers a permitted resolution that still did not happen.
 
-### Example B — Error message
+### Example: error message
 
 **Before:**
 > An error may have occurred while processing your request due to a possible mismatch in the expected data format, which could be caused by an outdated client version.
@@ -54,7 +54,7 @@ Not flagged: "may have occurred" and "could be caused by". The message is writte
 
 Note also that "may have failed" keeps a compound verb form that the simple-tense rule would otherwise remove. **When the tense rule and the modality rule conflict, modality wins** — dropping the auxiliary here would delete the uncertainty along with the tense.
 
-### Example C — Inter-agent instruction
+### Example: inter-agent instruction
 
 **Before:**
 > Once the upstream job has completed and assuming no errors were raised, the downstream agent should proceed to consume the output artifact, though it is worth noting that partial artifacts are sometimes produced under timeout conditions.
@@ -71,7 +71,7 @@ Two deliberate calls worth stating rather than hiding:
 - "should proceed to consume" became the imperative "read". STE permits this for instructions, where a recommendation addressed to the executing agent is a command. Do not make the same move in descriptive text.
 - The final sentence is **new**. The original warned about partial artifacts without saying what to do about it. Adding the check makes the warning actionable, but it is added content, so it is called out here rather than passed off as a rewrite. If the source's silence was deliberate, drop the sentence.
 
-### Example D — README prose (STE-flavored mode)
+### Example: README prose (STE-flavored mode)
 
 **Before:**
 > Our caching layer is designed to slot seamlessly into your existing stack with minimal friction and no vendor lock-in; it leverages semantic similarity to dramatically reduce the cache misses that traditionally plague LLM workloads.
@@ -91,4 +91,4 @@ An earlier version of this file added two facts. It said that a normal cache mat
 
 ## How to Read These Examples
 
-Part 1 shows the actual rules this skill is built on. Part 2 shows the transfer: the same discipline — one meaning per word, active voice, simple tense, one instruction per sentence, explicit conditions instead of buried subordinate clauses — makes machine-to-machine and cross-language text safer to parse, not just aircraft manuals.
+The official STE examples show the actual rules this skill is built on. The agent-output examples show the transfer: the same discipline — one meaning per word, active voice, simple tense, one instruction per sentence, explicit conditions instead of buried subordinate clauses — makes machine-to-machine and cross-language text safer to parse, not just aircraft manuals.
