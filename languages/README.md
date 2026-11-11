@@ -60,7 +60,7 @@ Nếu ngôn ngữ không có dấu cách giữa các từ (tiếng Nhật, tiế
 
 ## 4. Hướng dẫn văn phong (không bắt buộc)
 
-Ngoài `rules.md`, một ngôn ngữ có thể có thêm hướng dẫn văn phong cho từng loại văn bản, ví dụ `style-docs.md` cho tài liệu và báo cáo. Hướng dẫn này chỉ cách viết cho tự nhiên: thuật ngữ nào giữ tiếng Anh, cụm nào nghe như dịch máy, viết tiêu đề, ngày và số ra sao. Bạn có thể tham khảo `languages/vi/style-docs.md`.
+Ngoài `rules.md`, một ngôn ngữ có thể có thêm hướng dẫn văn phong cho từng loại văn bản, ví dụ `style-docs.md` cho tài liệu và báo cáo. Hướng dẫn này chỉ cách viết cho tự nhiên: thuật ngữ nào giữ tiếng Anh, cụm nào nghe như dịch máy, viết tiêu đề, ngày và số ra sao. Bạn có thể tham khảo `languages/vi/style-docs.md` (tài liệu) và `languages/vi/style-reports.md` (báo cáo). Các quy tắc linter chỉ dùng cho báo cáo thì đặt vào trường `report_rules` của ngôn ngữ, và chỉ chạy khi có `--profile report`.
 
 ## 5. Cập nhật tài liệu
 

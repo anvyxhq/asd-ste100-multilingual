@@ -168,6 +168,11 @@ VI_RULES = [
     ("literal-idiom", "advisory",
      re.compile(r"\blà (?:mục đích|nội dung|chìa khóa|chìa khoá)\s*[.!]", re.I),
      "Có thể là dịch sát một câu nói gọn của tiếng Anh (\"X is the point\", \"X is key\"). Nói ý đó bằng lời bình thường."),
+    # Administrative-report wording. Each phrase is in 0 or 1 of 108 hand-written developer articles.
+    ("officialese", "advisory",
+     re.compile(r"\b(?:cơ bản (?:đã )?hoàn thành|về cơ bản|tích cực triển khai|đang tích cực|kịp thời|đẩy mạnh"
+                r"|quyết liệt|trong thời gian tới|dù đã có nhiều cố gắng|chưa thực sự|chưa hoàn thành tốt)\b", re.I),
+     "Lối văn báo cáo hành chính. Nêu việc đã làm và con số, hoặc bỏ cụm này."),
     # Title Case is an English convention. Vietnamese headings capitalize the first word only.
     ("title-case-heading", "advisory",
      re.compile(rf"^#{{1,6}}[ \t]+(?=(?i:.*[{_VI_ONLY}]))(?:[{_VI_UPPER}]\w*[ \t]+){{2,}}"
@@ -175,10 +180,25 @@ VI_RULES = [
      "Tiêu đề viết hoa mọi chữ là kiểu tiếng Anh. Tiếng Việt chỉ viết hoa chữ đầu và tên riêng."),
 ]
 
+# Rules for --profile report only. In ordinary prose these words are common and fine
+# ("một số" is in half of the hand-written articles). In a report, the reader needs the number.
+VI_REPORT_RULES = [
+    ("vague-quantity", "advisory",
+     re.compile(r"\b(?:gần xong|sắp xong|một số|một vài|khá nhiều|rất nhiều|đáng kể|tương đối|phần lớn|hầu hết|đa số)\b", re.I),
+     "Từ chỉ lượng mơ hồ. Trong báo cáo, ghi con số (\"35 yêu cầu\", \"9/12 task\")."),
+    ("vague-time", "advisory",
+     re.compile(r"\b(?:sẽ sớm|sớm nhất có thể|càng sớm càng tốt|thời gian tới|sắp tới|gần đây|một thời gian)\b", re.I),
+     "Thời gian mơ hồ. Ghi ngày giờ cụ thể (\"trước 17h ngày 12/11\")."),
+    ("unverified-claim", "advisory",
+     re.compile(r"\b(?:chạy ổn|hoạt động tốt|hoạt động bình thường|không có vấn đề gì|đã test xong|kết quả (?:test )?tốt"
+                r"|mọi thứ (?:đã )?ổn)\b", re.I),
+     "Lời khẳng định chưa kèm cách kiểm chứng. Nêu đã kiểm tra bằng cách nào (\"42/42 unit test pass\"), hoặc ghi rõ chưa kiểm chứng."),
+]
+
 # One concept, one word. Entries that only differ in tone placement
 # (xóa / xoá) are the same word and match the same pattern.
 VI_SYNONYM_GROUPS = [
-    ("kiểm tra", "xác minh", "kiểm chứng"),
+    ("xác minh", "kiểm chứng"),
     ("xóa", "loại bỏ", "gỡ bỏ"),
     ("bắt đầu", "khởi chạy"),
     ("khắc phục", "sửa lỗi"),
@@ -283,6 +303,7 @@ def _vi_word_re(base):
 # To add a language, define its rules and synonym groups above, then add one
 # entry here. Nothing else in the linter changes. See references/adding-a-language.md.
 #   rules      (rule_id, level, pattern, message) tuples, as in RULES
+#   report_rules  more rules of the same shape, used only under --profile report
 #   synonyms   (group, [compiled pattern per member]) pairs
 #   max_words  sentence-length cap in tokens, for text that agents read
 #   docs_max_words  the cap under --profile docs, for prose that people read
@@ -292,7 +313,7 @@ def _vi_word_re(base):
 #   hedges     {rule_id: pattern}: a hedge that ends the text before a match
 #              cancels that match ("may have failed", "có thể đã từng")
 Language = collections.namedtuple(
-    "Language", "name rules synonyms max_words docs_max_words unit detect hedges")
+    "Language", "name rules report_rules synonyms max_words docs_max_words unit detect hedges")
 
 # Punctuation rules hold in every language.
 COMMON_RULES = [rule for rule in RULES if rule[0] == "semicolon"]
@@ -301,12 +322,14 @@ LANGUAGES = {
     "en": Language(
         name="English",
         rules=[rule for rule in RULES if rule not in COMMON_RULES],
+        report_rules=[],
         synonyms=[(group, [_word_re(b) for b in group]) for group in SYNONYM_GROUPS],
         max_words=MAX_WORDS, docs_max_words=MAX_WORDS, unit="words", detect=None,
         hedges={"present-perfect": MODAL_PERFECT_PREFIX}),
     "vi": Language(
         name="Tiếng Việt",
         rules=VI_RULES,
+        report_rules=VI_REPORT_RULES,
         synonyms=[(group, [_vi_word_re(b) for b in group]) for group in VI_SYNONYM_GROUPS],
         max_words=MAX_WORDS_VI, docs_max_words=DOCS_MAX_WORDS_VI, unit="syllables", detect=VI_CHAR,
         hedges={"tense-stack": VI_HEDGE_PREFIX}),
@@ -321,11 +344,14 @@ FALLBACK_LANG = "en"
 #   soft  rules that are advisory in Vietnamese prose for people. They state a
 #         style preference. Hand-written developer prose uses a semicolon,
 #         "mượt mà", or "như đã nói ở trên" without any loss of clarity.
-Profile = collections.namedtuple("Profile", "docs skip soft")
+#   report  also run each language's report_rules: vague quantities, vague times,
+#           and completion claims that state no check
+Profile = collections.namedtuple("Profile", "docs skip soft report")
+_DOCS_SOFT = frozenset({"semicolon", "marketing-adjective", "filler-phrase"})
 PROFILES = {
-    "strict": Profile(docs=False, skip=frozenset(), soft=frozenset()),
-    "docs": Profile(docs=True, skip=frozenset({"ambiguous-word"}),
-                    soft=frozenset({"semicolon", "marketing-adjective", "filler-phrase"})),
+    "strict": Profile(docs=False, skip=frozenset(), soft=frozenset(), report=False),
+    "docs": Profile(docs=True, skip=frozenset({"ambiguous-word"}), soft=_DOCS_SOFT, report=False),
+    "report": Profile(docs=True, skip=frozenset({"ambiguous-word"}), soft=_DOCS_SOFT, report=True),
 }
 
 
@@ -1612,7 +1638,8 @@ def lint(text, filename="<stdin>", lang="auto", profile="strict"):
     soft = PROFILES[profile].soft
     rules = [(rule, None) for rule in COMMON_RULES] + [
         (rule, language.hedges.get(rule[0])) for language in languages
-        for rule in language.rules if rule[0] not in skip]
+        for rule in language.rules + (language.report_rules if PROFILES[profile].report else [])
+        if rule[0] not in skip]
     synonyms = [entry for language in languages for entry in language.synonyms]
     text, description = _front_matter(text)
     findings = []
@@ -2875,6 +2902,15 @@ def selftest():
     assert levels("Animation chạy mượt mà.", lang="vi", profile="docs") == [("marketing-adjective", "advisory")]
     assert levels("Animation chạy mượt mà.", lang="vi") == [("marketing-adjective", "advisory-free")]
     assert levels("Tiến hành kéo thả giao diện.", lang="vi") == [("nominalization", "advisory")]
+    # report profile: vague words are flagged only there; officialese everywhere
+    vague = "Gần xong, còn một số lỗi. Sẽ sớm khắc phục. Đã test xong, chạy ổn."
+    assert [f["rule"] for f in lint(vague, lang="vi", profile="docs")[0]] == []
+    assert [f["rule"] for f in lint(vague, lang="vi", profile="report")[0]] == [
+        "vague-quantity", "vague-quantity", "vague-time", "unverified-claim", "unverified-claim"]
+    concrete = "Xong 9/12 task. Còn bug #125, mức Major. Dự kiến xong ngày 14/11. 42/42 unit test pass."
+    assert lint(concrete, lang="vi", profile="report")[0] == []
+    assert [f["rule"] for f in lint("Nhóm đã cơ bản hoàn thành và sẽ đẩy mạnh trong thời gian tới.", lang="vi")[0]] == [
+        "officialese", "officialese", "officialese"]
     # a URL slug is not prose without diacritics
     assert lint("Xem bài example.com/2015/tim-viec để biết thêm.", lang="vi")[0] == []
     # the English cap is the same in both profiles
@@ -2885,7 +2921,8 @@ def selftest():
     print("selftest OK")
 
 
-RULE_IDS = {rule_id for language in LANGUAGES.values() for rule_id, *_ in language.rules} | {
+RULE_IDS = {rule_id for language in LANGUAGES.values()
+            for rule_id, *_ in language.rules + language.report_rules} | {
     "semicolon",
     "long-sentence", "synonym-rotation", "dangling-conjunction"}
 
@@ -2927,7 +2964,8 @@ def main(argv):
                              f"Languages: {', '.join(f'{c} ({l.name})' for c, l in LANGUAGES.items())}")
     parser.add_argument("--profile", choices=tuple(PROFILES), default="strict",
                         help="strict: text for agents (default). docs: prose for people, "
-                             "with each language's docs sentence cap")
+                             "with each language's docs sentence cap. report: docs plus "
+                             "checks for vague quantities, vague times, and unverified claims")
     parser.add_argument("--selftest", action="store_true", help="run the built-in tests")
     # intermixed parsing keeps flags valid between file paths
     args = parser.parse_intermixed_args(argv)

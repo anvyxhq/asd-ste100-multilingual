@@ -4,7 +4,7 @@ ASD-STE100 là chuẩn dành riêng cho tiếng Anh. Tệp này đem các nguyê
 
 Mục tiêu vẫn như cũ: mỗi câu chỉ có một cách hiểu, vì người đọc là agent, hệ thống hoặc một người không thể hỏi lại tác giả. Yêu cầu này không xa lạ với tiếng Việt. Quy định về soạn thảo văn bản pháp luật cũng đòi hỏi câu chữ "không làm phát sinh nhiều cách hiểu" và thuật ngữ phải "sử dụng thống nhất" (Nghị quyết 351/2017/UBTVQH14, Điều 18).
 
-Đọc tệp này khi văn bản đầu vào là tiếng Việt. Khi viết tài liệu hoặc báo cáo, đọc thêm `style-docs.md`. Các phần còn lại của `SKILL.md` vẫn áp dụng: hai chế độ, giữ nguyên phỏng đoán, không thêm thông tin, định dạng đầu ra.
+Đọc tệp này khi văn bản đầu vào là tiếng Việt. Khi viết tài liệu, đọc thêm `style-docs.md`. Khi viết báo cáo, đọc thêm `style-reports.md`. Các phần còn lại của `SKILL.md` vẫn áp dụng: hai chế độ, giữ nguyên phỏng đoán, không thêm thông tin, định dạng đầu ra.
 
 ## Khác biệt chính so với tiếng Anh
 
@@ -121,7 +121,7 @@ Mỗi khái niệm chọn một từ, rồi dùng thống nhất trong cả tài
 
 | Nhóm hay bị trộn | Chọn một |
 |---|---|
-| kiểm tra / xác minh / kiểm chứng | |
+| xác minh / kiểm chứng | |
 | xóa / loại bỏ / gỡ bỏ | |
 | bắt đầu / khởi chạy | |
 | chỉnh sửa / sửa đổi | |
@@ -195,6 +195,10 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `calque-term` | advisory | bản dịch ít người dùng của thuật ngữ: "yêu cầu kéo", "điểm cuối", "mã thông báo"... |
 | `mt-phrase` | advisory | cụm rườm rà (quy ước riêng): "được sử dụng để", "cho phép bạn", "là một trong những"... |
 | `title-case-heading` | advisory | tiêu đề tiếng Việt viết hoa mọi chữ |
+| `officialese` | advisory | lối văn báo cáo hành chính: "cơ bản hoàn thành", "kịp thời", "đẩy mạnh", "trong thời gian tới" |
+| `vague-quantity` | advisory, chỉ với `--profile report` | "một số", "khá nhiều", "đáng kể", "gần xong" |
+| `vague-time` | advisory, chỉ với `--profile report` | "sẽ sớm", "sắp tới", "gần đây" |
+| `unverified-claim` | advisory, chỉ với `--profile report` | "chạy ổn", "hoạt động tốt", "đã test xong" |
 | `terse-pointer` | advisory | câu cụt kiểu ghi chú: "Muốn thêm ngôn ngữ? Xem README.", "MIT — xem LICENSE." |
 | `literal-idiom` | advisory | dịch sát câu nói gọn của tiếng Anh: "…là mục đích.", "…là chìa khóa." |
 

@@ -190,32 +190,16 @@ Quy tắc chung:
 
 ## 4. Báo cáo
 
-Người đọc báo cáo tiến độ và báo cáo sự cố thường chỉ lướt qua, nên hãy đặt kết luận lên đầu.
+Báo cáo theo mọi quy tắc ở trên, và thêm một yêu cầu riêng: phải cụ thể. Hướng dẫn đầy đủ nằm trong [`style-reports.md`](style-reports.md), gồm sáu nguyên tắc, bảng tự kiểm tra từng câu và mẫu cho bốn loại báo cáo: tiến độ, sự cố, kết quả kiểm thử hoặc đo hiệu năng, và báo cáo sau khi làm xong một việc.
 
-**Báo cáo tiến độ:**
+Tóm tắt sáu nguyên tắc:
 
-```markdown
-## Báo cáo tuần 45 (04/11 – 08/11/2026)
-
-**Tóm tắt:** Hoàn thành 7/9 task. Trễ 2 task do chờ API từ team backend.
-
-### Đã xong
-- Tích hợp đăng nhập bằng Apple (PR #128).
-
-### Đang làm
-- Màn hình thanh toán: còn phần xử lý lỗi, dự kiến xong 13/11.
-
-### Vướng mắc
-- Endpoint `/payments` chưa có trên staging. Cần team backend deploy trước 12/11.
-```
-
-**Báo cáo sự cố:** tóm tắt (1–2 câu) → ảnh hưởng (ai, bao nhiêu, bao lâu) → nguyên nhân → cách khắc phục → việc cần làm để không tái diễn. Ghi giờ kèm múi giờ (`14:30 GMT+7`).
-
-Quy tắc cho báo cáo:
-
-- Nêu số liệu cụ thể thay vì "nhiều", "đáng kể", "khá".
-- Chưa chắc thì nói là chưa chắc: "có thể do cache" khác "do cache".
-- Không viết từ ngữ quảng cáo: "vượt trội", "đột phá", "hoàn hảo".
+- Kết luận lên đầu.
+- Con số thay cho tính từ: "xong 9/12 task", không phải "gần xong".
+- Rõ người, rõ việc, rõ thời hạn.
+- Tách điều đã thấy khỏi điều mình đoán.
+- Nói rõ đã kiểm chứng đến đâu: "42/42 unit test pass, chưa chạy UI test".
+- Tin xấu cũng phải báo.
 
 ## 5. Dùng làm cấu hình cho Claude
 
@@ -233,6 +217,9 @@ theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),
   chỉ lược chủ ngữ khi không thể hiểu nhầm, câu dài ngắn xen kẽ. Không cắt mọi câu thành câu cụt.
+- Báo cáo: theo `style-reports.md` cùng thư mục. Kết luận lên đầu, con số thay cho tính từ,
+  mỗi việc có người phụ trách và ngày cụ thể. Khi báo "đã xong", nói rõ đã kiểm chứng bằng
+  cách nào, phần nào chưa kiểm chứng và bước nào đã bỏ qua.
 - Không áp dụng cho chuỗi giao diện app: app có quy ước riêng.
 ```
 
@@ -240,6 +227,7 @@ Kiểm tra bằng linter:
 
 ```bash
 python3 scripts/ste-lint.py --lang vi --profile docs docs/
+python3 scripts/ste-lint.py --lang vi --profile report bao-cao.md
 ```
 
 Profile `docs` nới giới hạn độ dài câu lên 45 âm tiết và không cảnh báo "hay". Đừng dùng profile mặc định (`strict`) cho tài liệu, vì nó sẽ đẩy bạn về lối câu cụt.

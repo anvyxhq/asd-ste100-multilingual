@@ -180,6 +180,24 @@ Chưa tới 1% số câu viết tay dài hơn 45 âm tiết, là giới hạn c�
 - **Nhóm số:** văn viết tay dùng dấu chấm ("1.000", 7 lần) và không dùng dấu phẩy.
 - **Dấu thanh:** văn viết tay dùng cả hai kiểu: "hoá" 154 lần, "hóa" 109 lần.
 
+## Từ dùng trong báo cáo
+
+Số bài có dùng từng cụm, trong 108 bài viết tay và 55 bài đối chứng. Phép đếm này dùng toàn bộ file đã tải, nên số bài nhiều hơn các bảng trên một chút.
+
+| Cụm | Viết tay | Đối chứng |
+|---|---|---|
+| cơ bản hoàn thành, đang triển khai, trong thời gian tới, đẩy mạnh, quyết liệt | 0 | 0 |
+| về cơ bản | 1 | 1 |
+| tích cực | 1 | 1 |
+| kịp thời | 1 | 1 |
+| đáng kể | 1 | 7 |
+| một số | 53 | 28 |
+| khá nhiều | 27 | 3 |
+| rất nhiều | 48 | 6 |
+| gần đây | 11 | 4 |
+
+Nhóm trên cùng là lối văn báo cáo hành chính. Văn viết tay gần như không dùng, nên linter cảnh báo ở mọi profile (`officialese`). Các từ chỉ lượng như "một số" thì rất phổ biến trong văn thường, nên linter chỉ cảnh báo khi chạy `--profile report`.
+
 ## Linter trên văn viết tay
 
 Chạy `--lang vi --profile docs` trên văn xuôi của 102 bài viết tay. Lỗi mức hard còn lại:
