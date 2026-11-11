@@ -127,7 +127,7 @@ Các cụm này có trong văn viết tay, nhưng hiếm. Ở hai nhóm bài đ�
 
 ### Những chỗ gượng hay gặp khi AI viết tiếng Việt
 
-Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu và kiểu cuối, nên sau khi viết xong hãy tự đọc lại theo bảng này.
+Các lỗi dưới đây đều do người đọc thật chỉ ra, phần lớn trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu và kiểu cuối, nên sau khi viết xong hãy tự đọc lại theo bảng này.
 
 | Kiểu gượng | Ví dụ | Viết lại |
 |---|---|---|
@@ -164,7 +164,7 @@ Khi đặt tên:
 - Tiêu đề, cột bảng và chú thích hình cũng dùng tên đó.
 - Các bước phải làm theo thứ tự thì vẫn đánh số bình thường, vì ở đó con số cho biết thứ tự. Mã có sẵn như mã ticket, số phiên bản hay tên biến cũng giữ nguyên.
 
-Linter cảnh báo kiểu gắn nhãn này bằng quy tắc `opaque-label`.
+Linter cảnh báo kiểu gắn nhãn này bằng quy tắc `opaque-label`. Đây là quy ước riêng của bộ quy tắc này: trong bài viết tay, dev Việt vẫn có lúc viết "Cách 1", "Cách 2".
 
 ### Viết cho mạch lạc
 
