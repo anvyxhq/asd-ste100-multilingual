@@ -18,7 +18,7 @@ Người đọc là lập trình viên, kỹ sư, PM, QA người Việt. Họ �
 
 Văn bản cho người đọc mà viết theo mức Strict sẽ nghe như văn dịch: câu cụt, chủ ngữ lặp, ý rời rạc. Ở mức tự nhiên, chỉ tách câu hoặc lặp danh từ khi câu đó thật sự có hai cách hiểu.
 
-Những gì *không* nới lỏng ở mức tự nhiên: giữ nguyên mức độ chắc chắn ("có thể" vẫn là "có thể"), không thêm thông tin, không dùng từ quảng cáo, viết đủ dấu.
+Những gì *không* nới lỏng ở mức tự nhiên: không đổi phỏng đoán thành khẳng định ("có thể" vẫn là "có thể"), không thêm thông tin, không dùng từ quảng cáo, viết đủ dấu.
 
 ## 1. Thuật ngữ: viết như dev Việt viết
 
@@ -133,8 +133,12 @@ Các điểm sau chưa tìm thấy nguồn tiếng Việt nào nêu tên. Chúng
 | Tính năng này cho phép bạn xuất PDF. | Bạn có thể xuất PDF bằng tính năng này. |
 | Cache đóng một vai trò quan trọng trong hiệu năng. | Cache ảnh hưởng lớn tới hiệu năng. |
 | Hàm này trả về giá trị một cách nhanh chóng. | Hàm này trả về giá trị nhanh. |
+| Không dùng cho văn bản mà giọng văn là mục đích. | Không dùng cho những văn bản cần giọng văn riêng. |
+| Mức độ chắc chắn là nội dung. | Bỏ chữ "có thể" là đổi nghĩa câu. |
 
 "Một cách + tính từ" không sai, và các nhà nghiên cứu vẫn dùng. Chỉ bỏ khi câu không đổi nghĩa.
+
+Hai dòng cuối là kiểu dịch sát một câu nói gọn của tiếng Anh ("where voice is the point", "confidence is content"). Từng chữ đều đúng, nhưng người Việt không nói như vậy. Hãy viết lại ý đó bằng lời của mình thay vì dịch từng chữ.
 
 Các cụm này có trong văn viết tay, nhưng hiếm. Ở nhóm bài đối chứng trong [`evidence.md`](evidence.md), chúng xuất hiện nhiều gấp 2–30 lần, cùng với tiêu đề viết hoa mọi chữ và số viết kiểu "1,000". Một văn bản dày đặc các cụm này sẽ đọc lên như bản dịch máy.
 
@@ -199,7 +203,7 @@ Báo cáo tiến độ và báo cáo sự cố cần đọc nhanh. Đặt kết 
 Quy tắc cho báo cáo:
 
 - Nêu số liệu cụ thể thay vì "nhiều", "đáng kể", "khá".
-- Giữ mức độ chắc chắn đúng như thực tế: "có thể do cache" khác "do cache".
+- Chưa chắc thì nói là chưa chắc: "có thể do cache" khác "do cache".
 - Không viết từ ngữ quảng cáo: "vượt trội", "đột phá", "hoàn hảo".
 
 ## 5. Dùng làm cấu hình cho Claude

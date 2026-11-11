@@ -19,14 +19,14 @@ Không dịch quy tắc tiếng Anh. Tìm xem ngôn ngữ của bạn gây mơ h
 - **Từ đa nghĩa:** những từ ngắn nào có nhiều nghĩa (như "hay", "được" trong tiếng Việt)? Thay bằng gì?
 - **Văn dịch máy:** cấu trúc nào là dịch từ tiếng Anh (bị động, danh từ hóa)?
 - **Chữ viết:** có dấu, có nhiều bảng chữ, có nhiều cách viết cùng một từ không?
-- **Mức độ chắc chắn:** liệt kê các từ chỉ mức độ chắc chắn (ví dụ "có thể", "có lẽ" trong tiếng Việt, "may", "might" trong tiếng Anh). Chúng **không bao giờ** bị xóa hoặc làm mạnh thêm.
+- **Từ phỏng đoán:** liệt kê những từ người viết dùng khi chưa chắc (ví dụ "có thể", "có lẽ" trong tiếng Việt, "may", "might" trong tiếng Anh). Các từ này **không bao giờ** bị xóa, và không bị đổi thành lời khẳng định.
 - **Số và ngày:** quy ước dấu thập phân, định dạng ngày.
 
-Giữ cấu trúc của `languages/vi/rules.md`: quy tắc cấu trúc (áp dụng đầy đủ), quy tắc từ vựng (định hướng), danh sách rà soát, giữ mức độ chắc chắn, đầu ra, bảng quy tắc linter.
+Giữ cấu trúc của `languages/vi/rules.md`: quy tắc cấu trúc (áp dụng đầy đủ), quy tắc từ vựng (định hướng), danh sách rà soát, giữ nguyên phỏng đoán, đầu ra, bảng quy tắc linter.
 
 ## 2. Viết ví dụ — `languages/<mã>/examples.md`
 
-Ít nhất 4 ví dụ trước/sau: mô tả công cụ, thông báo lỗi, chỉ dẫn giữa các agent, README. Mỗi ví dụ ghi rõ vi phạm và các từ chỉ mức độ chắc chắn đã giữ. Mọi bản "Sau" phải lint sạch:
+Ít nhất 4 ví dụ trước/sau: mô tả công cụ, thông báo lỗi, chỉ dẫn giữa các agent, README. Mỗi ví dụ ghi rõ vi phạm và những từ phỏng đoán đã giữ. Mọi bản "Sau" phải lint sạch:
 
 ```bash
 grep -A1 '^\*\*Sau:\*\*' languages/<mã>/examples.md | grep '^>' | sed 's/^> //' \
@@ -53,7 +53,7 @@ grep -A1 '^\*\*Sau:\*\*' languages/<mã>/examples.md | grep '^>' | sed 's/^> //'
    ```
 
    `detect` là mẫu nhận diện một câu thuộc ngôn ngữ này ở chế độ `--lang auto`. Chọn ký tự **chỉ** ngôn ngữ đó có.
-4. Thêm ca kiểm thử vào `selftest()`, gồm ít nhất: mỗi quy tắc bắt đúng một câu sai và một câu có từ chỉ mức độ chắc chắn **không** bị báo lỗi.
+4. Thêm ca kiểm thử vào `selftest()`, gồm ít nhất: mỗi quy tắc bắt đúng một câu sai, và một câu có từ phỏng đoán **không** bị báo lỗi.
 5. Chạy `python3 scripts/ste-lint.py --selftest`.
 
 Nếu ngôn ngữ không có dấu cách giữa các từ (tiếng Nhật, tiếng Trung, tiếng Thái), `_count_words` cần đếm theo đơn vị khác. Mở issue trước khi làm phần này.
@@ -79,7 +79,7 @@ Mỗi nhận định về ngôn ngữ trong `rules.md` cần có nguồn: sách 
 
 ## Nguyên tắc không đổi
 
-- Không bao giờ báo lỗi hoặc xóa từ chỉ mức độ chắc chắn. Mức độ chắc chắn là nội dung.
+- Không bao giờ báo lỗi hoặc xóa từ phỏng đoán. Bỏ đi là biến phỏng đoán thành khẳng định.
 - Không thêm thông tin mà bản gốc không có.
 - Viết lại bằng đúng ngôn ngữ đầu vào. Không tự dịch.
 - Ghi rõ đây là bản chuyển thể không chính thức.

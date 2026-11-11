@@ -16,7 +16,7 @@ Các ví dụ này được viết riêng cho bản tiếng Việt của skill. 
 - "hay là" có thể đọc thành "hoặc", cũng có thể đọc thành một lựa chọn trong chiến lược.
 - 55 âm tiết, vượt giới hạn 30.
 
-Không vi phạm: "có thể tự động giải quyết". Đây là từ chỉ mức độ chắc chắn. Công cụ không cam kết sẽ giải quyết, nên bản viết lại cũng không được cam kết.
+Không vi phạm: "có thể tự động giải quyết". "Có thể" cho biết công cụ không cam kết sẽ giải quyết, nên bản viết lại cũng không được cam kết.
 
 **Sau:**
 > Công cụ cố gắng đồng bộ trạng thái giữa các backend đã cấu hình. Nếu công cụ tìm thấy xung đột, công cụ đọc chiến lược đã cấu hình. Nếu chiến lược cho phép tự động giải quyết, công cụ có thể tự giải quyết xung đột. Nếu công cụ không giải quyết xung đột, công cụ báo xung đột để người dùng xem xét.
@@ -59,7 +59,7 @@ Bản gốc viết "Đã có lỗi", một khẳng định. Nhưng ngay sau đó
 Hai quyết định cần nêu rõ:
 - "nên tiến hành xử lý" thành câu mệnh lệnh "đọc". Điều này đúng với chỉ dẫn gửi cho agent thực thi. Không làm vậy với văn bản mô tả.
 - Câu cuối là **nội dung mới**. Bản gốc cảnh báo nhưng không nói phải làm gì. Nếu tác giả cố ý không nói, xóa câu đó.
-- "đôi khi" thành "có thể". Cả hai đều thể hiện cùng một mức độ chắc chắn. Bản viết lại không đổi tần suất thành chắc chắn.
+- "đôi khi" thành "có thể". Cả hai đều nói việc đó không chắc xảy ra. Bản viết lại không biến "đôi khi" thành "luôn luôn".
 
 ## Ví dụ D — README (chế độ STE-flavored)
 

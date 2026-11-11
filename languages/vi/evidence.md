@@ -1,6 +1,6 @@
 # Bằng chứng: dev Việt viết thế nào
 
-Tài liệu này ghi lại số liệu đứng sau các quy tắc trong `style-docs.md` và các mức cảnh báo của linter. Mục đích là để mỗi quy tắc có thể kiểm chứng và sửa lại khi có dữ liệu tốt hơn.
+Tài liệu này ghi lại số liệu làm căn cứ cho các quy tắc trong `style-docs.md` và các mức cảnh báo của linter. Nhờ vậy ai cũng kiểm chứng được từng quy tắc, và sửa lại khi có dữ liệu tốt hơn.
 
 ## Ngữ liệu
 
@@ -172,7 +172,7 @@ Tính theo âm tiết.
 | B | 3.269 | 12 | 17 | 21 | 1,3% | 0,1% |
 | C: đối chứng | 4.573 | 16 | 23 | 31 | 10,8% | 1,6% |
 
-Giới hạn 45 âm tiết của profile `docs` chỉ chạm tới dưới 1% số câu viết tay. Giới hạn 30 âm tiết của mức Strict chặn khoảng 1 trong 10 câu của văn blog, đúng với mục đích của nó: văn bản cho agent đọc phải ngắn hơn văn blog.
+Chưa tới 1% số câu viết tay dài hơn 45 âm tiết, là giới hạn của profile `docs`. Giới hạn 30 âm tiết của mức Strict chặn khoảng 1 trong 10 câu của văn blog. Điều đó hợp lý, vì văn bản cho agent đọc cần ngắn hơn văn blog.
 
 ## Định dạng
 

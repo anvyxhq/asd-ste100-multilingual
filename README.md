@@ -2,7 +2,7 @@
 
 # ASD-STE100 Multilingual Skill
 
-**Viết lại văn bản kỹ thuật để agent, hệ thống và người đọc không thể hiểu sai — bằng nhiều ngôn ngữ.**
+**Viết lại văn bản kỹ thuật sao cho agent, hệ thống và người đọc không thể hiểu sai. Hỗ trợ nhiều ngôn ngữ.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-skill-d97757.svg)](SKILL.md)
@@ -20,9 +20,9 @@
 
 [ASD-STE100](https://www.asd-ste100.org/) (Simplified Technical English) là chuẩn viết tiếng Anh do ngành hàng không và quốc phòng châu Âu xây dựng. Chuẩn giới hạn từ vựng và cấu trúc câu để mỗi câu chỉ có một cách hiểu, nhờ vậy kỹ thuật viên bảo trì máy bay, phần lớn không phải người bản ngữ, không đọc nhầm chỉ dẫn.
 
-Skill này mang cùng nguyên tắc đó sang một kiểu người đọc khác: **AI agent**. Agent phải tự hiểu tool description, error message hay chỉ dẫn từ agent khác mà không có ai để hỏi lại, nên chỉ cần một câu hiểu được hai cách là agent có thể làm sai.
+Skill này đem nguyên tắc đó áp dụng cho một loại người đọc khác: **AI agent**. Agent phải tự hiểu tool description, error message hay chỉ dẫn từ agent khác mà không có ai để hỏi lại, nên chỉ cần một câu hiểu được hai cách là agent có thể làm sai.
 
-Ngôn ngữ nào cũng có câu mơ hồ, nhưng mỗi thứ tiếng mơ hồ theo một kiểu: tiếng Anh vướng phrasal verb, tiếng Việt vướng những từ ngắn nhiều nghĩa ("hay", "được", "rồi") và chữ viết không dấu, còn tiếng Nhật thường lược chủ ngữ. Vì thế repo được tổ chức thành **khung đa ngôn ngữ**: nguyên tắc chung nằm ở lõi, quy tắc riêng của từng thứ tiếng nằm trong một gói tách biệt.
+Ngôn ngữ nào cũng có câu mơ hồ, nhưng mỗi thứ tiếng mơ hồ theo một kiểu: tiếng Anh vướng phrasal verb, tiếng Việt vướng những từ ngắn nhiều nghĩa ("hay", "được", "rồi") và chữ viết không dấu, còn tiếng Nhật thường lược chủ ngữ. Vì thế repo được tổ chức thành **khung đa ngôn ngữ**: nguyên tắc chung dùng cho mọi ngôn ngữ, còn quy tắc riêng của từng thứ tiếng nằm trong một gói riêng.
 
 ## Ngôn ngữ hỗ trợ
 
@@ -30,11 +30,11 @@ Ngôn ngữ nào cũng có câu mơ hồ, nhưng mỗi thứ tiếng mơ hồ th
 |---|---|---|---|---|
 | English | `en` | [`SKILL.md`](SKILL.md), [`references/writing-rules.md`](references/writing-rules.md) | [`examples/before-after.md`](examples/before-after.md) | ✅ |
 | Tiếng Việt | `vi` | [`languages/vi/rules.md`](languages/vi/rules.md), [văn phong tài liệu](languages/vi/style-docs.md) | [`languages/vi/examples.md`](languages/vi/examples.md) | ✅ |
-| Ngôn ngữ khác | — | Chỉ áp dụng quy tắc chung | — | Quy tắc chung |
+| Ngôn ngữ khác | — | Chỉ có các quy tắc chung | — | Chỉ kiểm tra quy tắc chung |
 
-Ngôn ngữ chưa có gói riêng vẫn dùng được. Khi đó skill chỉ áp dụng các quy tắc chung (mỗi câu một chỉ dẫn, nêu rõ ai làm, không lược thành phần câu, giữ nguyên các từ chỉ mức độ chắc chắn như "có thể", "có lẽ") và báo cho bạn biết.
+Ngôn ngữ chưa có gói riêng vẫn dùng được. Khi đó skill chỉ áp dụng các quy tắc chung (mỗi câu một chỉ dẫn, nêu rõ ai làm, không lược thành phần câu, giữ nguyên những từ như "có thể", "có lẽ") và báo cho bạn biết.
 
-Muốn thêm một ngôn ngữ? Xem [`languages/README.md`](languages/README.md).
+Nếu bạn muốn thêm một ngôn ngữ mới, hãy làm theo hướng dẫn trong [`languages/README.md`](languages/README.md).
 
 ## Trước / Sau
 
@@ -50,19 +50,19 @@ Muốn thêm một ngôn ngữ? Xem [`languages/README.md`](languages/README.md)
 |---|---|
 | An error may have occurred while processing your request due to a possible mismatch in the expected data format, which could be caused by an outdated client version. | Your request may have failed. The cause may be a data format that does not match what the server expects. An outdated client can cause this mismatch. Check your client version. |
 
-Error message là văn bản cho agent đọc, nên bản viết lại theo mức Strict: câu ngắn, lặp lại danh từ để không ai hiểu nhầm. Các từ chỉ mức độ chắc chắn ("có thể", "may") vẫn được giữ nguyên, vì mức độ chắc chắn cũng là nội dung chứ không phải chữ thừa.
+Error message là văn bản cho agent đọc, nên bản viết lại theo mức Strict: câu ngắn, lặp lại danh từ để không ai hiểu nhầm. Các chữ "có thể" và "may" vẫn được giữ nguyên: hệ thống mới chỉ phỏng đoán, nên bản viết lại không được biến phỏng đoán thành khẳng định.
 
 ## Tính năng
 
 | | |
 |---|---|
-| **Đa ngôn ngữ** | Tự nhận diện ngôn ngữ đầu vào. Viết lại bằng đúng ngôn ngữ đó, không tự dịch. |
-| **Hai mức văn phong** | **Strict** cho văn bản agent đọc: error message, tool description, chỉ dẫn. **Tự nhiên** cho văn bản người đọc: README, tài liệu, PR, báo cáo. |
-| **Giữ mức độ chắc chắn** | Không bao giờ biến "có thể đã thất bại" thành "đã thất bại". Không thêm thông tin mà bản gốc không có. |
-| **Đầu ra sạch** | Mặc định chỉ trả về văn bản đã viết lại. Yêu cầu "show the diff" để xem bảng quy tắc. |
-| **Linter** | Python 3, chỉ dùng thư viện chuẩn, không gọi mạng. Kiểm tra được tài liệu trộn nhiều ngôn ngữ. |
-| **Văn phong tài liệu** | Viết tài liệu và báo cáo tiếng Việt như kỹ sư Việt viết: dùng thuật ngữ theo cách dev Việt thật sự viết (số liệu từ 156 bài, xem [`evidence.md`](languages/vi/evidence.md)), nối ý bằng từ nối thay vì câu cụt, tiêu đề không viết hoa mọi chữ. Xem [`languages/vi/style-docs.md`](languages/vi/style-docs.md). |
-| **Dễ mở rộng** | Thêm một thứ tiếng chỉ cần một thư mục tài liệu và một mục trong registry của linter. |
+| **Đa ngôn ngữ** | Skill tự nhận ra văn bản viết bằng tiếng gì và viết lại bằng đúng thứ tiếng đó, không tự ý dịch. |
+| **Hai mức văn phong** | Mức **Strict** dành cho văn bản agent đọc như error message, tool description, chỉ dẫn. Mức **tự nhiên** dành cho văn bản người đọc như README, tài liệu, mô tả PR, báo cáo. |
+| **Không đổi phỏng đoán thành khẳng định** | "Có thể đã thất bại" không bao giờ bị viết lại thành "đã thất bại". Bản viết lại cũng không thêm thông tin mà bản gốc không có. |
+| **Kết quả gọn** | Mặc định skill chỉ trả về văn bản đã viết lại, để bạn dán dùng ngay. Nếu muốn biết đã sửa những gì, hãy thêm "show the diff" vào yêu cầu. |
+| **Linter** | Một script Python 3 chỉ dùng thư viện chuẩn và không kết nối mạng. Script kiểm tra được cả tài liệu viết lẫn nhiều thứ tiếng. |
+| **Văn phong tài liệu** | Hướng dẫn viết tài liệu và báo cáo tiếng Việt sao cho giống kỹ sư Việt viết: dùng thuật ngữ đúng thói quen của dev Việt, nối các ý với nhau thay vì viết câu cụt, không viết hoa mọi chữ trong tiêu đề. Hướng dẫn nằm ở [`languages/vi/style-docs.md`](languages/vi/style-docs.md), số liệu làm căn cứ nằm ở [`evidence.md`](languages/vi/evidence.md). | |
+| **Dễ mở rộng** | Muốn thêm một thứ tiếng, bạn chỉ cần thêm một thư mục tài liệu và một mục trong registry của linter. |
 
 ## Cài đặt
 
@@ -72,7 +72,7 @@ Error message là văn bản cho agent đọc, nên bản viết lại theo mứ
 npx skills add anvyxhq/asd-ste100-multilingual
 ```
 
-CLI gửi telemetry ẩn danh khi cài đặt. Đặt `DISABLE_TELEMETRY=1` để tắt.
+Khi cài đặt, CLI này gửi telemetry ẩn danh. Nếu không muốn, bạn đặt biến môi trường `DISABLE_TELEMETRY=1` trước khi chạy.
 
 **Cách 2 — clone** (cho mọi project trên máy):
 
@@ -80,11 +80,11 @@ CLI gửi telemetry ẩn danh khi cài đặt. Đặt `DISABLE_TELEMETRY=1` đ�
 git clone https://github.com/anvyxhq/asd-ste100-multilingual ~/.claude/skills/asd-ste100
 ```
 
-Cập nhật bằng `git pull`.
+Khi cần cập nhật, bạn chạy `git pull` trong thư mục đó.
 
 ## Sử dụng
 
-Trong Claude Code, dán văn bản kèm yêu cầu bằng bất kỳ thứ tiếng nào:
+Trong Claude Code, bạn dán đoạn văn bản cần sửa rồi nêu yêu cầu, bằng tiếng Việt hay tiếng Anh đều được:
 
 ```text
 Viết lại thông báo lỗi này để agent không hiểu sai
@@ -103,7 +103,7 @@ python3 scripts/ste-lint.py --json --baseline 5 docs/
 python3 scripts/ste-lint.py --selftest
 ```
 
-Kết quả mẫu:
+Ví dụ kết quả khi chạy trên một câu tiếng Việt:
 
 ```console
 $ echo "Tiến hành kiểm tra tệp, khong được bỏ qua. Dữ liệu được ghi bởi agent." | python3 scripts/ste-lint.py --lang vi
@@ -122,9 +122,9 @@ $ echo "Tiến hành kiểm tra tệp, khong được bỏ qua. Dữ liệu đư
 
 Ở chế độ `--lang auto`, linter chạy quy tắc của mọi thứ tiếng, và mỗi câu được đo theo giới hạn của chính thứ tiếng đó: 25 từ với tiếng Anh, 30 âm tiết với tiếng Việt. Nhờ vậy tài liệu trộn hai thứ tiếng vẫn được kiểm tra đúng.
 
-Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README, tài liệu hay báo cáo, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Các từ chỉ mức độ chắc chắn ("may", "might", "có thể", "có lẽ") không bao giờ bị báo lỗi.
+Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README, tài liệu hay báo cáo, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Những từ như "may", "might", "có thể", "có lẽ" không bao giờ bị báo lỗi.
 
-Danh sách quy tắc: tiếng Anh xem [`README.en.md`](README.en.md), tiếng Việt xem [`languages/vi/rules.md`](languages/vi/rules.md#kiểm-tra-bằng-linter).
+Danh sách quy tắc của tiếng Anh nằm trong [`README.en.md`](README.en.md), của tiếng Việt nằm trong [`languages/vi/rules.md`](languages/vi/rules.md#kiểm-tra-bằng-linter).
 
 ## Cấu trúc thư mục
 
@@ -151,24 +151,24 @@ asd-ste100-multilingual/
 
 ## Phạm vi và giới hạn
 
-**Dùng cho:** tin nhắn giữa các agent, tool/function description, error message, system prompt, thông báo trạng thái.
+**Nên dùng cho:** tin nhắn giữa các agent, tool description, error message, system prompt và thông báo trạng thái.
 
-**Không dùng cho:** văn sáng tác, văn quảng cáo hoặc bất kỳ văn bản nào mà giọng văn là mục đích.
+**Không nên dùng cho:** văn sáng tác, văn quảng cáo và những văn bản cần giọng văn riêng.
 
 **Giới hạn:**
 
 - Skill sửa cách viết chứ không sửa nội dung: một đoạn không có gì để nói thì viết lại vẫn rỗng, chỉ gọn hơn thôi.
-- Giấy phép của ASD-STE100 không cho phân phối lại bộ từ điển khoảng 900 từ, nên skill không kèm từ điển đó và quy tắc từ vựng chỉ mang tính định hướng.
+- Giấy phép của ASD-STE100 không cho phân phối lại bộ từ điển khoảng 900 từ, nên skill không kèm từ điển đó. Phần quy tắc từ vựng vì thế chỉ là gợi ý.
 - ASD chỉ định nghĩa STE cho tiếng Anh, nên mọi bản cho thứ tiếng khác đều là **chuyển thể không chính thức**.
 - Đây không phải công cụ biên soạn STE có chứng nhận. Nếu viết tài liệu bảo trì máy bay thật, hãy dùng chuẩn gốc.
 
 ## Đóng góp
 
-Đóng góp đáng giá nhất là **thêm thứ tiếng mới**. Bạn viết quy tắc và ví dụ, thêm một mục vào registry `LANGUAGES` của linter rồi chạy `--selftest`. Chi tiết ở [`languages/README.md`](languages/README.md).
+Cách đóng góp hữu ích nhất là **thêm thứ tiếng mới**. Bạn viết quy tắc và ví dụ, thêm một mục vào registry `LANGUAGES` của linter rồi chạy `--selftest`. Chi tiết ở [`languages/README.md`](languages/README.md).
 
 Muốn sửa quy tắc của thứ tiếng đã có, hãy sửa trong `scripts/ste-lint.py`, thêm ca kiểm thử vào `selftest()` và cập nhật bảng quy tắc trong `languages/<mã>/rules.md`.
 
-Dù sửa gì, nguyên tắc cốt lõi vẫn giữ nguyên: **không bao giờ báo lỗi hay xóa từ chỉ mức độ chắc chắn**.
+Dù sửa gì cũng phải giữ một nguyên tắc: **không bao giờ báo lỗi hay xóa những từ như "có thể", "có lẽ"**. Người viết dùng chúng khi chưa chắc, bỏ đi là biến phỏng đoán thành khẳng định.
 
 ## Ghi công
 
@@ -178,4 +178,4 @@ Một số bản chuyển thể độc lập khác có thể gộp vào `languag
 
 ## Giấy phép
 
-MIT — xem [LICENSE](LICENSE).
+Dự án dùng giấy phép MIT. Bạn có thể đọc toàn văn giấy phép trong [LICENSE](LICENSE).

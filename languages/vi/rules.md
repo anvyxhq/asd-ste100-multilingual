@@ -4,7 +4,7 @@ ASD-STE100 chỉ định nghĩa cho tiếng Anh. Tệp này chuyển các nguyê
 
 Mục tiêu vẫn giữ nguyên: một câu chỉ có một cách hiểu. Yêu cầu này không xa lạ với tiếng Việt. Quy định về soạn thảo văn bản pháp luật cũng đòi hỏi câu chữ "không làm phát sinh nhiều cách hiểu" và thuật ngữ phải "sử dụng thống nhất" (Nghị quyết 351/2017/UBTVQH14, Điều 18). Người đọc là một agent, một hệ thống, hoặc một người không thể hỏi lại tác giả.
 
-Đọc tệp này khi văn bản đầu vào là tiếng Việt. Khi viết tài liệu hoặc báo cáo, đọc thêm `style-docs.md`. Các phần còn lại của `SKILL.md` vẫn áp dụng: hai chế độ, giữ mức độ chắc chắn, không thêm thông tin, định dạng đầu ra.
+Đọc tệp này khi văn bản đầu vào là tiếng Việt. Khi viết tài liệu hoặc báo cáo, đọc thêm `style-docs.md`. Các phần còn lại của `SKILL.md` vẫn áp dụng: hai chế độ, giữ nguyên phỏng đoán, không thêm thông tin, định dạng đầu ra.
 
 ## Khác biệt chính so với tiếng Anh
 
@@ -70,7 +70,7 @@ Tiếng Việt không chia thì. Điều này dẫn tới hai lỗi ngược nha
 - **Chồng dấu hiệu thời gian.** "đã từng", "đã đang", "sẽ đang". Dùng một từ.
 - Không thêm "rồi" sau "đã" ("đã xong rồi"). "Rồi" vừa nghĩa là "đã xong" vừa nghĩa là "sau đó".
 
-Ngoại lệ: "có thể đã", "có lẽ đã từng" thể hiện người viết chưa chắc chắn. Giữ nguyên, vì mức độ chắc chắn là nội dung.
+Ngoại lệ: "có thể đã", "có lẽ đã từng" thể hiện người viết chưa chắc chắn. Giữ nguyên, vì bỏ đi là đổi nghĩa câu.
 
 ### 7. Không lược thành phần
 
@@ -160,9 +160,9 @@ Rà soát sáu lỗi sau trước khi viết lại.
 5. **Câu dài nối nhiều ý.** Nhiều ý nối bằng dấu phẩy, "và", "đồng thời", "trong khi đó". Mỗi câu một ý.
 6. **Câu văn "Tây".** "được ... bởi", "một cách + tính từ" ("một cách tự động" → "tự động"), "Nó là cần thiết để", "là một trong những".
 
-## Giữ mức độ chắc chắn
+## Không đổi phỏng đoán thành khẳng định
 
-Không bao giờ bỏ hoặc làm mạnh thêm các từ chỉ mức độ chắc chắn: "có thể", "có lẽ", "có khả năng", "có thể đã", "chưa chắc", "thường". Mức độ chắc chắn là nội dung.
+Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đã", "chưa chắc", "thường" khi chưa chắc về điều mình nói. Không bao giờ bỏ các từ này, và không đổi chúng thành lời khẳng định. Làm vậy là đổi nghĩa câu.
 
 - "Yêu cầu có thể đã thất bại." giữ nguyên "có thể đã". Không viết lại thành "Yêu cầu đã thất bại."
 - "Lỗi có thể do phiên bản client cũ." không được viết lại thành "Lỗi do phiên bản client cũ."
