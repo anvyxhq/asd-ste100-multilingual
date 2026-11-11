@@ -49,6 +49,16 @@ Sau khi viết xong, đọc lại từng câu và hỏi:
 | Sẽ chú ý hơn, kiểm tra kỹ hơn. | Thêm bước kiểm tra tự động: từ chối config có khóa lạ. |
 | Đang kiểm tra, có gì báo sau. | Đang kiểm tra. Sẽ cập nhật lúc 20h30. |
 
+## Viết ưu điểm và nhược điểm
+
+Khi so sánh các cách làm, người đọc dựa vào bảng ưu nhược điểm để quyết định. Ba lỗi sau làm bảng mất giá trị:
+
+| Lỗi | Ví dụ | Cách viết |
+|---|---|---|
+| Ghi một điều không phải nhược điểm | "Phải viết thêm một API, bên tích hợp phải tự gọi." | Nhược điểm là hậu quả xấu cho người dùng hoặc cho hệ thống. Công sức phải làm thêm không phải nhược điểm. Nếu không có nhược điểm thì ghi "Không có". |
+| Ghi ưu điểm hoặc nhược điểm khi chưa kiểm tra | "Thời gian mở app không đổi so với cách đang dùng." (chưa đo) | Đối chiếu code hoặc số đo trước khi viết. Chỉ cần sai một ô là người đọc không còn tin cả bảng. |
+| Số liệu mơ hồ hoặc nói quá | "Người dùng phải chờ hàng chục giây." | Ghi mức có căn cứ: "Người dùng phải chờ lâu hơn, có thể hơn 10 giây." Nếu đã đo thì ghi số đo và thiết bị đo. |
+
 ## Những từ nên thay bằng số liệu
 
 **Từ chỉ lượng và thời gian mơ hồ.** "Một số", "khá nhiều", "đáng kể", "phần lớn", "gần xong", "sắp tới", "sẽ sớm". Trong văn thường, các từ này rất phổ biến và không có gì sai. Trong báo cáo, người đọc cần con số để quyết định, nên hãy thay bằng số lượng hoặc ngày giờ.

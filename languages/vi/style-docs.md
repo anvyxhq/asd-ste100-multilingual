@@ -32,6 +32,8 @@ Một từ thuộc ngữ cảnh kỹ thuật khi nó chỉ một thứ cụ th�
 | Thêm permission `s3:GetObject` cho role. | Bạn cần có quyền admin để xem trang này. |
 | Bảng `users` lưu mỗi user một dòng. | Người dùng sẽ thấy màn hình đăng nhập. |
 | Giá trị default của `timeout` là 30 giây. | Ứng dụng mở trang chủ theo mặc định. |
+
+Quy tắc giữ thuật ngữ tiếng Anh áp dụng khi người đọc là dev. Khi viết cho người không chuyên, ví dụ PM, QA hoặc bên kiểm định, hãy ưu tiên tả kết quả bằng lời thường. Chỉ giữ những thuật ngữ người đọc đã quen, và giải thích các thuật ngữ còn lại ở lần dùng đầu tiên.
 | Run test trước khi merge. | Chạy lệnh sau để cài đặt. |
 | Handle error ở tầng API. | Nhóm đã xử lý xong yêu cầu của khách hàng. |
 
@@ -127,7 +129,7 @@ Các cụm này có trong văn viết tay, nhưng hiếm. Ở hai nhóm bài đ�
 
 ### Những chỗ gượng hay gặp khi AI viết tiếng Việt
 
-Các lỗi dưới đây đều do người đọc thật chỉ ra, phần lớn trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu và kiểu cuối, nên sau khi viết xong hãy tự đọc lại theo bảng này.
+Các lỗi dưới đây đều do người đọc thật chỉ ra, phần lớn trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu và kiểu cuối cùng, nên sau khi viết xong hãy tự đọc lại theo bảng này.
 
 | Kiểu gượng | Ví dụ | Viết lại |
 |---|---|---|
@@ -138,9 +140,18 @@ Các lỗi dưới đây đều do người đọc thật chỉ ra, phần lớn
 | Tiêu đề và nhãn dịch từng chữ | "Đầu ra sạch", "Hệ quả cho quy tắc", "nằm ở lõi", "số liệu đứng sau quy tắc" | "Kết quả gọn", "Quy tắc cần điều chỉnh", "dùng cho mọi ngôn ngữ", "số liệu làm căn cứ cho quy tắc" |
 | Ô bảng và gạch đầu dòng chỉ là chuỗi cụm từ | "Python 3, chỉ dùng standard library, không gọi mạng." | "Một script Python 3 chỉ dùng standard library và không kết nối mạng." |
 | Giải thích cơ chế thay vì nói kết quả | "Cache ghi sau khi response đã gửi. Request thứ hai tới trước thì đọc giá trị cũ." | "Sau khi lưu, người dùng có thể thấy dữ liệu cũ trong vài giây." Nói chuyện gì xảy ra trước. Cơ chế để sau, và chỉ viết khi người đọc cần. |
+| Vào thẳng chi tiết khi chưa nói tài liệu bàn về cái gì | Trang mở bằng mục "Khi cache hết hạn thì service làm gì", trong khi người đọc chưa biết cache nào | Câu đầu nêu đối tượng và mục đích: "Service lưu kết quả tìm kiếm vào cache trong 5 phút để giảm tải cho database." |
+| Dùng từ nội bộ chưa giải thích | "full sync", "cờ dirty", "có gap", "cờ dirty bật thì sync lại" | Từ nào người đọc chưa gặp thì là từ khó, dù là tiếng Anh hay tiếng Việt. Giải thích một lần ở chỗ dùng đầu tiên, hoặc thay bằng kết quả: "dữ liệu đã đổi thì sync lại". |
+| Gọi thành phần bằng tên lấy từ code | Tài liệu gọi bộ phận giới hạn số request là "Gatekeeper", vì class trong code tên là `Gatekeeper` | Gọi bằng tên mà ngành vẫn dùng: "Rate limiting". Nếu cần dẫn về code thì ghi tên code trong ngoặc, "Rate limiting (class `Gatekeeper`)", và chỉ ghi như vậy trong tài liệu nội bộ. |
+| Lẫn lịch sử vào tài liệu mô tả | Khung cảnh báo "lỗi này đã xảy ra tuần trước", dòng "Trạng thái ngày 05/03", một mục chữ nhắc lại điều sơ đồ đã thể hiện | Tài liệu mô tả chỉ ghi trạng thái hiện tại. Sự cố và tiến độ thuộc về báo cáo. Điều sơ đồ đã thể hiện thì không viết lại bằng chữ. |
+| Tiêu đề không nói phạm vi | "Các bước kiểm tra" | "Các bước kiểm tra khi đăng nhập" |
+| Tả một thành phần bằng cách nó chạy, không nói việc nó làm | "Health check: mỗi 30 giây, rất nhẹ. Lỗi 3 lần liền thì restart container." | Câu đầu nói nó làm gì, bằng lời thường: "Health check: phát hiện service bị treo." Tần suất, ngưỡng và cơ chế để sau, và chỉ viết khi người đọc cần. |
+| Các mục ngang hàng tả lệch kiểu | Một mục tả bằng cơ chế ("mỗi 30 giây, lỗi 3 lần thì restart"), mục bên cạnh tả bằng thời gian chạy ("chạy khoảng 2 phút mỗi đêm") | Các mục ngang hàng dùng chung một khuôn câu: "Health check: phát hiện service bị treo." và "Backup đêm: sao lưu database." Người đọc so được ngay chỗ khác nhau. |
 | Câu tự nói về tài liệu | "Tài liệu này gồm 5 phần.", "Nội dung gồm: …", "(xem mục 4)" | Bỏ câu đó. Trang mục lục chỉ cần danh sách các trang. Khi cần dẫn sang chỗ khác thì gọi tên mục, không gọi số. |
 
 Câu giải thích cơ chế không sai, nhưng nó bắt người đọc tự ghép nhiều mảnh mới hiểu chuyện gì xảy ra. Hãy tự hỏi: người đọc cần biết điều gì để quyết định? Viết điều đó trước. Từ viết tắt tự đặt cũng làm câu khó hơn, nên viết đủ cả từ.
+
+Ba lỗi "từ nội bộ chưa giải thích", "tên lấy từ code" và "từ viết tắt tự đặt" có chung một gốc: người viết dùng từ của mình, không dùng từ của người đọc. Trước khi đặt tên cho một thành phần, hãy tự hỏi người đọc và ngành gọi nó là gì, rồi đối chiếu với chuẩn hoặc tài liệu chính thức của lĩnh vực đó. Tên chuẩn thì người ngoài team hiểu ngay, tra cứu được, và so được với chuẩn họ đang dùng. Tên trong code chỉ có nghĩa với người đã đọc code.
 
 Cách tự kiểm tra: đọc to từng câu rồi tự hỏi "mình có nói câu này với đồng nghiệp không?". Nếu không thì viết lại ý đó đúng như khi nói.
 
@@ -237,6 +248,16 @@ theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Nói kết quả hoặc hậu quả trước, cơ chế để sau và chỉ viết khi người đọc cần.
   Không dùng từ viết tắt tự đặt.
 - Không viết câu tự mô tả tài liệu ("Tài liệu này gồm...", "Nội dung gồm:", "xem mục 4").
+- Câu đầu của tài liệu nói nó bàn về cái gì và để làm gì. Tiêu đề nói rõ phạm vi.
+  Tả mỗi thành phần bằng việc nó làm trước, cách nó chạy để sau. Các mục ngang hàng dùng chung một khuôn câu.
+  Tài liệu mô tả chỉ ghi trạng thái hiện tại: sự cố và tiến độ đưa vào báo cáo.
+- Viết cho người không chuyên (PM, QA, bên kiểm định): tả kết quả bằng lời thường,
+  giải thích mỗi thuật ngữ và từ nội bộ ở lần dùng đầu tiên.
+- Gọi mỗi thành phần bằng tên mà người đọc và ngành vẫn dùng, đối chiếu với chuẩn của lĩnh vực.
+  Không lấy tên class hay function làm tên trong tài liệu. Cần dẫn về code thì ghi tên code
+  trong ngoặc, và chỉ ở tài liệu nội bộ.
+- Bảng ưu nhược điểm: nhược điểm là hậu quả xấu cho người dùng hoặc hệ thống, không phải công sức
+  làm thêm. Không có thì ghi "Không có". Đối chiếu code hoặc số đo trước khi ghi mỗi ô.
 - Báo cáo: theo `style-reports.md` cùng thư mục. Kết luận lên đầu, con số thay cho tính từ,
   mỗi việc có người phụ trách và ngày cụ thể. Khi báo "đã xong", nói rõ đã kiểm chứng bằng
   cách nào, phần nào chưa kiểm chứng và bước nào đã bỏ qua.

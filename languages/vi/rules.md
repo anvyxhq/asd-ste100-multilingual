@@ -202,7 +202,7 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `title-case-heading` | advisory | tiêu đề tiếng Việt viết hoa mọi chữ, từ 3 từ trở lên |
 | `number-format` | advisory | "25 %" có dấu cách, số kiểu Anh "1,000" trong dòng tiếng Việt |
 | `officialese` | advisory | lối văn báo cáo hành chính: "cơ bản hoàn thành", "kịp thời", "đẩy mạnh", "trong thời gian tới" |
-| `vague-quantity` | advisory, chỉ với `--profile report` | "một số", "khá nhiều", "đáng kể", "gần xong" |
+| `vague-quantity` | advisory, chỉ với `--profile report` | "một số", "khá nhiều", "đáng kể", "gần xong", "hàng chục" |
 | `vague-time` | advisory, chỉ với `--profile report` | "sẽ sớm", "sắp tới", "gần đây" |
 | `unverified-claim` | advisory, chỉ với `--profile report` | "chạy ổn", "hoạt động tốt", "đã test xong" |
 | `terse-pointer` | advisory | câu cụt kiểu ghi chú: "Muốn thêm ngôn ngữ? Xem README.", "MIT — xem LICENSE." |

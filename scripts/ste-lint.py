@@ -211,7 +211,7 @@ VI_RULES = [
 # ("một số" is in half of the hand-written articles). In a report, the reader needs the number.
 VI_REPORT_RULES = [
     ("vague-quantity", "advisory",
-     re.compile(r"\b(?:gần xong|sắp xong|một số|một vài|khá nhiều|rất nhiều|đáng kể|tương đối|phần lớn|hầu hết|đa số)\b", re.I),
+     re.compile(r"\b(?:gần xong|sắp xong|một số|một vài|khá nhiều|rất nhiều|đáng kể|tương đối|phần lớn|hầu hết|đa số|hàng (?:chục|trăm|nghìn|ngàn))\b", re.I),
      "Từ chỉ lượng mơ hồ. Trong báo cáo, ghi con số (\"35 yêu cầu\", \"9/12 task\")."),
     ("vague-time", "advisory",
      re.compile(r"\b(?:sẽ sớm|sớm nhất có thể|càng sớm càng tốt|thời gian tới|sắp tới|gần đây|một thời gian)\b", re.I),
@@ -2951,6 +2951,8 @@ def selftest():
     assert [f["rule"] for f in lint(vague, lang="vi", profile="docs")[0]] == []
     assert [f["rule"] for f in lint(vague, lang="vi", profile="report")[0]] == [
         "vague-quantity", "vague-quantity", "vague-time", "unverified-claim", "unverified-claim"]
+    assert [f["rule"] for f in lint("Người dùng phải chờ hàng chục giây.", lang="vi", profile="report")[0]] == ["vague-quantity"]
+    assert lint("Người dùng phải chờ hàng chục giây.", lang="vi", profile="docs")[0] == []
     concrete = "Xong 9/12 task. Còn bug #125, mức Major. Dự kiến xong ngày 14/11. 42/42 unit test pass."
     assert lint(concrete, lang="vi", profile="report")[0] == []
     assert [f["rule"] for f in lint("Nhóm đã cơ bản hoàn thành và sẽ đẩy mạnh trong thời gian tới.", lang="vi")[0]] == [
