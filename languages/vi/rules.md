@@ -207,6 +207,7 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `unverified-claim` | advisory, chỉ với `--profile report` | "chạy ổn", "hoạt động tốt", "đã test xong" |
 | `terse-pointer` | advisory | câu cụt kiểu ghi chú: "Muốn thêm ngôn ngữ? Xem README.", "MIT — xem LICENSE." |
 | `opaque-label` | advisory | nhãn chữ cái hoặc số thay cho tên: "Cách A", "Phương án 2", "option B" |
+| `meta-sentence` | advisory | câu tự nói về tài liệu: "Tài liệu này gồm 5 phần", "Nội dung gồm:", "xem mục 4" |
 | `literal-idiom` | advisory | dịch sát câu nói gọn của tiếng Anh: "…là mục đích.", "…là chìa khóa." |
 
 Các mức này được chỉnh theo số liệu từ 102 bài viết tay của lập trình viên Việt. Xem [`evidence.md`](evidence.md).

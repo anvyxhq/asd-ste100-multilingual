@@ -171,6 +171,12 @@ VI_RULES = [
      re.compile(r"(?:(?:^|[.!?]\s+)(?:Muốn|Cần|Bạn muốn|Bạn cần)[^.?!]{3,70}\?\s+(?:Xem|Đọc|Dùng|Chạy|Hãy xem)\b"
                 r"|\S\s+—\s+xem\b)", re.I),
      "Câu cụt kiểu ghi chú. Viết thành câu đầy đủ (\"Nếu bạn muốn ..., hãy xem ...\")."),
+    # A sentence about the document, not about the subject. House rule, from a reader's review.
+    ("meta-sentence", "advisory",
+     re.compile(r"(?:\bNội dung (?:bao )?gồm\s*:"
+                r"|\b(?:Cụm )?(?:tài liệu|trang|bài viết|phần|mục) (?:này|dưới đây) (?:sẽ )?(?:gồm|bao gồm|được chia|chia làm|trình bày|giới thiệu|tổng hợp)\b"
+                r"|\bxem (?:mục|phần) \d+(?![\wÀ-ỹ]))", re.I),
+     "Câu này nói về tài liệu, không nói về nội dung. Bỏ câu, hoặc dẫn tới mục khác bằng tên của mục."),
     ("literal-idiom", "advisory",
      re.compile(r"\blà (?:mục đích|nội dung|chìa khóa|chìa khoá)\s*[.!]", re.I),
      "Có thể là dịch sát một câu nói gọn của tiếng Anh (\"X is the point\", \"X is key\"). Nói ý đó bằng lời bình thường."),
@@ -2908,6 +2914,9 @@ def selftest():
     assert [(f["rule"], f["match"]) for f in findings] == [
         ("opaque-label", "Cách A"), ("opaque-label", "Phương án 2"),
         ("opaque-label", "option B"), ("opaque-label", "cách 1")], findings
+    findings, _ = lint("Nội dung gồm: cài đặt, cấu hình. Tài liệu này trình bày cách deploy (xem mục 4).", lang="vi")
+    assert [f["rule"] for f in findings] == ["meta-sentence"] * 3, findings
+    assert lint('Xem mục "Độ dài câu". Nội dung file gồm ba dòng. Tài liệu này dùng cho đội backend.', lang="vi")[0] == []
     assert [f["match"] for f in lint("**Cách 1 — skills CLI** (cho một project):", lang="vi")[0]] == ["Cách 1"]
     for fine in ("Cách dùng cache nhanh hơn cách tách service.", "Hai máy đặt cách 2 mét.",
                  "Job chạy cách 5 phút một lần.", "Có 3 phương án và 2 cách làm.",

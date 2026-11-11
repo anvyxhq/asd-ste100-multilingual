@@ -127,7 +127,7 @@ Các cụm này có trong văn viết tay, nhưng hiếm. Ở hai nhóm bài đ�
 
 ### Những chỗ gượng hay gặp khi AI viết tiếng Việt
 
-Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu, nên sau khi viết xong hãy tự đọc lại theo bảng này.
+Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu và kiểu cuối, nên sau khi viết xong hãy tự đọc lại theo bảng này.
 
 | Kiểu gượng | Ví dụ | Viết lại |
 |---|---|---|
@@ -137,6 +137,10 @@ Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính 
 | Dùng thuật ngữ ngữ pháp với người đọc không chuyên | "hư từ", "tình thái" | Giải thích bằng lời thường hoặc nêu ví dụ |
 | Tiêu đề và nhãn dịch từng chữ | "Đầu ra sạch", "Hệ quả cho quy tắc", "nằm ở lõi", "số liệu đứng sau quy tắc" | "Kết quả gọn", "Quy tắc cần điều chỉnh", "dùng cho mọi ngôn ngữ", "số liệu làm căn cứ cho quy tắc" |
 | Ô bảng và gạch đầu dòng chỉ là chuỗi cụm từ | "Python 3, chỉ dùng standard library, không gọi mạng." | "Một script Python 3 chỉ dùng standard library và không kết nối mạng." |
+| Giải thích cơ chế thay vì nói kết quả | "Cache ghi sau khi response đã gửi. Request thứ hai tới trước thì đọc giá trị cũ." | "Sau khi lưu, người dùng có thể thấy dữ liệu cũ trong vài giây." Nói chuyện gì xảy ra trước. Cơ chế để sau, và chỉ viết khi người đọc cần. |
+| Câu tự nói về tài liệu | "Tài liệu này gồm 5 phần.", "Nội dung gồm: …", "(xem mục 4)" | Bỏ câu đó. Trang mục lục chỉ cần danh sách các trang. Khi cần dẫn sang chỗ khác thì gọi tên mục, không gọi số. |
+
+Câu giải thích cơ chế không sai, nhưng nó bắt người đọc tự ghép nhiều mảnh mới hiểu chuyện gì xảy ra. Hãy tự hỏi: người đọc cần biết điều gì để quyết định? Viết điều đó trước. Từ viết tắt tự đặt cũng làm câu khó hơn, nên viết đủ cả từ.
 
 Cách tự kiểm tra: đọc to từng câu rồi tự hỏi "mình có nói câu này với đồng nghiệp không?". Nếu không thì viết lại ý đó đúng như khi nói.
 
@@ -230,6 +234,9 @@ theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Không gắn nhãn chữ cái hoặc số cho các cách làm, phương án, nhóm, ví dụ ("Cách A", "Phương án 2").
   Đặt cho mỗi thứ một tên bằng danh từ nói rõ nội dung ("cách dùng JWT") và dùng đúng tên đó
   trong cả tài liệu. Chỉ đánh số các bước phải làm theo thứ tự.
+- Nói kết quả hoặc hậu quả trước, cơ chế để sau và chỉ viết khi người đọc cần.
+  Không dùng từ viết tắt tự đặt.
+- Không viết câu tự mô tả tài liệu ("Tài liệu này gồm...", "Nội dung gồm:", "xem mục 4").
 - Báo cáo: theo `style-reports.md` cùng thư mục. Kết luận lên đầu, con số thay cho tính từ,
   mỗi việc có người phụ trách và ngày cụ thể. Khi báo "đã xong", nói rõ đã kiểm chứng bằng
   cách nào, phần nào chưa kiểm chứng và bước nào đã bỏ qua.
