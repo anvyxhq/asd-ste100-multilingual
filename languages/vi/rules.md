@@ -138,7 +138,7 @@ Các ví dụ trong tệp này dùng "tệp", "máy chủ" theo thuật ngữ gi
 
 - Nếu đã dùng từ tiếng Anh ("cache", "commit") thì lần nào cũng dùng từ đó. Không đổi qua lại giữa "cache" và "bộ nhớ đệm".
 - Nếu dùng từ tiếng Việt, ghi từ tiếng Anh trong ngoặc ở lần đầu: "bộ nhớ đệm (cache)".
-- Tên hàm, tên biến, lệnh: đặt trong backtick và không dịch.
+- Tên hàm, tên variable, lệnh: đặt trong backtick và không dịch.
 
 ### Dùng động từ, không danh từ hóa
 

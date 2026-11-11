@@ -39,10 +39,13 @@ Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. V�
 | module (12) | mô-đun (0) |
 | deploy (14) | triển khai (0) |
 | class (27) | lớp (5) |
+| variable (0) | biến (khoảng 22) |
 | test (26) | kiểm thử (3) |
 | team (31) | nhóm (khoảng 6) |
 | array (15) | mảng (3) |
 | build (26), API (29), link (26), performance (12) | |
+
+"Variable" là lựa chọn riêng của bộ quy tắc này, ngược với số liệu: trong mẫu, dev viết "biến" và không bài nào viết "variable". Lý do giữ tiếng Anh là để các khái niệm cùng nhóm (class, variable, function, property) được viết theo cùng một cách. Nếu nhóm bạn quen viết "biến" thì cứ giữ.
 
 "Triển khai" vẫn được dùng nhiều, nhưng theo nghĩa "implement": "triển khai phương thức này như sau". "Kiểm tra" cũng vậy, gần như luôn mang nghĩa "check" chứ không phải "test".
 
@@ -52,7 +55,6 @@ Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, toke
 
 | Viết | Ít gặp |
 |---|---|
-| biến (khoảng 22) | variable (0) |
 | thư viện (30) | library (6) |
 | người dùng (35) | user (8) |
 | hệ thống (39) | system (5) |
@@ -99,7 +101,7 @@ Nếu bạn viết chuỗi giao diện cho một sản phẩm đã bản địa 
 
 - Viết thường giữa câu như danh từ chung: "tạo một branch mới", "deploy lên server". Viết hoa tên riêng (GitHub, Swift), từ viết tắt (API, PR) và tên thành phần ("Cache Server").
 - Không thêm đuôi số nhiều: "các function", "hai pull request", "44 test". Hơn 90% trường hợp trong mẫu viết như vậy.
-- Tên hàm, biến, lệnh, đường dẫn: đặt trong backtick, không dịch.
+- Tên hàm, tên variable, lệnh, đường dẫn: đặt trong backtick, không dịch.
 - Lần đầu dùng một thuật ngữ ít quen, chú thích trong ngoặc: "bảo mật 2 lớp (two-factor authentication)". Thuật ngữ dev nào cũng biết thì không cần chú thích.
 - Tiêu đề viết bằng tiếng Anh thì giữ cách viết hoa của tiếng Anh.
 
@@ -213,8 +215,8 @@ Thêm đoạn sau vào `CLAUDE.md` của project. Muốn áp dụng cho mọi pr
 Khi viết tài liệu, README, mô tả PR, changelog hoặc báo cáo bằng tiếng Việt,
 theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Thuật ngữ: viết như dev Việt viết. Giữ tiếng Anh cho commit, PR, API, request, token,
-  server, database, file, framework, build, deploy, test, debug, class. Viết tiếng Việt
-  cho biến, thư viện, người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng, mặc định.
+  server, database, file, framework, build, deploy, test, debug, class, variable.
+  Viết tiếng Việt cho thư viện, người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng, mặc định.
   Không dùng bản dịch ít người dùng ("yêu cầu kéo", "điểm cuối", "mã thông báo").
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),

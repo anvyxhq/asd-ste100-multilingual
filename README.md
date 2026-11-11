@@ -73,7 +73,7 @@ Error message là văn bản cho agent đọc, nên bản viết lại theo mứ
 npx skills add anvyxhq/asd-ste100-multilingual
 ```
 
-Khi cài đặt, CLI này gửi telemetry ẩn danh. Nếu không muốn, bạn đặt biến môi trường `DISABLE_TELEMETRY=1` trước khi chạy.
+Khi cài đặt, CLI này gửi telemetry ẩn danh. Nếu không muốn, bạn đặt environment variable `DISABLE_TELEMETRY=1` trước khi chạy.
 
 **Cách 2 — clone** (cho mọi project trên máy):
 
