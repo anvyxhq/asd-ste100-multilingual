@@ -24,7 +24,7 @@ Có bốn điều mức tự nhiên vẫn giữ nghiêm như mức Strict: khôn
 
 Phần này dựa trên 102 bài viết tay của hai blog lập trình tiếng Việt. Số liệu đầy đủ và cách đếm nằm trong [`evidence.md`](evidence.md). Đây là văn blog của hai tác giả, nên hãy coi các bảng dưới đây là mặc định hợp lý chứ không phải chuẩn. Nếu nhóm bạn đã có bảng thuật ngữ riêng thì theo bảng đó.
 
-Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài.
+Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài. Với những từ nhiều nghĩa như "lớp", "nhóm", "triển khai", con số chỉ tính các lần dùng đúng nghĩa đang xét.
 
 ### Giữ tiếng Anh
 
@@ -33,53 +33,55 @@ Số trong ngoặc là số bài có dùng từ đó, trên tổng 102 bài.
 | file (41) | tệp (0), tập tin (0) |
 | server (24) | máy chủ (2) |
 | database (21) | cơ sở dữ liệu (3) |
-| framework (24) | khung (5) |
+| framework (24) | khung (0–1) |
 | code (90) | mã nguồn (2) |
 | debug (14) | gỡ lỗi (0) |
 | module (12) | mô-đun (0) |
-| log (8) | nhật ký (0) |
-| build (26), API (29), callback (7), link (26), upload (7), performance (12) | |
+| deploy (14) | triển khai (0) |
+| class (27) | lớp (5) |
+| test (26) | kiểm thử (3) |
+| team (31) | nhóm (khoảng 6) |
+| array (15) | mảng (3) |
+| build (26), API (29), link (26), performance (12) | |
 
-Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, token, middleware, payload có quá ít dữ liệu trong mẫu. Nên giữ tiếng Anh cho các từ này, vì bản dịch của các hãng không thống nhất (xem bên dưới).
+"Triển khai" vẫn được dùng nhiều, nhưng theo nghĩa "implement": "triển khai phương thức này như sau". "Kiểm tra" cũng vậy, gần như luôn mang nghĩa "check" chứ không phải "test".
+
+Thuật ngữ Git (commit, branch, merge, pull request, repo) và endpoint, token, callback, middleware, payload có quá ít dữ liệu trong mẫu. Nên giữ tiếng Anh cho các từ này, vì bản dịch của các hãng không thống nhất (xem bên dưới).
 
 ### Viết tiếng Việt
 
 | Viết | Ít gặp |
 |---|---|
-| biến (45) | variable (0) |
+| biến (khoảng 22) | variable (0) |
 | thư viện (30) | library (6) |
 | người dùng (35) | user (8) |
 | hệ thống (39) | system (5) |
-| giao diện (29) | interface (2) |
-| cài, cài đặt (36) | install (1) |
+| cài đặt (28) | install (1) |
 | chạy (62) | run (9) |
 | xử lý (31) | handle (4) |
 | hỗ trợ (25) | support (2) |
 | khai báo (21), định nghĩa (14) | define (4) |
 | lỗi (31) | error (7) |
-| sửa (34) | fix (13) |
 | chức năng (25), tính năng (13) | feature (1) |
-| mặc định (15), quyền (16), mạng (25), bảo mật (10), thuật toán (11), trình duyệt (8) | |
+| mặc định (15), quyền (16), thuật toán (11) | |
 
 ### Cả hai cách đều phổ biến
 
 | Tiếng Anh | Tiếng Việt |
 |---|---|
 | function (28) | hàm (39) |
-| class (27) | lớp (11) |
 | object (15) | đối tượng (27) |
 | method (10) | phương thức (10) |
 | property (13) | thuộc tính (15) |
-| array (15), string (16) | mảng (8), chuỗi (7) |
+| string (16) | chuỗi (7) |
 | data (19) | dữ liệu (48) |
+| UI (18) | giao diện (29) |
 | project (38) | dự án (36) |
 | app (31) | ứng dụng (44) |
 | version (15) | phiên bản (11) |
 | developer (39), dev (27) | lập trình viên (25) |
-| team (31) | nhóm (15) |
-| test (26) | kiểm tra (17), kiểm thử (3) |
-| deploy (14) | triển khai (7) |
 | bug (13) | lỗi (31) |
+| fix (13) | sửa (27) |
 | config (8), tool (12) | cấu hình (9), công cụ (14) |
 | update (11), design (15) | cập nhật (20), thiết kế (27) |
 
@@ -87,7 +89,7 @@ Với nhóm này, chọn một cách cho mỗi khái niệm rồi giữ trong c�
 
 ### Từ có trong bảng thuật ngữ của các hãng nhưng dev ít dùng
 
-**Từ Việt chuẩn, dùng trong giao diện sản phẩm và văn bản trang trọng:** tệp, máy chủ, cơ sở dữ liệu, kiểm thử, gỡ lỗi, mã nguồn. Các từ này đúng và dễ hiểu. Hãy dùng khi người đọc không phải dev (khách hàng, lãnh đạo), hoặc khi nhóm bạn đã quen. Trong 102 bài viết tay, mỗi từ chỉ xuất hiện ở 0–3 bài.
+**Từ Việt chuẩn, dùng trong giao diện sản phẩm và văn bản trang trọng:** tệp, máy chủ, cơ sở dữ liệu, kiểm thử, gỡ lỗi, mã nguồn. Các từ này đúng và dễ hiểu. Hãy dùng khi người đọc không phải dev (khách hàng, lãnh đạo), khi viết thông báo cho người dùng cuối, hoặc khi nhóm bạn đã quen. Trong 102 bài viết tay, mỗi từ chỉ xuất hiện ở 0–3 bài.
 
 **Bản dịch ít người dùng:** yêu cầu kéo (pull request), cam kết (commit), điểm cuối (endpoint), mã thông báo (token), gọi lại (callback), khuôn khổ hoặc khung (framework), phần mềm trung gian (middleware), tải trọng (payload). Các từ này không sai: phần lớn là thuật ngữ chính thức trong bảng thuật ngữ của Microsoft. Nhưng dev không quen, và các hãng dịch không thống nhất. Cache là "bộ đệm ẩn" ở Microsoft nhưng "bộ nhớ đệm" ở Apple. Framework là "khuôn khổ" ở Microsoft nhưng "khung" ở Google. "Cam kết" của Microsoft là commit của giao dịch cơ sở dữ liệu, không phải commit của Git.
 
@@ -136,7 +138,7 @@ Các điểm sau chưa tìm thấy nguồn tiếng Việt nào nêu tên. Chúng
 
 "Một cách + tính từ" không sai, và các nhà nghiên cứu vẫn dùng. Chỉ bỏ khi câu không đổi nghĩa.
 
-Các cụm này có trong văn viết tay, nhưng hiếm. Ở nhóm bài đối chứng trong [`evidence.md`](evidence.md), chúng xuất hiện nhiều gấp 2–30 lần, cùng với tiêu đề viết hoa mọi chữ và số viết kiểu "1,000". Một văn bản dày đặc các cụm này sẽ đọc lên như bản dịch máy.
+Các cụm này có trong văn viết tay, nhưng hiếm. Ở hai nhóm bài đối chứng trong [`evidence.md`](evidence.md), chúng xuất hiện nhiều hơn từ 2 đến hơn 25 lần. Một nhóm còn có tiêu đề viết hoa mọi chữ và số viết kiểu "1,000". Một văn bản dày đặc các cụm này sẽ đọc lên như bản dịch máy.
 
 ### Những chỗ gượng hay gặp khi AI viết tiếng Việt
 
@@ -182,7 +184,7 @@ Quy tắc chung:
 
 ## 3. Định dạng
 
-- **Tiêu đề tiếng Việt chỉ viết hoa chữ đầu và tên riêng**: "Tổng quan dự án", không phải "Tổng Quan Dự Án". Title Case là quy ước tiếng Anh. Trong 357 tiêu đề tiếng Việt của văn viết tay, chỉ 1 tiêu đề viết hoa mọi chữ. Style guide của Microsoft và Mozilla đều yêu cầu như vậy, và Nghị định 30/2020/NĐ-CP cũng chỉ viết hoa âm tiết đầu của câu và của tên tác phẩm. Tên cơ quan, tổ chức viết hoa theo quy tắc riêng ("Bộ Tài nguyên và Môi trường").
+- **Tiêu đề tiếng Việt chỉ viết hoa chữ đầu và tên riêng**: "Tổng quan dự án", không phải "Tổng Quan Dự Án". Title Case là quy ước tiếng Anh. Trong 357 tiêu đề tiếng Việt của văn viết tay, chỉ 2 tiêu đề viết hoa mọi chữ. Style guide của Microsoft và Mozilla đều yêu cầu như vậy, và Nghị định 30/2020/NĐ-CP cũng chỉ viết hoa âm tiết đầu của câu và của tên tác phẩm. Tên cơ quan, tổ chức viết hoa theo quy tắc riêng ("Bộ Tài nguyên và Môi trường").
 - **Dấu câu**: không có dấu cách trước `.`, `,`, `:`, `;`, `?`, `!`. Có một dấu cách sau. Không đặt dấu phẩy trước "và", "hoặc" trong chuỗi liệt kê.
 - **Ngày tháng**: tài liệu cho người đọc viết ngày trước, tháng sau: `11/11/2026`. Dữ liệu, log và văn bản cho agent dùng ISO 8601 `2026-11-11`.
 - **Số**: phân cách hàng nghìn bằng dấu chấm (`1.000.000`), thập phân bằng dấu phẩy (`2,5`) trong văn bản cho người đọc. Với đại lượng đo lường, TCVN 7870-1:2010 khuyên tách nhóm số bằng khoảng trắng nhỏ thay cho dấu chấm. Trong bảng số liệu kỹ thuật, ghi rõ quy ước nếu trộn với dữ liệu từ hệ thống.
@@ -211,8 +213,8 @@ Thêm đoạn sau vào `CLAUDE.md` của project. Muốn áp dụng cho mọi pr
 Khi viết tài liệu, README, mô tả PR, changelog hoặc báo cáo bằng tiếng Việt,
 theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Thuật ngữ: viết như dev Việt viết. Giữ tiếng Anh cho commit, PR, API, request, token,
-  server, database, file, framework, build, debug, code. Viết tiếng Việt cho biến,
-  thư viện, người dùng, giao diện, hệ thống, lỗi, cài đặt, xử lý, chức năng, bảo mật.
+  server, database, file, framework, build, deploy, test, debug, class. Viết tiếng Việt
+  cho biến, thư viện, người dùng, hệ thống, lỗi, cài đặt, xử lý, chức năng, mặc định.
   Không dùng bản dịch ít người dùng ("yêu cầu kéo", "điểm cuối", "mã thông báo").
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),

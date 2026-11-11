@@ -104,6 +104,7 @@ DOCS_MAX_WORDS_VI = 45
 _VI_ONLY = "ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ"
 VI_CHAR = re.compile(f"[{_VI_ONLY}]", re.I)
 # An upper-case letter of the Vietnamese alphabet.
+_VI_PARTICLES = "(?:và|về|của|cho|với|trong|là|để|các|những|một|khi|từ|đến|hay|hoặc|theo|tại|trên|dưới|vào|như)"
 _VI_UPPER = "A-ZÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬĐÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴ"
 # A hedge before a tense marker is content: "có thể đã từng" keeps its "đã từng".
 VI_HEDGE_PREFIX = re.compile(
@@ -116,7 +117,7 @@ VI_RULES = [
     ("nominalization", "advisory",
      re.compile(r"\b(?:(?:thực hiện|tiến hành)\s+(?:việc|sự|công tác)"
                 r"|tiến hành\s+(?!(?:lúc|vào|trong|từ|ở|tại|khi|sau|trước|theo|như|đúng)\b)\w+"
-                r"|có sự\s+(?!(?:cố|kiện|thật|việc)\b)\w+"
+                r"|có sự\s+(?!(?:cố|kiện|thật|việc|tham gia|khác biệt|cố gắng)\b)\w+"
                 r"|(?:cung cấp|mang lại|đem lại)\s+sự\s+(?!(?:cố|kiện)\b)\w+)", re.I),
      "Hành động bị danh từ hóa. Dùng thẳng động từ (\"kiểm tra\", không phải \"tiến hành việc kiểm tra\")."),
     # "sự + verb" after a linking word: the clause form is shorter and names the actor.
@@ -157,9 +158,14 @@ VI_RULES = [
      re.compile(r"\b(?:hoàn thành xong|tái tạo lại|tối ưu nhất|lặp lại lần nữa)\b", re.I),
      "Thừa từ. Viết \"hoàn thành\", \"tái tạo\", \"tối ưu\", \"lặp lại\"."),
     ("mt-phrase", "advisory",
-     re.compile(r"\b(?:được sử dụng để|cho phép bạn|đóng một vai trò quan trọng|là một trong những"
+     re.compile(r"\b(?:được sử dụng để|cho phép (?:bạn|chúng ta|ta)|đóng (?:một )?vai trò quan trọng|là một trong những"
                 r"|nhằm mục đích)\b", re.I),
      "Cụm từ rườm rà (quy ước riêng của bộ quy tắc này). Viết thẳng: \"dùng để\", \"bạn có thể\", hoặc bỏ cụm."),
+    # English number formats in a Vietnamese line. "25 %" never occurs in the corpus,
+    # and a comma is the Vietnamese decimal mark. Checked only on Vietnamese lines.
+    ("number-format", "advisory",
+     re.compile(r"\d %|(?<![\d.,(])\d{1,3},\d{3}(?![\d,)])"),
+     "Định dạng số kiểu tiếng Anh. Viết \"25%\" liền nhau. \"1,000\" dễ bị đọc thành số thập phân: viết \"1.000\" hoặc \"1000\"."),
     # Both patterns are absent from 102 hand-written developer articles (one hit).
     ("terse-pointer", "advisory",
      re.compile(r"(?:(?:^|[.!?]\s+)(?:Muốn|Cần|Bạn muốn|Bạn cần)[^.?!]{3,70}\?\s+(?:Xem|Đọc|Dùng|Chạy|Hãy xem)\b"
@@ -175,8 +181,14 @@ VI_RULES = [
      "Lối văn báo cáo hành chính. Nêu việc đã làm và con số, hoặc bỏ cụm này."),
     # Title Case is an English convention. Vietnamese headings capitalize the first word only.
     ("title-case-heading", "advisory",
-     re.compile(rf"^#{{1,6}}[ \t]+(?=(?i:.*[{_VI_ONLY}]))(?:[{_VI_UPPER}]\w*[ \t]+){{2,}}"
-                rf"[{_VI_UPPER}]\w*[ \t]*#*[ \t]*$"),
+     # Optional numbering ("2.", "Phần 2:"), then only capitalized words, numbers, and
+     # short particles ("và", "về", "của"), with three or more capitalized words.
+     re.compile(rf"^#{{1,6}}[ \t]+(?:(?:Phần|Bài|Chương|Bước)[ \t]+\d+[:.]?[ \t]+|\d[\d.]*[ \t]+)?"
+                rf"(?=(?i:.*[{_VI_ONLY}]))"
+                rf"(?=(?:[^\n]*?(?<![\w])[{_VI_UPPER}]\w*[^\w\n]+){{2}}[^\n]*?(?<![\w])[{_VI_UPPER}]\w*)"
+                # two of them Vietnamese words: "Detached Tasks với SwiftUI" is not Title Case in Vietnamese
+                rf"(?=(?:[^\n]*?(?<![\w])(?=[{_VI_UPPER}])\w*(?i:[{_VI_ONLY}])\w*){{2}})"
+                rf"(?:(?:[{_VI_UPPER}]\w*|\d[\w.]*|{_VI_PARTICLES})[ \t,:;–—\-?!]*)+#*[ \t]*$"),
      "Tiêu đề viết hoa mọi chữ là kiểu tiếng Anh. Tiếng Việt chỉ viết hoa chữ đầu và tên riêng."),
 ]
 
@@ -301,7 +313,7 @@ def _vi_word_re(base):
 
 # --- Language registry --------------------------------------------------------
 # To add a language, define its rules and synonym groups above, then add one
-# entry here. Nothing else in the linter changes. See references/adding-a-language.md.
+# entry here. Nothing else in the linter changes. See languages/README.md.
 #   rules      (rule_id, level, pattern, message) tuples, as in RULES
 #   report_rules  more rules of the same shape, used only under --profile report
 #   synonyms   (group, [compiled pattern per member]) pairs
@@ -334,6 +346,8 @@ LANGUAGES = {
         max_words=MAX_WORDS_VI, docs_max_words=DOCS_MAX_WORDS_VI, unit="syllables", detect=VI_CHAR,
         hedges={"tense-stack": VI_HEDGE_PREFIX}),
 }
+# Rules that hold only on a line with Vietnamese text ("1,000" is correct English).
+VI_LINE_ONLY = frozenset({"number-format"})
 # The language of a sentence that no detector claims.
 FALLBACK_LANG = "en"
 
@@ -1682,6 +1696,8 @@ def lint(text, filename="<stdin>", lang="auto", profile="strict"):
                 before = (block[-1][2] + " " if block else "") + line[skip:m.start()]
                 if hedge and hedge.search(before):
                     continue
+                if rule_id in VI_LINE_ONLY and not VI_CHAR.search(line):
+                    continue
                 relaxed = rule_id in soft and VI_CHAR.search(line)
                 findings.append({"file": filename, "line": lineno,
                                  "col": source_column + m.start() + 1,
@@ -2911,6 +2927,19 @@ def selftest():
     assert lint(concrete, lang="vi", profile="report")[0] == []
     assert [f["rule"] for f in lint("Nhóm đã cơ bản hoàn thành và sẽ đẩy mạnh trong thời gian tới.", lang="vi")[0]] == [
         "officialese", "officialese", "officialese"]
+    # headings: numbering and particles do not hide Title Case; proper nouns alone do not trigger
+    heads = ("## 2. Tổng Quan Về Kiến Trúc Hệ Thống\n\n## Tổng Quan về Dự Án\n\n## Phần 2: Các Phương Pháp Đọc Nhanh\n\n"
+             "## 2. Tổng quan về kiến trúc\n\n## Tích hợp Apple Pay\n\n## Cài Đặt\n\n## Getting Started With Swift"
+             "\n\n## Detached Tasks với SwiftUI\n\n## Gọi API với GraphQL")
+    assert [(f["rule"], f["line"]) for f in lint(heads, lang="vi")[0]] == [
+        ("title-case-heading", 1), ("title-case-heading", 3), ("title-case-heading", 5)], lint(heads, lang="vi")[0]
+    # number formats: only on Vietnamese lines
+    assert [f["rule"] for f in lint("Có 1,000 người dùng và 25 % dùng iOS.", lang="vi")[0]] == ["number-format", "number-format"]
+    assert lint("There are 1,000 users.")[0] == []
+    assert lint("Có 1.000 người dùng, 25% dùng iOS, tọa độ (100,200), bản 2,5.", lang="vi")[0] == []
+    for phrase in ("Cách này cho phép chúng ta giảm thời gian build.", "Cache đóng vai trò quan trọng."):
+        assert [f["rule"] for f in lint(phrase, lang="vi")[0]] == ["mt-phrase"], phrase
+    assert lint("Dự án có sự tham gia của ba nhóm.", lang="vi")[0] == []
     # a URL slug is not prose without diacritics
     assert lint("Xem bài example.com/2015/tim-viec để biết thêm.", lang="vi")[0] == []
     # the English cap is the same in both profiles

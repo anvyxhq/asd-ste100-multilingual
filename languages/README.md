@@ -47,12 +47,13 @@ grep -A1 '^\*\*Sau:\*\*' languages/<mã>/examples.md | grep '^>' | sed 's/^> //'
    "ja": Language(
        name="日本語",
        rules=JA_RULES,
+       report_rules=[],          # quy tắc chỉ chạy với --profile report
        synonyms=[(g, [_ja_word_re(b) for b in g]) for g in JA_SYNONYM_GROUPS],
-       max_words=..., unit="characters", detect=JA_CHAR,
+       max_words=..., docs_max_words=..., unit="characters", detect=JA_CHAR,
        hedges={...}),
    ```
 
-   `detect` là mẫu nhận diện một câu thuộc ngôn ngữ này ở chế độ `--lang auto`. Chọn ký tự **chỉ** ngôn ngữ đó có.
+   `max_words` là giới hạn độ dài câu cho văn bản agent đọc, còn `docs_max_words` là giới hạn cho văn bản người đọc. `detect` là mẫu nhận diện một câu thuộc ngôn ngữ này ở chế độ `--lang auto`. Chọn ký tự **chỉ** ngôn ngữ đó có.
 4. Thêm ca kiểm thử vào `selftest()`, gồm ít nhất: mỗi quy tắc bắt đúng một câu sai, và một câu có từ phỏng đoán **không** bị báo lỗi.
 5. Chạy `python3 scripts/ste-lint.py --selftest`.
 
@@ -74,6 +75,8 @@ Sau khi thêm ngôn ngữ, bạn cập nhật các chỗ sau:
 ## Nguồn
 
 Với thuật ngữ, hãy lấy mẫu từ bài viết thật của lập trình viên bản ngữ, đừng dựa vào bảng thuật ngữ của các hãng: bản dịch chính thức thường khác xa cách dev viết. Bản tiếng Việt lấy mẫu 156 bài từ hai blog.
+
+Đừng tin số đếm tự động của những từ nhiều nghĩa. Ở bản tiếng Việt, máy đếm "triển khai" là cách viết tiếng Việt của "deploy", nhưng khi đọc từng chỗ thì mọi lần đều mang nghĩa "implement". Hãy đọc ít nhất 20 lần xuất hiện của mỗi từ trước khi kết luận, và nhờ một người khác rà lại số liệu.
 
 Có hai chuẩn quốc tế dẫn được cho mọi ngôn ngữ: ISO 24495-1:2023 (ngôn ngữ dễ hiểu) và ISO/TS 24620-1:2015 (ngôn ngữ có kiểm soát).
 

@@ -125,6 +125,7 @@ Mỗi khái niệm chọn một từ, rồi dùng thống nhất trong cả tài
 | xóa / loại bỏ / gỡ bỏ | |
 | bắt đầu / khởi chạy | |
 | chỉnh sửa / sửa đổi | |
+| khắc phục / sửa lỗi | |
 | tệp / tập tin / file | |
 | thư mục / folder | |
 | người dùng / người sử dụng | |
@@ -132,6 +133,8 @@ Mỗi khái niệm chọn một từ, rồi dùng thống nhất trong cả tài
 ### Thuật ngữ tiếng Anh
 
 Văn bản kỹ thuật tiếng Việt thường dùng lẫn thuật ngữ tiếng Anh. Điều đó không sao, miễn là dùng nhất quán.
+
+Các ví dụ trong tệp này dùng "tệp", "máy chủ" theo thuật ngữ giao diện của Apple và Microsoft, vì error message thường hiện cho người dùng cuối. Trong tài liệu giữa các dev, "file" và "server" phổ biến hơn nhiều (xem `style-docs.md`).
 
 - Nếu đã dùng từ tiếng Anh ("cache", "commit") thì lần nào cũng dùng từ đó. Không đổi qua lại giữa "cache" và "bộ nhớ đệm".
 - Nếu dùng từ tiếng Việt, ghi từ tiếng Anh trong ngoặc ở lần đầu: "bộ nhớ đệm (cache)".
@@ -190,11 +193,12 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `passive-voice` | advisory | "được/bị ... bởi" |
 | `tense-stack` | advisory | "đã từng", "đã đang"... (bỏ qua khi có "có thể" đứng trước) |
 | `adverb-calque` | advisory | "một cách + tính từ" |
-| `ambiguous-word` | advisory | "hay" (bỏ qua "hay không", "thường hay") |
+| `ambiguous-word` | advisory, không chạy với `--profile docs` và `report` | "hay" (bỏ qua "hay không", "thường hay") |
 | `redundant-word` | advisory | từ thừa: "hoàn thành xong", "tái tạo lại", "tối ưu nhất" |
 | `calque-term` | advisory | bản dịch ít người dùng của thuật ngữ: "yêu cầu kéo", "điểm cuối", "mã thông báo"... |
 | `mt-phrase` | advisory | cụm rườm rà (quy ước riêng): "được sử dụng để", "cho phép bạn", "là một trong những"... |
-| `title-case-heading` | advisory | tiêu đề tiếng Việt viết hoa mọi chữ |
+| `title-case-heading` | advisory | tiêu đề tiếng Việt viết hoa mọi chữ, từ 3 từ trở lên |
+| `number-format` | advisory | "25 %" có dấu cách, số kiểu Anh "1,000" trong dòng tiếng Việt |
 | `officialese` | advisory | lối văn báo cáo hành chính: "cơ bản hoàn thành", "kịp thời", "đẩy mạnh", "trong thời gian tới" |
 | `vague-quantity` | advisory, chỉ với `--profile report` | "một số", "khá nhiều", "đáng kể", "gần xong" |
 | `vague-time` | advisory, chỉ với `--profile report` | "sẽ sớm", "sắp tới", "gần đây" |
@@ -203,6 +207,8 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `literal-idiom` | advisory | dịch sát câu nói gọn của tiếng Anh: "…là mục đích.", "…là chìa khóa." |
 
 Các mức này được chỉnh theo số liệu từ 102 bài viết tay của lập trình viên Việt. Xem [`evidence.md`](evidence.md).
+
+Profile `docs` và `report` chỉ nới lỏng trên những dòng linter nhận ra là tiếng Việt, tức là dòng có ít nhất một chữ cái chỉ tiếng Việt mới có (ă, đ, ơ, ư hoặc nguyên âm có dấu thanh). Dòng tiếng Anh giữ nguyên mọi mức.
 
 Linter không kiểm tra: chủ ngữ bị lược, cụm danh từ dài, "được/rồi/cho/mà" đa nghĩa, số và ngày mơ hồ. Các quy tắc đó cần hiểu ngữ cảnh. Model phải tự áp dụng chúng.
 

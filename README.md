@@ -99,7 +99,7 @@ Rewrite this error message so an agent can't misparse it
 ```bash
 python3 scripts/ste-lint.py README.md            # mọi ngôn ngữ (mặc định: --lang auto)
 python3 scripts/ste-lint.py --lang vi docs/*.md  # chỉ quy tắc tiếng Việt
-python3 scripts/ste-lint.py --profile docs README.md  # văn bản cho người đọc: nới giới hạn câu
+python3 scripts/ste-lint.py --profile docs README.md  # văn bản tiếng Việt cho người đọc: nới giới hạn câu
 python3 scripts/ste-lint.py --profile report bao-cao.md  # báo cáo: cảnh báo thêm từ mơ hồ
 python3 scripts/ste-lint.py --json --baseline 5 docs/
 python3 scripts/ste-lint.py --selftest
@@ -124,7 +124,7 @@ $ echo "Tiến hành kiểm tra tệp, khong được bỏ qua. Dữ liệu đư
 
 Ở chế độ `--lang auto`, linter chạy quy tắc của mọi thứ tiếng, và mỗi câu được đo theo giới hạn của chính thứ tiếng đó: 25 từ với tiếng Anh, 30 âm tiết với tiếng Việt. Nhờ vậy tài liệu trộn hai thứ tiếng vẫn được kiểm tra đúng.
 
-Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README, tài liệu hay báo cáo, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Với báo cáo, hãy dùng `--profile report`: ngoài các thiết lập của `docs`, profile này cảnh báo thêm từ chỉ lượng mơ hồ ("một số", "gần xong"), thời gian mơ hồ ("sẽ sớm") và lời khẳng định không kèm cách kiểm chứng ("chạy ổn"). Những từ như "may", "might", "có thể", "có lẽ" không bao giờ bị báo lỗi.
+Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README hay tài liệu tiếng Việt, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các thay đổi này chỉ áp dụng cho dòng tiếng Việt, còn dòng tiếng Anh giữ nguyên mọi mức. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Với báo cáo, hãy dùng `--profile report`: ngoài các thiết lập của `docs`, profile này cảnh báo thêm từ chỉ lượng mơ hồ ("một số", "gần xong"), thời gian mơ hồ ("sẽ sớm") và lời khẳng định không kèm cách kiểm chứng ("chạy ổn"). Những từ như "may", "might", "có thể", "có lẽ" không bao giờ bị báo lỗi.
 
 Danh sách quy tắc của tiếng Anh nằm trong [`README.en.md`](README.en.md), của tiếng Việt nằm trong [`languages/vi/rules.md`](languages/vi/rules.md#kiểm-tra-bằng-linter).
 
