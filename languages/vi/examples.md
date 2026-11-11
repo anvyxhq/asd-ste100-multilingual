@@ -4,7 +4,7 @@ Các ví dụ này được viết riêng cho bản tiếng Việt của skill �
 
 Độ dài tính theo âm tiết: mỗi token phân tách bằng dấu cách là một âm tiết.
 
-## Ví dụ A — Mô tả công cụ
+## Ví dụ: mô tả công cụ
 
 **Trước:**
 > Công cụ này sẽ tiến hành việc đồng bộ hóa trạng thái giữa các backend đã được cấu hình, và nếu có sự xung đột được phát hiện thì nó có thể tự động giải quyết tùy theo chiến lược đã được thiết lập, hay là đưa xung đột ra để xem xét thủ công.
@@ -23,7 +23,7 @@ Không vi phạm: "có thể tự động giải quyết". "Có thể" cho biế
 
 Câu cuối xét theo kết quả (công cụ không giải quyết được), không xét theo chiến lược. Đó mới đúng là ý của "hay là" trong bản gốc: xung đột được chuyển cho người xem xét cả khi chiến lược cho phép tự giải quyết mà công cụ vẫn không giải quyết được.
 
-## Ví dụ B — Thông báo lỗi
+## Ví dụ: thông báo lỗi
 
 **Trước:**
 > Đã có lỗi có thể xảy ra trong quá trình xử lý yêu cầu của bạn do sự không khớp về định dạng dữ liệu, điều này có thể là do phiên bản client đã cũ.
@@ -41,7 +41,7 @@ Không vi phạm: "có thể" ở cả hai chỗ. Hệ thống không biết ch�
 
 Bản gốc viết "Đã có lỗi", một khẳng định. Nhưng ngay sau đó là "có thể xảy ra". Bản viết lại chọn cách nói dè dặt hơn ("có thể đã"), vì câu gốc không đủ căn cứ để khẳng định. Không viết "Yêu cầu đã thất bại", và không viết "phiên bản cũ là nguyên nhân phổ biến nhất". Bản gốc không nói cả hai điều đó.
 
-## Ví dụ C — Chỉ dẫn giữa các agent
+## Ví dụ: chỉ dẫn giữa các agent
 
 **Trước:**
 > Sau khi job upstream đã xong rồi và giả sử không có lỗi gì thì agent downstream nên tiến hành xử lý artifact đầu ra, tuy nhiên cần lưu ý rằng đôi khi artifact không đầy đủ được tạo ra khi bị timeout.
@@ -61,7 +61,7 @@ Có ba điểm cần nói rõ:
 - Câu cuối là **nội dung mới**. Bản gốc cảnh báo nhưng không nói phải làm gì. Nếu tác giả cố ý không nói, xóa câu đó.
 - "đôi khi" thành "có thể". Cả hai đều nói việc đó không chắc xảy ra. Bản viết lại không biến "đôi khi" thành "luôn luôn".
 
-## Ví dụ D — README (văn bản cho người đọc)
+## Ví dụ: README (văn bản cho người đọc)
 
 **Trước:**
 > Lớp cache của chúng tôi được thiết kế để tích hợp một cách liền mạch vào stack hiện tại của bạn mà không gặp trở ngại nào; nó tận dụng độ tương đồng ngữ nghĩa để giảm đáng kể tình trạng cache miss vốn là vấn đề nan giải của các workload LLM.
@@ -77,7 +77,7 @@ Có ba điểm cần nói rõ:
 
 Với văn bản cho người đọc, không cần thay "cache", "stack", "workload" bằng từ tiếng Việt. Các thuật ngữ đó được giữ nguyên vì dev quen dùng và cả đoạn dùng nhất quán. Bản viết lại vẫn bỏ từ quảng cáo, dấu chấm phẩy và chữ "nó". Bản viết lại giữ "thiết kế để", vì bản gốc nói về mục tiêu thiết kế, không nói về kết quả đo được.
 
-## Ví dụ E — Lỗi riêng của tiếng Việt
+## Ví dụ: lỗi riêng của tiếng Việt
 
 | Quy tắc | Trước | Sau | Lý do |
 |---|---|---|---|

@@ -44,7 +44,7 @@ For Vietnamese, the style profile replaces STE-flavored mode. Strict mode keeps 
 
 For a Vietnamese report (status report, incident report, test or benchmark result, end-of-task report), also read `languages/vi/style-reports.md`. Put the conclusion first. Give a number with its unit and a baseline. Name the owner and the date. Say how you verified each completion claim, what you did not verify, and which step you skipped.
 
-After you write Vietnamese prose for people, read it again against the table "Những chỗ gượng hay gặp khi AI viết tiếng Việt" in `languages/vi/style-docs.md`. The linter cannot find most of the items in that table. Look for an English idiom translated word for word. Look for a note-style fragment in place of a sentence. Look for a term you coined, and for grammar jargon. Rewrite each one the way a Vietnamese engineer says it.
+After you write Vietnamese prose for people, read it again against the table "Những chỗ gượng hay gặp khi AI viết tiếng Việt" in `languages/vi/style-docs.md`. The linter cannot find most of the items in that table. Look for an English idiom translated word for word. Look for a note-style fragment in place of a sentence. Look for a term you coined, and for grammar jargon. Look for a letter or a number used as a name ("Cách A", "Phương án 2"), and give that thing a noun that says what it is. Rewrite each one the way a Vietnamese engineer says it.
 
 Before you rewrite, identify the language of the input.
 
@@ -52,6 +52,7 @@ Before you rewrite, identify the language of the input.
 2. If no folder exists, apply only the language-neutral rules below, and tell the user that the language has no adaptation yet.
    - One instruction per sentence, with an explicit actor.
    - No dropped words. Short noun phrases. One term per concept.
+   - Name each alternative with a noun phrase that says what it is. Do not label alternatives with letters or numbers ("Option A", "Approach 2"). Number only the steps of a sequence.
    - No semicolons. Use a list for 3 or more steps.
    - No marketing words. Keep every hedge.
 3. The modes, the modality rule, the no-new-facts rule, and the output format apply in every language.

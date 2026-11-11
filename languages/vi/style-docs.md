@@ -140,6 +140,28 @@ Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính 
 
 Cách tự kiểm tra: đọc to từng câu rồi tự hỏi "mình có nói câu này với đồng nghiệp không?". Nếu không thì viết lại ý đó đúng như khi nói.
 
+### Gọi tên bằng danh từ, đừng gắn nhãn A, B, C
+
+Khi so sánh nhiều cách làm, AI hay đặt nhãn "Cách A", "Cách B", "Phương án 1", "Phương án 2" rồi dùng nhãn đó suốt tài liệu. Nhãn không cho biết nội dung, nên mỗi lần gặp "Cách B" người đọc phải quay lại chỗ định nghĩa để nhớ đó là cách nào. Tài liệu vì thế vừa loãng vừa khó đọc.
+
+Hãy đặt cho mỗi cách một tên bằng danh từ nói rõ nội dung, rồi dùng đúng tên đó từ đầu đến cuối tài liệu.
+
+| Gắn nhãn | Gọi tên |
+|---|---|
+| Cách A: lưu session trong Redis. Cách B: dùng JWT. Nên chọn cách B, vì cách A cần thêm một server. | Có hai cách: lưu session trong Redis, hoặc dùng JWT. Nên dùng JWT, vì lưu session trong Redis cần thêm một server. |
+| Tiêu đề "Phương án 1", "Phương án 2", "Phương án 3" | Tiêu đề "Tách service", "Giữ monolith và thêm cache", "Viết lại bằng Go" |
+| Cột bảng "A", "B", "C1" | Cột bảng "Bài web", "iOS 2020–2022", "iOS 2023–2024" |
+| "Ví dụ A", "Ví dụ B" | "Ví dụ: mô tả công cụ", "Ví dụ: thông báo lỗi" |
+
+Khi đặt tên:
+
+- Tên là một cụm danh từ ngắn, lấy từ chính điểm khác nhau giữa các cách.
+- Đã đặt tên thì giữ nguyên tên đó. Đừng đổi sang từ gần nghĩa, và đừng rút lại thành chữ cái ở phần sau của tài liệu.
+- Tiêu đề, cột bảng và chú thích hình cũng dùng tên đó.
+- Các bước phải làm theo thứ tự thì vẫn đánh số bình thường, vì ở đó con số cho biết thứ tự. Mã có sẵn như mã ticket, số phiên bản hay tên biến cũng giữ nguyên.
+
+Linter cảnh báo kiểu gắn nhãn này bằng quy tắc `opaque-label`.
+
 ### Viết cho mạch lạc
 
 Văn dịch thường đúng từng câu nhưng rời rạc cả đoạn. Các cách sau giúp đoạn văn mạch lạc hơn:
@@ -205,6 +227,9 @@ theo `~/.claude/skills/asd-ste100/languages/vi/style-docs.md`:
 - Tiêu đề chỉ viết hoa chữ đầu. Câu chủ động. Không dùng "được ... bởi".
 - Viết tự nhiên như kỹ sư Việt viết: nối ý bằng từ nối ("nên", "vì", "rồi"),
   chỉ lược chủ ngữ khi không thể hiểu nhầm, câu dài ngắn xen kẽ. Không cắt mọi câu thành câu cụt.
+- Không gắn nhãn chữ cái hoặc số cho các cách làm, phương án, nhóm, ví dụ ("Cách A", "Phương án 2").
+  Đặt cho mỗi thứ một tên bằng danh từ nói rõ nội dung ("cách dùng JWT") và dùng đúng tên đó
+  trong cả tài liệu. Chỉ đánh số các bước phải làm theo thứ tự.
 - Báo cáo: theo `style-reports.md` cùng thư mục. Kết luận lên đầu, con số thay cho tính từ,
   mỗi việc có người phụ trách và ngày cụ thể. Khi báo "đã xong", nói rõ đã kiểm chứng bằng
   cách nào, phần nào chưa kiểm chứng và bước nào đã bỏ qua.

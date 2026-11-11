@@ -10,14 +10,14 @@ Một người rà soát độc lập đã chạy lại toàn bộ phép đếm 
 
 | Nhóm | Nguồn | Số bài | Âm tiết | Vai trò |
 |---|---|---|---|---|
-| A | Blog thứ nhất: chia sẻ về nghề lập trình và web, 2015–2026 | 73 | 69 nghìn | Văn viết tay |
-| B | Blog thứ hai, bài 2020–2022: hướng dẫn lập trình iOS | 29 | 43 nghìn | Văn viết tay |
-| C1 | Blog thứ hai, bài 2023–2024: vẫn là hướng dẫn iOS | 18 | 30 nghìn | Đối chứng |
-| C2 | Blog thứ hai, bài 2025–2026: phần lớn là bài luận về AI | 36 | 51 nghìn | Đối chứng |
+| Bài web | Blog thứ nhất: chia sẻ về nghề lập trình và web, 2015–2026 | 73 | 69 nghìn | Văn viết tay |
+| iOS 2020–2022 | Blog thứ hai, bài 2020–2022: hướng dẫn lập trình iOS | 29 | 43 nghìn | Văn viết tay |
+| iOS 2023–2024 | Blog thứ hai, bài 2023–2024: vẫn là hướng dẫn iOS | 18 | 30 nghìn | Đối chứng |
+| Bài AI | Blog thứ hai, bài 2025–2026: phần lớn là bài luận về AI | 36 | 51 nghìn | Đối chứng |
 
-Nhóm A có 10–11 bài mỗi năm cho giai đoạn 2015–2021 và 2 bài mỗi năm cho 2024–2026. Blog này không có bài nào trong hai năm 2022–2023.
+Nhóm bài web có 10–11 bài mỗi năm cho giai đoạn 2015–2021 và 2 bài mỗi năm cho 2024–2026. Blog này không có bài nào trong hai năm 2022–2023.
 
-Hai nhóm C được tách riêng vì văn phong khác hẳn nhóm B của cùng tác giả (xem mục "Dấu hiệu của văn giống máy dịch"). Nguyên nhân chưa được kiểm chứng, nên tài liệu này chỉ mô tả sự khác biệt và không kết luận về cách các bài đó được viết.
+Hai nhóm đối chứng được tách riêng vì văn phong khác hẳn nhóm iOS 2020–2022 của cùng tác giả (xem mục "Dấu hiệu của văn giống máy dịch"). Nguyên nhân chưa được kiểm chứng, nên tài liệu này chỉ mô tả sự khác biệt và không kết luận về cách các bài đó được viết.
 
 **Cách đếm:**
 
@@ -28,15 +28,15 @@ Hai nhóm C được tách riêng vì văn phong khác hẳn nhóm B của cùng
 **Giới hạn:**
 
 - Đây là văn blog của hai tác giả. Tài liệu nội bộ của công ty có thể trang trọng hơn.
-- Nhiều dòng trong bảng thuật ngữ gần như chỉ dựa vào một tác giả. Ví dụ "server", "database", "debug", "module", "performance", "team" chủ yếu đến từ nhóm A, còn "khai báo", "định nghĩa" chủ yếu đến từ nhóm B.
+- Nhiều dòng trong bảng thuật ngữ gần như chỉ dựa vào một tác giả. Ví dụ "server", "database", "debug", "module", "performance", "team" chủ yếu đến từ nhóm bài web, còn "khai báo", "định nghĩa" chủ yếu đến từ nhóm iOS 2020–2022.
 - Từ nhiều nghĩa bị máy đếm lẫn nghĩa. Với các dòng có ghi "đã đọc từng chỗ", con số là số lần dùng đúng nghĩa đang xét. Các dòng khác là số đếm thô.
 - Số đếm của từ tiếng Anh gồm cả tên kiểu dữ liệu và tiêu đề tiếng Anh, ví dụ `String`, `Task`, "Fetching Data from API".
 - Thuật ngữ Git (commit, branch, merge, pull request, repo) xuất hiện ở dưới 5 bài, nên chưa đủ dữ liệu để kết luận.
-- Hai nhóm C khác nhóm B cả về chủ đề lẫn văn phong. Riêng C1 có cùng chủ đề với B, nên chỉ ở C1 mới so sánh được văn phong một cách sạch.
+- Hai nhóm đối chứng khác nhóm iOS 2020–2022 cả về chủ đề lẫn văn phong. Riêng nhóm iOS 2023–2024 có cùng chủ đề với nhóm iOS 2020–2022, nên chỉ ở nhóm này mới so sánh được văn phong một cách sạch.
 
 ## Thuật ngữ
 
-Các bảng dưới đây tính trên 102 bài viết tay (nhóm A và B). Một cách viết được coi là chiếm ưu thế rõ khi nó có mặt ở ít nhất 10 bài và nhiều gấp 3 lần cách viết kia.
+Các bảng dưới đây tính trên 102 bài viết tay (nhóm bài web và nhóm iOS 2020–2022). Một cách viết được coi là chiếm ưu thế rõ khi nó có mặt ở ít nhất 10 bài và nhiều gấp 3 lần cách viết kia.
 
 ### Tiếng Anh chiếm ưu thế rõ
 
@@ -109,13 +109,13 @@ Các bảng dưới đây tính trên 102 bài viết tay (nhóm A và B). Một
 
 Không bài viết tay nào dùng "tệp", "tập tin", "gỡ lỗi", "mô-đun", "nhật ký" (theo nghĩa log), "bộ nhớ đệm", "mã thông báo", "điểm cuối" hay "yêu cầu kéo". "Máy chủ", "cơ sở dữ liệu", "kiểm thử" và "mã nguồn" mỗi từ có ở 2–3 bài trong 102 bài.
 
-Trong các bài cùng chủ đề của cùng tác giả, "mã nguồn" tăng từ 2 trong 29 bài (nhóm B) lên 6 trong 18 bài (nhóm C1). Các từ khác không so sánh được, vì chủ đề của nhóm C2 khác hẳn.
+Trong các bài cùng chủ đề của cùng tác giả, "mã nguồn" tăng từ 2 trong 29 bài (nhóm iOS 2020–2022) lên 6 trong 18 bài (nhóm iOS 2023–2024). Các từ khác không so sánh được, vì chủ đề của nhóm bài AI khác hẳn.
 
 ## Dấu hiệu của văn giống máy dịch
 
 Các kiểu câu dưới đây hiếm trong văn viết tay và nhiều hơn hẳn ở hai nhóm đối chứng. Đơn vị là số lần trên 1000 âm tiết, trừ khi ghi khác.
 
-| Dấu hiệu | A | B | C1 | C2 |
+| Dấu hiệu | Bài web | iOS 2020–2022 | iOS 2023–2024 | Bài AI |
 |---|---|---|---|---|
 | "được sử dụng để" | 0,01 | 0,05 | 0,86 | 0,02 |
 | "cho phép bạn / chúng ta" | 0,15 | 0,05 | 1,36 | 0,02 |
@@ -133,22 +133,22 @@ Các kiểu câu dưới đây hiếm trong văn viết tay và nhiều hơn h�
 
 Hai nhóm đối chứng khác văn viết tay theo hai kiểu:
 
-- **C1** cùng chủ đề với B nhưng dùng "được sử dụng để" nhiều gấp 17 lần, "cho phép bạn" nhiều gấp hơn 25 lần, và "là một" nhiều gấp đôi. Các cụm này tập trung ở một số bài: 3 bài chứa hơn một nửa số lần xuất hiện.
-- **C2** gần như không dùng hai cụm trên. Điểm khác của nhóm này là tiêu đề viết hoa mọi chữ, dấu phẩy trước "và", số viết kiểu Anh, và câu dài. Chủ đề và thể loại của C2 cũng khác, nên không tách được phần nào là do văn phong.
+- **Nhóm iOS 2023–2024** cùng chủ đề với nhóm iOS 2020–2022 nhưng dùng "được sử dụng để" nhiều gấp 17 lần, "cho phép bạn" nhiều gấp hơn 25 lần, và "là một" nhiều gấp đôi. Các cụm này tập trung ở một số bài: 3 bài chứa hơn một nửa số lần xuất hiện.
+- **Nhóm bài AI** gần như không dùng hai cụm trên. Điểm khác của nhóm này là tiêu đề viết hoa mọi chữ, dấu phẩy trước "và", số viết kiểu Anh, và câu dài. Chủ đề và thể loại của nhóm này cũng khác, nên không tách được phần nào là do văn phong.
 
 Về các con số trong bảng:
 
-- Phép đếm tiêu đề chỉ bắt những tiêu đề mà mọi từ đều viết hoa, nên con số là mức tối thiểu. Một phép đếm lỏng hơn (ít nhất 70% số từ viết hoa) cho 187 trong 370 tiêu đề ở C2 và 4 trong 357 ở văn viết tay.
-- Ở nhóm A, 28 trong 41 lần ", và" nằm trong 6 bài viết năm 2024–2026.
+- Phép đếm tiêu đề chỉ bắt những tiêu đề mà mọi từ đều viết hoa, nên con số là mức tối thiểu. Một phép đếm lỏng hơn (ít nhất 70% số từ viết hoa) cho 187 trong 370 tiêu đề ở nhóm bài AI và 4 trong 357 ở văn viết tay.
+- Ở nhóm bài web, 28 trong 41 lần ", và" nằm trong 6 bài viết năm 2024–2026.
 - Linter dùng các dấu hiệu này cho những quy tắc `mt-phrase`, `adverb-calque`, `passive-voice`, `number-format` và `title-case-heading`. Tất cả đều ở mức cảnh báo, vì văn viết tay vẫn dùng chúng, chỉ là ít hơn nhiều.
 
 ## Kiểu câu trong văn viết tay
 
 Số lần trên 1000 âm tiết. Các dòng này đếm mọi nghĩa của từ.
 
-| Kiểu câu | A | B | Nhận xét |
+| Kiểu câu | Bài web | iOS 2020–2022 | Nhận xét |
 |---|---|---|---|
-| "tiến hành" | 0 | 0,81 | Tác giả nhóm B dùng trong các bước hướng dẫn: "Tiến hành kéo thả giao diện". Vì vậy linter chỉ cảnh báo. |
+| "tiến hành" | 0 | 0,81 | Tác giả nhóm iOS 2020–2022 dùng trong các bước hướng dẫn: "Tiến hành kéo thả giao diện". Vì vậy linter chỉ cảnh báo. |
 | "thực hiện việc" | 0 | 0,16 | Như trên. |
 | "đến từ" | 0 | 0,12 | Hiếm. |
 | "việc + từ" | 3,40 | 7,12 | Rất phổ biến, nên không có quy tắc nào cấm. |
@@ -159,7 +159,7 @@ Số lần trên 1000 âm tiết. Các dòng này đếm mọi nghĩa của từ
 
 **Từ nối:**
 
-| Từ nối | A | B |
+| Từ nối | Bài web | iOS 2020–2022 |
 |---|---|---|
 | thì | 5,3 | 12,5 |
 | nên | 4,3 | 1,9 |
@@ -172,7 +172,7 @@ Số lần trên 1000 âm tiết. Các dòng này đếm mọi nghĩa của từ
 | tuy nhiên | 0,9 | 0,7 |
 | do đó | 0,6 | 0,5 |
 
-**Xưng hô:** nhóm A xưng "mình" (13,9) và gọi "bạn" (13,6). Nhóm B gọi "bạn" (22,5), dùng "chúng ta" (5,6) và "mình" (3,9). "Tôi" hiếm ở cả hai (0,6 và 0,07).
+**Xưng hô:** nhóm bài web xưng "mình" (13,9) và gọi "bạn" (13,6). Nhóm iOS 2020–2022 gọi "bạn" (22,5), dùng "chúng ta" (5,6) và "mình" (3,9). "Tôi" hiếm ở cả hai (0,6 và 0,07).
 
 ## Độ dài câu
 
@@ -180,18 +180,18 @@ Tính theo âm tiết.
 
 | Nhóm | Số câu | Trung vị | 90% câu ngắn hơn | Dài hơn 30 | Dài hơn 45 |
 |---|---|---|---|---|---|
-| A | 3.584 | 18 | 31 | 10,7% | 0,8% |
-| B | 3.269 | 12 | 21 | 1,3% | 0,1% |
-| C1 | 1.866 | 14 | 26 | 5,5% | 0,6% |
-| C2 | 2.707 | 17 | 34 | 14,4% | 2,3% |
+| Bài web | 3.584 | 18 | 31 | 10,7% | 0,8% |
+| iOS 2020–2022 | 3.269 | 12 | 21 | 1,3% | 0,1% |
+| iOS 2023–2024 | 1.866 | 14 | 26 | 5,5% | 0,6% |
+| Bài AI | 2.707 | 17 | 34 | 14,4% | 2,3% |
 
-Chưa tới 1% số câu viết tay dài hơn 45 âm tiết, là giới hạn của profile `docs`. Giới hạn 30 âm tiết của mức Strict chặn khoảng 11% số câu ở nhóm A và 1% ở nhóm B. Điều đó hợp lý, vì văn bản cho agent đọc cần ngắn hơn văn blog.
+Chưa tới 1% số câu viết tay dài hơn 45 âm tiết, là giới hạn của profile `docs`. Giới hạn 30 âm tiết của mức Strict chặn khoảng 11% số câu ở nhóm bài web và 1% ở nhóm iOS 2020–2022. Điều đó hợp lý, vì văn bản cho agent đọc cần ngắn hơn văn blog.
 
 ## Định dạng
 
 - **Phần trăm:** trong cả ngữ liệu, kiểu "25%" xuất hiện 64 lần, kiểu "25 %" không lần nào.
-- **Nhóm số:** văn viết tay dùng dấu chấm ("650.000", "10.000", 4 lần) và không dùng dấu phẩy. Nhóm C2 dùng dấu phẩy 6 lần và dấu chấm 3 lần.
-- **Dấu thanh:** văn viết tay dùng cả hai kiểu, "hoá" 147 lần và "hóa" 67 lần. Hai nhóm C gần như chỉ dùng "hóa".
+- **Nhóm số:** văn viết tay dùng dấu chấm ("650.000", "10.000", 4 lần) và không dùng dấu phẩy. Nhóm bài AI dùng dấu phẩy 6 lần và dấu chấm 3 lần.
+- **Dấu thanh:** văn viết tay dùng cả hai kiểu, "hoá" 147 lần và "hóa" 67 lần. Hai nhóm đối chứng gần như chỉ dùng "hóa".
 
 ## Từ dùng trong báo cáo
 

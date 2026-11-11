@@ -130,6 +130,8 @@ Mỗi khái niệm chọn một từ, rồi dùng thống nhất trong cả tài
 | thư mục / folder | |
 | người dùng / người sử dụng | |
 
+Tên phải nói được nội dung. Đừng gọi các cách làm là "Cách A", "Cách B" hoặc "Phương án 1", "Phương án 2": agent đọc tới "Cách B" phải tìm lại chỗ định nghĩa, và có thể ghép nhầm. Hãy đặt tên bằng danh từ ("cách dùng cache", "cách tách service") rồi lặp lại đúng tên đó. Các bước phải làm theo thứ tự thì vẫn đánh số.
+
 ### Thuật ngữ tiếng Anh
 
 Văn bản kỹ thuật tiếng Việt thường dùng lẫn thuật ngữ tiếng Anh. Điều đó không sao, miễn là dùng nhất quán.
@@ -204,6 +206,7 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `vague-time` | advisory, chỉ với `--profile report` | "sẽ sớm", "sắp tới", "gần đây" |
 | `unverified-claim` | advisory, chỉ với `--profile report` | "chạy ổn", "hoạt động tốt", "đã test xong" |
 | `terse-pointer` | advisory | câu cụt kiểu ghi chú: "Muốn thêm ngôn ngữ? Xem README.", "MIT — xem LICENSE." |
+| `opaque-label` | advisory | nhãn chữ cái hoặc số thay cho tên: "Cách A", "Phương án 2", "option B" |
 | `literal-idiom` | advisory | dịch sát câu nói gọn của tiếng Anh: "…là mục đích.", "…là chìa khóa." |
 
 Các mức này được chỉnh theo số liệu từ 102 bài viết tay của lập trình viên Việt. Xem [`evidence.md`](evidence.md).

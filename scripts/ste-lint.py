@@ -174,6 +174,14 @@ VI_RULES = [
     ("literal-idiom", "advisory",
      re.compile(r"\blà (?:mục đích|nội dung|chìa khóa|chìa khoá)\s*[.!]", re.I),
      "Có thể là dịch sát một câu nói gọn của tiếng Anh (\"X is the point\", \"X is key\"). Nói ý đó bằng lời bình thường."),
+    # "Cách A", "Phương án 2": a letter or a number in place of a name. The reader must
+    # go back to the definition each time. House rule, requested by a reader of the docs.
+    ("opaque-label", "advisory",
+     re.compile(r"(?<![\wÀ-ỹ])(?i:cách|phương án|lựa chọn|giải pháp|phương pháp|hướng đi|hướng tiếp cận|option|approach)"
+                r"\s+(?:[A-Z](?![\wÀ-ỹ'’])"
+                r"|\d{1,2}(?=\s*(?:[:.,)\]](?!\d)|$|(?i:là|thì|và|hoặc|hay|sẽ|có|không|cũng|vẫn|dùng|nhanh|chậm|tốt|rẻ|đắt)(?![\wÀ-ỹ]))))"),
+     "Nhãn chữ cái hoặc số không cho biết đây là cách nào. Đặt cho mỗi cách một tên bằng danh từ nói rõ nội dung "
+     "(\"cách dùng cache\", \"phương án tách service\") rồi dùng đúng tên đó trong cả tài liệu."),
     # Administrative-report wording. Each phrase is in 0 or 1 of 108 hand-written developer articles.
     ("officialese", "advisory",
      re.compile(r"\b(?:cơ bản (?:đã )?hoàn thành|về cơ bản|tích cực triển khai|đang tích cực|kịp thời|đẩy mạnh"
@@ -2895,6 +2903,15 @@ def selftest():
                        "Không dùng cho văn bản mà giọng văn là mục đích.", lang="vi")
     assert [f["rule"] for f in findings] == ["terse-pointer", "terse-pointer", "literal-idiom"], findings
     assert lint("Nếu bạn muốn thêm một ngôn ngữ, hãy xem README. Đây là nội dung của file.", lang="vi")[0] == []
+    findings, _ = lint("Có ba hướng xử lý. Cách A: dùng cache. Phương án 2 là tách service. "
+                       "Nên chọn option B vì cách 1 chậm.", lang="vi")
+    assert [(f["rule"], f["match"]) for f in findings] == [
+        ("opaque-label", "Cách A"), ("opaque-label", "Phương án 2"),
+        ("opaque-label", "option B"), ("opaque-label", "cách 1")], findings
+    for fine in ("Cách dùng cache nhanh hơn cách tách service.", "Hai máy đặt cách 2 mét.",
+                 "Job chạy cách 5 phút một lần.", "Có 3 phương án và 2 cách làm.",
+                 "Lựa chọn 1 trong 3 gói.", "Bảng cách 2,5 cm so với lề."):
+        assert lint(fine, lang="vi")[0] == [], (fine, lint(fine, lang="vi")[0])
     findings, _ = lint("Đã hoàn thành xong bản build tối ưu nhất.", lang="vi")
     assert [f["rule"] for f in findings] == ["redundant-word", "redundant-word"], findings
     # docs profile: a longer Vietnamese cap, "hay" allowed; strict flags both
