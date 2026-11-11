@@ -10,7 +10,13 @@ Usage:
     echo "text" | ste-lint.py [--json]
     ste-lint.py --baseline 5 FILE      # pass unless hard violations exceed 5
     ste-lint.py --disable passive-voice,present-perfect FILE
+    ste-lint.py --lang vi FILE         # Vietnamese rules only (default: auto)
     ste-lint.py --selftest
+
+Languages: --lang auto (the default) runs every registered language together
+(see LANGUAGES). Each sentence gets the length cap of its own language, so a
+mixed document works. Supported now: en, vi. Vietnamese words are counted as
+syllables (one token per space). Hedges such as "có thể" are never flagged.
 
 Exit 1 when hard ("advisory-free") violations exceed the baseline (default 0).
 Advisory findings (passive voice, compound tenses) never fail the run.
@@ -18,6 +24,7 @@ Exit 2 on a usage error (unknown flag, bad value, unknown rule, unreadable file)
 """
 import argparse
 import bisect
+import collections
 import contextlib
 import html.entities
 import io
@@ -26,6 +33,7 @@ import os
 import re
 import sys
 import tempfile
+import unicodedata
 
 # ponytail: regex heuristics, not a parser. No noun-cluster rule — needs POS
 # tagging to avoid constant false positives; add spaCy-backed rule if ever needed.
@@ -84,6 +92,102 @@ SYNONYM_GROUPS = [
 
 MAX_WORDS = 25  # descriptions cap; instructions cap is 20 but undetectable without context
 
+# --- Vietnamese -------------------------------------------------------------
+# Vietnamese writes one syllable per token. In the PhoMT parallel corpus
+# (3.02M sentence pairs) an English sentence of 15.7 words matches 19.0
+# Vietnamese syllables, a ratio of about 1.2. So 30 syllables match the 25-word
+# cap (instructions: 24 syllables, not detectable without context).
+MAX_WORDS_VI = 30
+# House style for prose that people read: there is no STE basis for this cap.
+DOCS_MAX_WORDS_VI = 45
+# Letters that occur only in Vietnamese. One of them marks a sentence as Vietnamese.
+_VI_ONLY = "ăđơưạảấầẩẫậắằẳẵặẹẻẽếềểễệỉịọỏốồổỗộớờởỡợụủứừửữựỳỵỷỹ"
+VI_CHAR = re.compile(f"[{_VI_ONLY}]", re.I)
+# An upper-case letter of the Vietnamese alphabet.
+_VI_UPPER = "A-ZÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬĐÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴ"
+# A hedge before a tense marker is content: "có thể đã từng" keeps its "đã từng".
+VI_HEDGE_PREFIX = re.compile(
+    r"\b(?:có thể|có lẽ|có khả năng|chắc là|hẳn là|lẽ ra|e rằng)(?:\s+\w+){0,1}\s+$",
+    re.I,
+)
+
+VI_RULES = [
+    # Advisory: "Tiến hành kéo thả giao diện" is ordinary in hand-written tutorials.
+    ("nominalization", "advisory",
+     re.compile(r"\b(?:(?:thực hiện|tiến hành)\s+(?:việc|sự|công tác)"
+                r"|tiến hành\s+(?!(?:lúc|vào|trong|từ|ở|tại|khi|sau|trước|theo|như|đúng)\b)\w+"
+                r"|có sự\s+(?!(?:cố|kiện|thật|việc)\b)\w+"
+                r"|(?:cung cấp|mang lại|đem lại)\s+sự\s+(?!(?:cố|kiện)\b)\w+)", re.I),
+     "Hành động bị danh từ hóa. Dùng thẳng động từ (\"kiểm tra\", không phải \"tiến hành việc kiểm tra\")."),
+    # "sự + verb" after a linking word: the clause form is shorter and names the actor.
+    ("nominalization", "advisory",
+     re.compile(r"\b(?:do|vì|nhờ|mặc dù|nhận được|cảm ơn)\s+sự\s+(?!(?:cố|kiện|thật|việc)\b)\w+(?:\s+\w+)?", re.I),
+     "Cụm \"sự + động từ\". Thử viết thành câu có chủ ngữ và động từ (\"vì định dạng không khớp\", không phải \"do sự không khớp về định dạng\")."),
+    ("marketing-adjective", "advisory-free",
+     re.compile(r"\b(?:liền mạch|mượt mà|vượt trội|đột phá|tối tân|đẳng cấp|siêu tốc|siêu nhanh"
+                r"|đỉnh cao|mang tính cách mạng|thần tốc"
+                r"|(?<!ưu tiên )hàng đầu(?!\s+tiên\b))\b", re.I),
+     "Từ ngữ quảng cáo. Xóa hoặc thay bằng số đo chứng minh điều đó."),
+    ("filler-phrase", "advisory-free",
+     re.compile(r"\b(?:điều (?:quan trọng|đáng chú ý|cần lưu ý) (?:cần lưu ý )?là"
+                r"|(?:cần|xin) lưu ý rằng|nó là (?:quan trọng|cần thiết|khả thi)"
+                r"|như đã (?:đề cập|nói)(?: ở)? (?:trên|phía trên))", re.I),
+     "Cụm từ đệm không mang thông tin. Nói thẳng nội dung hoặc xóa."),
+    ("missing-diacritics", "advisory-free",
+     re.compile(r"(?<![\w/-])(?:khong|duoc|nguoi|viec|thuc hien|kiem tra|cai dat|tep tin|nguoi dung)(?![\w/-])", re.I),
+     "Tiếng Việt không dấu là đa nghĩa (ban = bạn/bán/bàn). Viết đủ dấu."),
+    ("adverb-calque", "advisory",
+     re.compile(r"\bmột cách\s+(?!(?:khác|nào|duy nhất|để|đơn giản để|hiểu|làm|nhìn|viết|gọi|dùng|xử lý|tiếp cận|giải quyết)\b)\w+", re.I),
+     "Thường bỏ được \"một cách\" mà không đổi nghĩa (\"tự động\" thay cho \"một cách tự động\"). Quy ước riêng của bộ quy tắc này."),
+    ("passive-voice", "advisory",
+     re.compile(r"\b(?:được|bị)\s+(?:[^\s.!?]+\s+){0,4}?bởi\b(?!\s+vì\b)", re.I),
+     "Câu bị động kiểu \"được/bị ... bởi\" thường bị coi là câu văn \"Tây\". Viết câu chủ động, hoặc \"được + tác nhân + động từ\", hoặc \"do + tác nhân + động từ\"."),
+    ("tense-stack", "advisory",
+     re.compile(r"\b(?:đã|đang|sẽ)\s+(?:đã|đang|sẽ|từng)\b", re.I),
+     "Chồng dấu hiệu thời gian. Dùng một từ đã/đang/sẽ."),
+    ("ambiguous-word", "advisory",
+     re.compile(r"(?<!thường )\bhay\b(?!\s+không\b)", re.I),
+     "\"hay\" có thể là \"hoặc\", \"thường\" hoặc \"tốt\". Nếu nghĩa là \"hoặc\", viết \"hoặc\"."),
+    # Terms developers keep in English. A literal translation reads as machine output.
+    ("calque-term", "advisory",
+     re.compile(r"\b(?:yêu cầu kéo|yêu cầu hợp nhất|cam kết mã|điểm cuối|mã thông báo"
+                r"|hàm gọi lại|khung làm việc|phần mềm trung gian|tải trọng yêu cầu)\b", re.I),
+     "Thuật ngữ bản địa hóa của sản phẩm. Trong tài liệu cho lập trình viên, thông lệ là giữ tiếng Anh (pull request, commit, endpoint, token, callback, framework, middleware, payload)."),
+    ("redundant-word", "advisory",
+     re.compile(r"\b(?:hoàn thành xong|tái tạo lại|tối ưu nhất|lặp lại lần nữa)\b", re.I),
+     "Thừa từ. Viết \"hoàn thành\", \"tái tạo\", \"tối ưu\", \"lặp lại\"."),
+    ("mt-phrase", "advisory",
+     re.compile(r"\b(?:được sử dụng để|cho phép bạn|đóng một vai trò quan trọng|là một trong những"
+                r"|nhằm mục đích)\b", re.I),
+     "Cụm từ rườm rà (quy ước riêng của bộ quy tắc này). Viết thẳng: \"dùng để\", \"bạn có thể\", hoặc bỏ cụm."),
+    # Title Case is an English convention. Vietnamese headings capitalize the first word only.
+    ("title-case-heading", "advisory",
+     re.compile(rf"^#{{1,6}}[ \t]+(?=(?i:.*[{_VI_ONLY}]))(?:[{_VI_UPPER}]\w*[ \t]+){{2,}}"
+                rf"[{_VI_UPPER}]\w*[ \t]*#*[ \t]*$"),
+     "Tiêu đề viết hoa mọi chữ là kiểu tiếng Anh. Tiếng Việt chỉ viết hoa chữ đầu và tên riêng."),
+]
+
+# One concept, one word. Entries that only differ in tone placement
+# (xóa / xoá) are the same word and match the same pattern.
+VI_SYNONYM_GROUPS = [
+    ("kiểm tra", "xác minh", "kiểm chứng"),
+    ("xóa", "loại bỏ", "gỡ bỏ"),
+    ("bắt đầu", "khởi chạy"),
+    ("khắc phục", "sửa lỗi"),
+    ("chỉnh sửa", "sửa đổi"),
+    ("tệp", "tập tin", "file"),
+    ("thư mục", "folder"),
+    ("người dùng", "người sử dụng"),
+]
+
+# Old and new tone placement in "oa", "oe", "uy": hóa / hoá, thủy / thuỷ.
+_VI_TONE_PAIRS = [(a + b, c + d) for a, b, c, d in (
+    *(("o" + m, "a", "o", "a" + m) for m in "̣́̀̉̃"),
+    *(("o" + m, "e", "o", "e" + m) for m in "̣́̀̉̃"),
+    *(("u" + m, "y", "u", "y" + m) for m in "̣́̀̉̃"),
+)]
+_VI_TONE_PAIRS = [tuple(unicodedata.normalize("NFC", s) for s in pair) for pair in _VI_TONE_PAIRS]
+
 CODE_FENCE = re.compile(r"^(`{3,}|~{3,})")
 INLINE_CODE = re.compile(r"`[^`]*`")
 BACKTICK_RUN = re.compile(r"`+")
@@ -118,7 +222,7 @@ ASCII_PUNCTUATION = "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 LIST_ITEM_START = re.compile(
     r"^(?P<indent> {0,3})(?P<marker>[-*+]|[0-9]+[.)])(?P<gap> +)(?P<body>.*)$"
 )
-CONJUNCTION_END = re.compile(r"\b(?:and|or)\s*$", re.I)
+CONJUNCTION_END = re.compile(r"\b(?:and|or|và|hoặc)\s*$", re.I)
 TABLE_SEPARATOR_CELL = re.compile(r"^:?-+:?$")
 # Headings, thematic breaks, front-matter delimiters, and HTML lines stand alone.
 STANDALONE_LINE = re.compile(r"^ {0,3}(?:#|<|(?:[-*_=] *){3,}$)")
@@ -156,6 +260,77 @@ DOTTED_ABBREVIATION = re.compile(r"(?:[a-z]\.){2,}", re.I)
 
 def _word_re(base):
     return re.compile(r"\b" + base + r"(?:s|es|ed|d|ing)?\b", re.I)
+
+
+def _vi_word_re(base):
+    """Match a Vietnamese word in either tone placement. It has no inflection."""
+    pattern = re.escape(base)
+    for old, new in _VI_TONE_PAIRS:
+        found = old if old in pattern else new if new in pattern else None
+        pattern = pattern.replace(found, f"(?:{old}|{new})") if found else pattern
+    return re.compile(r"\b" + pattern + r"\b", re.I)
+
+
+# --- Language registry --------------------------------------------------------
+# To add a language, define its rules and synonym groups above, then add one
+# entry here. Nothing else in the linter changes. See references/adding-a-language.md.
+#   rules      (rule_id, level, pattern, message) tuples, as in RULES
+#   synonyms   (group, [compiled pattern per member]) pairs
+#   max_words  sentence-length cap in tokens, for text that agents read
+#   docs_max_words  the cap under --profile docs, for prose that people read
+#   unit       what one token is, for the long-sentence message
+#   detect     pattern that marks a sentence as this language in --lang auto,
+#              or None for the fallback language
+#   hedges     {rule_id: pattern}: a hedge that ends the text before a match
+#              cancels that match ("may have failed", "có thể đã từng")
+Language = collections.namedtuple(
+    "Language", "name rules synonyms max_words docs_max_words unit detect hedges")
+
+# Punctuation rules hold in every language.
+COMMON_RULES = [rule for rule in RULES if rule[0] == "semicolon"]
+
+LANGUAGES = {
+    "en": Language(
+        name="English",
+        rules=[rule for rule in RULES if rule not in COMMON_RULES],
+        synonyms=[(group, [_word_re(b) for b in group]) for group in SYNONYM_GROUPS],
+        max_words=MAX_WORDS, docs_max_words=MAX_WORDS, unit="words", detect=None,
+        hedges={"present-perfect": MODAL_PERFECT_PREFIX}),
+    "vi": Language(
+        name="Tiếng Việt",
+        rules=VI_RULES,
+        synonyms=[(group, [_vi_word_re(b) for b in group]) for group in VI_SYNONYM_GROUPS],
+        max_words=MAX_WORDS_VI, docs_max_words=DOCS_MAX_WORDS_VI, unit="syllables", detect=VI_CHAR,
+        hedges={"tense-stack": VI_HEDGE_PREFIX}),
+}
+# The language of a sentence that no detector claims.
+FALLBACK_LANG = "en"
+
+# Who reads the text. "strict": an agent or a system (error messages, tool
+# descriptions). "docs": a person (READMEs, docs, reports). Docs prose uses
+# each language's docs_max_words. English keeps its cap: STE-flavored mode
+# keeps the length caps. "hay" meaning "or" reads naturally in Vietnamese prose.
+#   soft  rules that are advisory in Vietnamese prose for people. They state a
+#         style preference. Hand-written developer prose uses a semicolon,
+#         "mượt mà", or "như đã nói ở trên" without any loss of clarity.
+Profile = collections.namedtuple("Profile", "docs skip soft")
+PROFILES = {
+    "strict": Profile(docs=False, skip=frozenset(), soft=frozenset()),
+    "docs": Profile(docs=True, skip=frozenset({"ambiguous-word"}),
+                    soft=frozenset({"semicolon", "marketing-adjective", "filler-phrase"})),
+}
+
+
+def _langs(lang):
+    return tuple(LANGUAGES) if lang == "auto" else (lang,)
+
+
+def _sentence_language(sentence, lang):
+    if lang != "auto":
+        return LANGUAGES[lang]
+    detected = (code for code, language in LANGUAGES.items()
+                if language.detect and language.detect.search(sentence))
+    return LANGUAGES[next(detected, FALLBACK_LANG)]
 
 
 def _count_words(text):
@@ -599,7 +774,7 @@ def _sentence_starts(text):
     return starts
 
 
-def _long_sentence_findings(pieces, filename):
+def _long_sentence_findings(pieces, filename, lang="auto", docs=False):
     """Flag long sentences in one prose block.
 
     pieces is a list of (lineno, source_column, text) tuples. The texts are
@@ -614,8 +789,11 @@ def _long_sentence_findings(pieces, filename):
     findings = []
     starts = _sentence_starts(joined)
     for start, end in zip(starts, starts[1:] + [len(joined)]):
-        n = _count_words(joined[start:end])
-        if n <= MAX_WORDS:
+        sentence = joined[start:end]
+        n = _count_words(sentence)
+        language = _sentence_language(sentence, lang)
+        cap, unit = (language.docs_max_words if docs else language.max_words), language.unit
+        if n <= cap:
             continue
         index = bisect.bisect_right(offsets, start) - 1
         offset = offsets[index]
@@ -623,8 +801,8 @@ def _long_sentence_findings(pieces, filename):
         findings.append({"file": filename, "line": lineno,
                          "col": source_column + start - offset + 1,
                          "rule": "long-sentence", "level": "advisory-free",
-                         "match": f"{n} words",
-                         "message": f"Sentence has {n} words (cap {MAX_WORDS}). Split it."})
+                         "match": f"{n} {unit}",
+                         "message": f"Sentence has {n} {unit} (cap {cap}). Split it."})
     return findings
 
 
@@ -1416,7 +1594,18 @@ def _front_matter(text):
     return "\n" * (end + 1) + "\n".join(lines[end + 1:]), pieces
 
 
-def lint(text, filename="<stdin>"):
+def lint(text, filename="<stdin>", lang="auto", profile="strict"):
+    # Decomposed input (some input methods, file names on macOS) splits a Vietnamese letter from its
+    # tone mark, and then no word pattern matches.
+    text = unicodedata.normalize("NFC", text)
+    languages = [LANGUAGES[code] for code in _langs(lang)]
+    # (rule, hedge pattern or None): a hedge only protects its own language's rule
+    skip = PROFILES[profile].skip
+    soft = PROFILES[profile].soft
+    rules = [(rule, None) for rule in COMMON_RULES] + [
+        (rule, language.hedges.get(rule[0])) for language in languages
+        for rule in language.rules if rule[0] not in skip]
+    synonyms = [entry for language in languages for entry in language.synonyms]
     text, description = _front_matter(text)
     findings = []
     words_total = 0
@@ -1445,28 +1634,29 @@ def lint(text, filename="<stdin>"):
     span_end, span_runs = -1, {}
 
     def flush():
-        findings.extend(_long_sentence_findings(block, filename))
+        findings.extend(_long_sentence_findings(block, filename, lang, PROFILES[profile].docs))
         block.clear()
 
     def check(lineno, segment, source_column, line, skip, is_table,
               add_to_block=True):
         nonlocal words_total
         words_total += len(line.split())
-        for rule_id, level, pattern, msg in RULES:
+        for (rule_id, level, pattern, msg), hedge in rules:
             for m in pattern.finditer(line):
                 # the modal may end the line before: "may" / "have failed"
                 before = (block[-1][2] + " " if block else "") + line[skip:m.start()]
-                if rule_id == "present-perfect" and MODAL_PERFECT_PREFIX.search(before):
+                if hedge and hedge.search(before):
                     continue
+                relaxed = rule_id in soft and VI_CHAR.search(line)
                 findings.append({"file": filename, "line": lineno,
                                  "col": source_column + m.start() + 1,
-                                 "rule": rule_id, "level": level,
+                                 "rule": rule_id, "level": "advisory" if relaxed else level,
                                  "match": m.group(0), "message": msg})
-        for gi, group in enumerate(SYNONYM_GROUPS):
-            for base in group:
+        for gi, (group, patterns) in enumerate(synonyms):
+            for base, word in zip(group, patterns):
                 if (gi, base) in seen_synonyms:
                     continue
-                m = _word_re(base).search(line)
+                m = word.search(line)
                 if m:
                     seen_synonyms[(gi, base)] = (
                         lineno, source_column + m.start() + 1, m.group(0)
@@ -1650,7 +1840,7 @@ def lint(text, filename="<stdin>"):
             flush()
     flush()
     # synonym rotation: flag each member after the first, at its first occurrence
-    for gi, group in enumerate(SYNONYM_GROUPS):
+    for gi, (group, _) in enumerate(synonyms):
         present = [(seen_synonyms[(gi, b)], b) for b in group if (gi, b) in seen_synonyms]
         if len(present) > 1:
             present.sort()  # document order
@@ -1676,7 +1866,7 @@ def report(findings, words_total, as_json, hard_count, baseline):
         print(f"{f['file']}:{f['line']}:{f['col']} {f['rule']}: {f['message']} [{f['match']}]")
     print(f"\n{len(findings)} violations ({hard_count} hard, baseline {baseline}), "
           f"{words_total} words, {rate} per 100 words")
-    print("Hedges/modality (may, might, could) are never flagged: confidence is content.")
+    print("Hedges/modality (may, might, could, có thể, có lẽ) are never flagged: confidence is content.")
 
 
 def selftest():
@@ -2616,10 +2806,75 @@ def selftest():
     # a quote after a paragraph starts a block quote, so a type 7 tag in it starts a block
     findings, _ = lint("Paragraph.\n> <widget>\n> ```\n> Text; here.\n> ```")
     assert [(f["rule"], f["line"]) for f in findings] == [("semicolon", 4)], findings
+
+    # Vietnamese rule set
+    vi_bad = ("Hệ thống tiến hành kiểm tra tệp; dữ liệu được ghi bởi agent. "
+              "Điều quan trọng cần lưu ý là công cụ chạy một cách liền mạch. "
+              "Tác vụ đã từng chạy. Chọn A hay B. Khong the ket noi.")
+    rules = {f["rule"] for f in lint(vi_bad, lang="vi")[0]}
+    for expected in ("nominalization", "semicolon", "passive-voice", "filler-phrase",
+                     "adverb-calque", "marketing-adjective", "tense-stack",
+                     "ambiguous-word", "missing-diacritics"):
+        assert expected in rules, (expected, rules)
+    # hedges stay: "có thể đã từng" is not a tense stack
+    vi_clean = ("Yêu cầu có thể đã từng thất bại. Bạn có muốn xóa hay không? "
+                "Một cách khác là dùng lệnh `a; b`. Mỗi câu chỉ có một cách hiểu.")
+    findings, _ = lint(vi_clean, lang="vi")
+    assert findings == [], findings
+    # tone placement variants are one word, other members rotate
+    findings, _ = lint("Xóa tệp. Xoá thư mục. Gỡ bỏ ứng dụng.", lang="vi")
+    assert [(f["rule"], f["match"]) for f in findings] == [("synonym-rotation", "Gỡ bỏ")], findings
+    # decomposed (NFD) input matches like composed input
+    findings, _ = lint(unicodedata.normalize("NFD", "Tiến hành kiểm tra."), lang="vi")
+    assert [f["rule"] for f in findings] == ["nominalization"], findings
+    # each sentence gets the cap of its own language
+    vi_long = " ".join(["đồng bộ"] * 15) + "."  # 30 syllables
+    assert lint(vi_long)[0] == [], lint(vi_long)[0]
+    assert [f["rule"] for f in lint(vi_long + " " + "x " * 26 + "end.")[0]] == ["long-sentence"]
+    assert [f["rule"] for f in lint("- Đặt mục tiêu và\n- Ghi kết quả")[0]] == ["dangling-conjunction"]
+    # docs style: calques, machine-translation phrases, Title Case headings
+    findings, _ = lint("# Tổng Quan Về Dự Án\n\n## Tổng quan\n\n## Getting Started Guide\n\n"
+                       "Mở yêu cầu kéo. Thư viện được sử dụng để đăng nhập.", lang="vi")
+    assert [(f["rule"], f["line"]) for f in findings] == [
+        ("title-case-heading", 1), ("calque-term", 7), ("mt-phrase", 7)], findings
+    findings, _ = lint("Lỗi xảy ra do sự không khớp về định dạng. Dịch vụ dừng do sự cố mạng.", lang="vi")
+    assert [(f["rule"], f["level"], f["match"]) for f in findings] == [
+        ("nominalization", "advisory", "do sự không khớp")], findings
+    findings, _ = lint("Đã hoàn thành xong bản build tối ưu nhất.", lang="vi")
+    assert [f["rule"] for f in findings] == ["redundant-word", "redundant-word"], findings
+    # docs profile: a longer Vietnamese cap, "hay" allowed; strict flags both
+    vi_docs = " ".join(["đồng bộ"] * 20) + " hay xóa."  # 42 syllables
+    assert {f["rule"] for f in lint(vi_docs, lang="vi")[0]} == {"long-sentence", "ambiguous-word"}
+    assert lint(vi_docs, lang="vi", profile="docs")[0] == []
+    # correct Vietnamese that an earlier version flagged
+    for fine in ("Hệ thống có sự cố từ 14:30.", "Có sự kiện mới trong hàng đợi.",
+                 "Đây là ưu tiên hàng đầu của sprint.", "Hàng đầu tiên của bảng là tiêu đề.",
+                 "Chị Nhung đã duyệt PR.", "API này được dùng nhiều bởi vì nó nhanh.",
+                 "Lấy ví dụ: hàm này truy xuất dữ liệu từ cache.", "Cuộc họp tiến hành lúc 9 giờ.",
+                 "Ứng dụng tăng trưởng mạnh mẽ trong quý 3.", "Khởi động máy chủ rồi bắt đầu chạy test.",
+                 "Thay đổi này chỉnh sửa tệp cấu hình."):
+        assert lint(fine, lang="vi")[0] == [], (fine, lint(fine, lang="vi")[0])
+    # a semicolon in Vietnamese docs prose is advisory; elsewhere it stays hard
+    levels = lambda text, **kw: [(f["rule"], f["level"]) for f in lint(text, **kw)[0]]
+    assert levels("Cài thư viện; sau đó chạy test.", profile="docs") == [("semicolon", "advisory")]
+    assert levels("Cài thư viện; sau đó chạy test.") == [("semicolon", "advisory-free")]
+    assert levels("Install it; then run it.", profile="docs") == [("semicolon", "advisory-free")]
+    # style preferences are advisory in Vietnamese docs prose, hard in strict
+    assert levels("Animation chạy mượt mà.", lang="vi", profile="docs") == [("marketing-adjective", "advisory")]
+    assert levels("Animation chạy mượt mà.", lang="vi") == [("marketing-adjective", "advisory-free")]
+    assert levels("Tiến hành kéo thả giao diện.", lang="vi") == [("nominalization", "advisory")]
+    # a URL slug is not prose without diacritics
+    assert lint("Xem bài example.com/2015/tim-viec để biết thêm.", lang="vi")[0] == []
+    # the English cap is the same in both profiles
+    en_long = "word " * 26 + "end."
+    assert [f["rule"] for f in lint(en_long, profile="docs")[0]] == ["long-sentence"]
+    # --lang en skips the Vietnamese rules
+    assert lint("Khong the ket noi.", lang="en")[0] == []
     print("selftest OK")
 
 
-RULE_IDS = {rule_id for rule_id, *_ in RULES} | {
+RULE_IDS = {rule_id for language in LANGUAGES.values() for rule_id, *_ in language.rules} | {
+    "semicolon",
     "long-sentence", "synonym-rotation", "dangling-conjunction"}
 
 
@@ -2655,6 +2910,12 @@ def main(argv):
     parser.add_argument("--disable", type=_rule_list, action="append", default=[],
                         metavar="RULES",
                         help="comma-separated rule IDs to silence; may be repeated")
+    parser.add_argument("--lang", choices=("auto", *LANGUAGES), default="auto",
+                        help="rule set: auto runs every language together (default). "
+                             f"Languages: {', '.join(f'{c} ({l.name})' for c, l in LANGUAGES.items())}")
+    parser.add_argument("--profile", choices=tuple(PROFILES), default="strict",
+                        help="strict: text for agents (default). docs: prose for people, "
+                             "with each language's docs sentence cap")
     parser.add_argument("--selftest", action="store_true", help="run the built-in tests")
     # intermixed parsing keeps flags valid between file paths
     args = parser.parse_intermixed_args(argv)
@@ -2672,11 +2933,11 @@ def main(argv):
                     text = fh.read()
             except OSError as e:
                 parser.error(f"cannot read {p}: {e.strerror}")
-            f, w = lint(text, filename=p)
+            f, w = lint(text, filename=p, lang=args.lang, profile=args.profile)
             findings.extend(f)
             words_total += w
     else:
-        findings, words_total = lint(sys.stdin.read())
+        findings, words_total = lint(sys.stdin.read(), lang=args.lang, profile=args.profile)
 
     findings = [f for f in findings if f["rule"] not in disabled]
     hard_count = sum(1 for f in findings if f["level"] == "advisory-free")

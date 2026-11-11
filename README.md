@@ -1,113 +1,181 @@
-# ASD-STE100 Skill — Simplified Technical English for Agent Output
+<div align="center">
 
-A Claude Code skill that rewrites dense, ambiguous English into [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/) (STE) — the controlled-language standard the aerospace and defense industry built so aircraft maintenance instructions cannot be misread.
+# ASD-STE100 Multilingual Skill
 
-This skill repurposes that same discipline for a different reader: an **AI agent** parsing another agent's output, a tool description, an error message, or an inter-agent instruction, with no human in the loop to resolve ambiguity.
+**Viết lại văn bản kỹ thuật để agent, hệ thống và người đọc không thể hiểu sai — bằng nhiều ngôn ngữ.**
 
-## Why STE, and Why for Agents
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-skill-d97757.svg)](SKILL.md)
+[![Languages](https://img.shields.io/badge/languages-English%20%7C%20Ti%E1%BA%BFng%20Vi%E1%BB%87t-green.svg)](#ngôn-ngữ-hỗ-trợ)
+[![Linter](https://img.shields.io/badge/linter-Python%203%20stdlib-3776ab.svg)](scripts/ste-lint.py)
+[![PRs welcome](https://img.shields.io/badge/PRs-th%C3%AAm%20ng%C3%B4n%20ng%E1%BB%AF-brightgreen.svg)](languages/README.md)
 
-STE exists because a misread instruction on an aircraft can kill people, and the intended readers were often not native English speakers with no author to call for clarification. The standard's fix: one meaning per word, active voice, simple tenses, one instruction per sentence, short sentences, no dropped words.
+**Tiếng Việt** · [English](README.en.md)
 
-An LLM agent parsing another agent's output is in a strikingly similar position — no back-channel, no way to ask "did you mean X or Y?" The same rules that keep a mechanic from misreading a torque spec keep a downstream agent from misreading a tool description or an inter-agent message.
+</div>
 
-## Before / After
+---
+
+## Giới thiệu
+
+[ASD-STE100](https://www.asd-ste100.org/) (Simplified Technical English) là chuẩn viết tiếng Anh do ngành hàng không và quốc phòng châu Âu xây dựng. Chuẩn giới hạn từ vựng và cấu trúc câu để mỗi câu chỉ có một cách hiểu, nhờ vậy kỹ thuật viên bảo trì máy bay, phần lớn không phải người bản ngữ, không đọc nhầm chỉ dẫn.
+
+Skill này mang cùng nguyên tắc đó sang một kiểu người đọc khác: **AI agent**. Agent phải tự hiểu tool description, error message hay chỉ dẫn từ agent khác mà không có ai để hỏi lại, nên chỉ cần một câu hiểu được hai cách là agent có thể làm sai.
+
+Ngôn ngữ nào cũng có câu mơ hồ, nhưng mỗi thứ tiếng mơ hồ theo một kiểu: tiếng Anh vướng phrasal verb, tiếng Việt vướng những từ ngắn nhiều nghĩa ("hay", "được", "rồi") và chữ viết không dấu, còn tiếng Nhật thường lược chủ ngữ. Vì thế repo được tổ chức thành **khung đa ngôn ngữ**: nguyên tắc chung nằm ở lõi, quy tắc riêng của từng thứ tiếng nằm trong một gói tách biệt.
+
+## Ngôn ngữ hỗ trợ
+
+| Ngôn ngữ | Mã | Quy tắc | Ví dụ | Linter |
+|---|---|---|---|---|
+| English | `en` | [`SKILL.md`](SKILL.md), [`references/writing-rules.md`](references/writing-rules.md) | [`examples/before-after.md`](examples/before-after.md) | ✅ |
+| Tiếng Việt | `vi` | [`languages/vi/rules.md`](languages/vi/rules.md), [văn phong tài liệu](languages/vi/style-docs.md) | [`languages/vi/examples.md`](languages/vi/examples.md) | ✅ |
+| Ngôn ngữ khác | — | Chỉ áp dụng quy tắc chung | — | Quy tắc chung |
+
+Ngôn ngữ chưa có gói riêng vẫn dùng được. Khi đó skill chỉ áp dụng các quy tắc chung (mỗi câu một chỉ dẫn, nêu rõ ai làm, không lược thành phần câu, giữ nguyên các từ chỉ mức độ chắc chắn như "có thể", "có lẽ") và báo cho bạn biết.
+
+Muốn thêm một ngôn ngữ? Xem [`languages/README.md`](languages/README.md).
+
+## Trước / Sau
+
+**Tiếng Việt**
+
+| Trước | Sau |
+|---|---|
+| Đã có lỗi có thể xảy ra trong quá trình xử lý yêu cầu của bạn do sự không khớp về định dạng dữ liệu, điều này có thể là do phiên bản client đã cũ. | Yêu cầu của bạn có thể đã thất bại. Nguyên nhân có thể là định dạng dữ liệu không khớp với định dạng máy chủ cần. Phiên bản client cũ có thể gây ra lỗi không khớp này. Kiểm tra phiên bản client của bạn. |
+
+**English**
 
 | Before | After |
 |---|---|
-| "This tool will attempt to synchronize state across the various backends that have been configured, and if a conflict is detected it may resolve it automatically depending on the strategy that has been set, or otherwise it will surface the conflict for manual review." | "The tool tries to synchronize state across the configured backends. If it finds a conflict, it reads the configured strategy. If the strategy allows automatic resolution, the tool may resolve the conflict without a user. If the tool does not resolve the conflict, it reports the conflict for manual review." |
-| "An error may have occurred while processing your request due to a possible mismatch in the expected data format, which could be caused by an outdated client version." | "Your request may have failed. The cause may be a data format that does not match what the server expects. An outdated client can cause this mismatch. Check your client version." |
+| An error may have occurred while processing your request due to a possible mismatch in the expected data format, which could be caused by an outdated client version. | Your request may have failed. The cause may be a data format that does not match what the server expects. An outdated client can cause this mismatch. Check your client version. |
 
-More examples, including illustrations of the official STE rules themselves, in [`examples/before-after.md`](examples/before-after.md).
+Error message là văn bản cho agent đọc, nên bản viết lại theo mức Strict: câu ngắn, lặp lại danh từ để không ai hiểu nhầm. Các từ chỉ mức độ chắc chắn ("có thể", "may") vẫn được giữ nguyên, vì mức độ chắc chắn cũng là nội dung chứ không phải chữ thừa.
 
-## What This Skill Does
+## Tính năng
 
-1. Picks a mode. **Strict** covers procedures, error messages, and tool descriptions. **STE-flavored** covers READMEs, PR descriptions, and explanatory prose. STE-flavored keeps the sentence discipline but not the fixed-vocabulary lockdown.
-2. Reads the input English text for meaning.
-3. Flags every rule violation sentence-by-sentence: ambiguous word choice, present-perfect/complex tense, passive voice with an unclear actor, multi-instruction sentences, oversized noun clusters, dropped words, sentences over length, phrasal verbs, nominalized actions, semicolons, hedge stacks, and marketing adjectives.
-4. Rewrites each flagged sentence — without dropping any fact, condition, or scope qualifier from the original. If a shorter phrasing would lose required precision, it keeps the longer phrasing and flags the trade-off instead of silently simplifying.
-5. Outputs the rewritten text on its own — no preamble, no mode announcement, no change summary — plus a one-line `Kept as-is:` note when it deliberately left something unsimplified.
+| | |
+|---|---|
+| **Đa ngôn ngữ** | Tự nhận diện ngôn ngữ đầu vào. Viết lại bằng đúng ngôn ngữ đó, không tự dịch. |
+| **Hai mức văn phong** | **Strict** cho văn bản agent đọc: error message, tool description, chỉ dẫn. **Tự nhiên** cho văn bản người đọc: README, tài liệu, PR, báo cáo. |
+| **Giữ mức độ chắc chắn** | Không bao giờ biến "có thể đã thất bại" thành "đã thất bại". Không thêm thông tin mà bản gốc không có. |
+| **Đầu ra sạch** | Mặc định chỉ trả về văn bản đã viết lại. Yêu cầu "show the diff" để xem bảng quy tắc. |
+| **Linter** | Python 3, chỉ dùng thư viện chuẩn, không gọi mạng. Kiểm tra được tài liệu trộn nhiều ngôn ngữ. |
+| **Văn phong tài liệu** | Viết tài liệu và báo cáo tiếng Việt như kỹ sư Việt viết: dùng thuật ngữ theo cách dev Việt thật sự viết (số liệu từ 156 bài, xem [`evidence.md`](languages/vi/evidence.md)), nối ý bằng từ nối thay vì câu cụt, tiêu đề không viết hoa mọi chữ. Xem [`languages/vi/style-docs.md`](languages/vi/style-docs.md). |
+| **Dễ mở rộng** | Thêm một thứ tiếng chỉ cần một thư mục tài liệu và một mục trong registry của linter. |
 
-Ask for the reasoning ("show the diff", "which rules did it break") and it outputs a before/after table naming each rule instead.
+## Cài đặt
 
-The structural rules it checks are mechanical — you can point at the word or punctuation mark that breaks each one. The rules that depend on ASD's dictionary are flagged as advisory rather than enforced, and the rules that need taste are left to you.
-
-The linter checks structural patterns only. It does not compare an original text with a rewrite, verify that requirement strength stayed the same, or prove that the rewrite preserved meaning. A zero-violation result means that the configured structural checks found no problems.
-
-The deterministic linter checks semicolons, a short list of soft phrasal verbs (spin up, reach out, dive into, kick off, circle back, touch base), nominalizations, marketing adjectives, passive voice, present-perfect forms (including irregular participles such as "has run"), long sentences, synonym rotation, and dangling conjunctions in supported list items. It does not check noun-cluster length (that needs part-of-speech tagging) and it does not know phrasal verbs outside its list, so "take off the panel" passes. It never flags hedges or modality.
-
-For the sentence-length check, a word is a whitespace-separated token with at least one letter or digit. Inline code in single backticks, list markers, blockquote markers, and bare punctuation such as a spaced em dash are not words.
-
-The repo's own prose does not lint clean: the rule tables quote the patterns they forbid, and some sentences run long. Lint it with `python scripts/ste-lint.py --baseline 36 SKILL.md` and read the findings as examples, not defects.
-
-The dangling-conjunction rule checks list markers at the start of a line with zero to three leading spaces and ASCII spaces after the marker. It supports unordered markers `-`, `*`, and `+`, and ordered numeric markers that end in `.` or `)`, such as `1.` or `1)`. It checks indented continuation lines up to the final meaningful line. It does not parse list syntax inside blockquotes, lazy continuation, or full nested-list semantics. A standalone line with four or more leading spaces is not treated as a list marker. Within an active list item, indentation at the computed content column is treated as continuation text. Fence detection follows CommonMark for blockquotes and for the fence itself. A fence opens on three or more backticks or tildes, also inside a blockquote. It closes on a run of the same character that is at least as long and has only spaces or tabs after it. A fence in a blockquote closes when the quote ends. In an HTML block, a `>` line is text and opens no fence. An HTML block starts on a block tag such as `<div>`, or on one complete tag alone on its line that does not continue a paragraph. Inline HTML such as `<span>` in a line of text starts no HTML block. In the main pass, no fence opens in an HTML block, at any quote depth. An HTML block can also sit in a blockquote, and it ends when its quote ends. The dangling-conjunction pass also tracks HTML blocks, in a list item and on the line of a list marker too. In an HTML block, no fence opens. A line with less indent than the item ends the item and the HTML block in it. On GitHub, a `<pre>` block holds code, and a comment or a `<?`, `<!X` or CDATA block holds hidden text. If such a block spans several lines, its lines before the last line are no item text, and no list item starts there. An open comment in a list item hides the text up to `-->`, also over the next items, and the text after `-->` joins the item. GitHub does the same. Outside list items, no list item starts in any HTML block. In a list item, the text of another HTML block, such as a `<div>` block, is item text with its tags. GitHub also shows the text of a `<script>`, `<style>` or `<textarea>` block, because it escapes these tags. A list marker there starts an item, and the block goes on in that item, so a fence line in it is still text. This pass does not track an HTML block in a blockquote. The main pass accepts a fence at any indent. It also accepts a closing fence up to three columns deeper than the opening fence, also at the top level. The main pass does not detect a fence on the line of a list marker. Its closing line then opens a fence, and the main pass skips the text after it. The dangling-conjunction pass detects such a fence, also after a tab. It also detects a fence in an empty item. Such a fence ends when the item ends. After a fence on a marker line, later fences in list items also end when their items end. Before that, a fence in a list item can go on after the item ends.
-
-The intentionally invalid examples/linter-edge-cases.md file demonstrates incomplete Markdown list items. Run python scripts/ste-lint.py examples/linter-edge-cases.md to confirm that the linter reports the two expected findings. The file is a test fixture and should not be used as compliant STE prose.
-
-It does **not** reproduce ASD's official ~900-word approved dictionary. The standard is free to obtain but not free to redistribute: Issue 9 permits reproduction only with ASD's written authority, or by eight listed categories of organisation that this project does not belong to. This skill applies the underlying *principle* (plainest available word, used the same way every time) rather than checking against a fixed word list. For certified STE-compliant documentation, use the real standard.
-
-Full rule summary and citations: [`references/writing-rules.md`](references/writing-rules.md).
-
-## Installation
-
-### Quick Install (npx skills)
-
-The fastest way to install this skill is the [skills CLI](https://skills.sh/) — no clone, no path setup. Run it from your project root:
+**Cách 1 — skills CLI** (cho một project):
 
 ```bash
-npx skills add danyuchn/asd-ste100-skill
+npx skills add anvyxhq/asd-ste100-multilingual
 ```
 
-This pulls the skill from the GitHub repo and installs it for the current project. The CLI sends anonymous install telemetry (skill name and timestamp, no personal or device information) to help rank skills on the skills.sh leaderboard. Set `DISABLE_TELEMETRY=1` to opt out.
+CLI gửi telemetry ẩn danh khi cài đặt. Đặt `DISABLE_TELEMETRY=1` để tắt.
 
-Update later with `npx skills update`.
-
-### Clone
+**Cách 2 — clone** (cho mọi project trên máy):
 
 ```bash
-git clone https://github.com/danyuchn/asd-ste100-skill ~/.claude/skills/asd-ste100
+git clone https://github.com/anvyxhq/asd-ste100-multilingual ~/.claude/skills/asd-ste100
 ```
 
-This clones the repo into `~/.claude/skills/`, making the skill available in every Claude Code project. Best for contributors and anyone who wants a live checkout that updates with `git pull`.
+Cập nhật bằng `git pull`.
 
-## Usage
+## Sử dụng
 
-Trigger with a request to simplify or clarify English text:
+Trong Claude Code, dán văn bản kèm yêu cầu bằng bất kỳ thứ tiếng nào:
 
-```
+```text
+Viết lại thông báo lỗi này để agent không hiểu sai
+Áp dụng STE cho tool description này, show the diff
 Disambiguate this tool description
 Rewrite this error message so an agent can't misparse it
-Apply ASD-STE100 to this instruction
 ```
 
-Or paste text and ask Claude to "disambiguate this" / "apply STE100 to this" / "reduce ambiguity in this output."
+## Linter
 
-You get the rewritten text back and nothing else. To see which rules were applied, add "show the diff" or "explain the changes" to the request.
+```bash
+python3 scripts/ste-lint.py README.md            # mọi ngôn ngữ (mặc định: --lang auto)
+python3 scripts/ste-lint.py --lang vi docs/*.md  # chỉ quy tắc tiếng Việt
+python3 scripts/ste-lint.py --profile docs README.md  # văn bản cho người đọc: nới giới hạn câu
+python3 scripts/ste-lint.py --json --baseline 5 docs/
+python3 scripts/ste-lint.py --selftest
+```
 
-## Scope
+Kết quả mẫu:
 
-Built for: agent-to-agent messages, tool/function descriptions, error messages, system prompts, inter-agent instructions — any English text a machine or non-native reader has to parse without a human to ask.
+```console
+$ echo "Tiến hành kiểm tra tệp, khong được bỏ qua. Dữ liệu được ghi bởi agent." | python3 scripts/ste-lint.py --lang vi
+<stdin>:1:1 nominalization: Hành động bị danh từ hóa. Dùng thẳng động từ ("kiểm tra", không phải "tiến hành việc kiểm tra"). [Tiến hành kiểm]
+<stdin>:1:25 missing-diacritics: Tiếng Việt không dấu là đa nghĩa (ban = bạn/bán/bàn). Viết đủ dấu. [khong]
+<stdin>:1:52 passive-voice: Câu bị động kiểu "được/bị ... bởi" thường bị coi là câu văn "Tây". Viết câu chủ động, hoặc "được + tác nhân + động từ", hoặc "do + tác nhân + động từ". [được ghi bởi]
 
-Not built for: creative writing, marketing copy, or anything where voice and nuance are the point — STE is deliberately flat and literal by design.
+3 violations (1 hard, baseline 0), 15 words, 20.0 per 100 words
+```
 
-One limit worth stating up front: this fixes the form of a text, not its substance. A paragraph with nothing to say comes out short, clean, and still empty.
+| Mã thoát | Ý nghĩa |
+|---|---|
+| `0` | Số vi phạm hard không vượt `--baseline` |
+| `1` | Số vi phạm hard vượt `--baseline` (mặc định 0) |
+| `2` | Lỗi cách dùng: sai flag, sai mã quy tắc, không đọc được tệp |
 
-## Other Languages
+Ở chế độ `--lang auto`, linter chạy quy tắc của mọi thứ tiếng, và mỗi câu được đo theo giới hạn của chính thứ tiếng đó: 25 từ với tiếng Anh, 30 âm tiết với tiếng Việt. Nhờ vậy tài liệu trộn hai thứ tiếng vẫn được kiểm tra đúng.
 
-- **Hebrew:** [g4lb/asd-ste100-hebrew-skill](https://github.com/g4lb/asd-ste100-hebrew-skill) is a Hebrew port of this skill. It includes a Hebrew linter. ASD-STE100 defines English only, so the Hebrew rules are an adaptation, not an official standard.
-- **Indonesian:** [jshsinaga/asd-ste100-indonesian-skill](https://github.com/jshsinaga/asd-ste100-indonesian-skill) adapts this skill for Indonesian technical text. Its Indonesian rules are an adaptation, not an official ASD-STE100 standard.
+Mặc định linter dùng profile `strict`, dành cho văn bản agent đọc. Với README, tài liệu hay báo cáo, hãy dùng `--profile docs`. Profile này nới giới hạn câu tiếng Việt lên 45 âm tiết và không cảnh báo "hay" theo nghĩa "hoặc". Dấu chấm phẩy, từ quảng cáo và cụm từ đệm cũng chỉ còn là cảnh báo. Các mức này được chỉnh theo [số liệu từ 102 bài viết tay](languages/vi/evidence.md) của dev Việt. Các từ chỉ mức độ chắc chắn ("may", "might", "có thể", "có lẽ") không bao giờ bị báo lỗi.
 
-## Related Tools
+Danh sách quy tắc: tiếng Anh xem [`README.en.md`](README.en.md), tiếng Việt xem [`languages/vi/rules.md`](languages/vi/rules.md#kiểm-tra-bằng-linter).
 
-- [meiluosi/rewrite-fidelity-skill](https://github.com/meiluosi/rewrite-fidelity-skill) compares the original text with the rewrite. It flags changes in meaning and modality. It uses pattern matching, so check each flag yourself.
+## Cấu trúc thư mục
 
-## Sources
+```text
+asd-ste100-multilingual/
+├── SKILL.md                   # chỉ dẫn cho Claude: lõi + cơ chế chọn ngôn ngữ
+├── references/
+│   └── writing-rules.md       # tóm tắt quy tắc ASD-STE100 (tiếng Anh, lõi)
+├── examples/
+│   ├── before-after.md        # ví dụ tiếng Anh
+│   └── linter-edge-cases.md   # fixture kiểm thử (cố ý sai)
+├── languages/
+│   ├── README.md              # hướng dẫn thêm ngôn ngữ
+│   └── vi/
+│       ├── rules.md           # quy tắc chuyển thể cho tiếng Việt
+│       ├── style-docs.md      # văn phong tài liệu và báo cáo (không dùng cho UI app)
+│       ├── evidence.md        # số liệu từ 156 bài viết của dev Việt
+│       └── examples.md        # ví dụ tiếng Việt
+├── scripts/
+│   └── ste-lint.py            # linter, registry ngôn ngữ trong LANGUAGES
+├── README.md                  # tài liệu này
+└── README.en.md               # README tiếng Anh (gốc)
+```
 
-- [ASD-STE100 official site](https://www.asd-ste100.org/)
-- [ASD-STE100 — About STE](https://www.asd-ste100.org/about_STE.html)
-- [ASD Europe — Simplified Technical English](https://www.asd-europe.org/standards-specifications/simplified-technical-english/)
-- [Simplified Technical English — Wikipedia](https://en.wikipedia.org/wiki/Simplified_Technical_English)
-- [TechScribe — ASD-STE100 Simplified Technical English](https://www.techscribe.co.uk/techw/asd-simplified-technical-english.htm)
+## Phạm vi và giới hạn
 
-## License
+**Dùng cho:** tin nhắn giữa các agent, tool/function description, error message, system prompt, thông báo trạng thái.
 
-MIT — see [LICENSE](LICENSE).
+**Không dùng cho:** văn sáng tác, văn quảng cáo hoặc bất kỳ văn bản nào mà giọng văn là mục đích.
+
+**Giới hạn:**
+
+- Skill sửa cách viết chứ không sửa nội dung: một đoạn không có gì để nói thì viết lại vẫn rỗng, chỉ gọn hơn thôi.
+- Giấy phép của ASD-STE100 không cho phân phối lại bộ từ điển khoảng 900 từ, nên skill không kèm từ điển đó và quy tắc từ vựng chỉ mang tính định hướng.
+- ASD chỉ định nghĩa STE cho tiếng Anh, nên mọi bản cho thứ tiếng khác đều là **chuyển thể không chính thức**.
+- Đây không phải công cụ biên soạn STE có chứng nhận. Nếu viết tài liệu bảo trì máy bay thật, hãy dùng chuẩn gốc.
+
+## Đóng góp
+
+Đóng góp đáng giá nhất là **thêm thứ tiếng mới**. Bạn viết quy tắc và ví dụ, thêm một mục vào registry `LANGUAGES` của linter rồi chạy `--selftest`. Chi tiết ở [`languages/README.md`](languages/README.md).
+
+Muốn sửa quy tắc của thứ tiếng đã có, hãy sửa trong `scripts/ste-lint.py`, thêm ca kiểm thử vào `selftest()` và cập nhật bảng quy tắc trong `languages/<mã>/rules.md`.
+
+Dù sửa gì, nguyên tắc cốt lõi vẫn giữ nguyên: **không bao giờ báo lỗi hay xóa từ chỉ mức độ chắc chắn**.
+
+## Ghi công
+
+Repo được fork từ [danyuchn/asd-ste100-skill](https://github.com/danyuchn/asd-ste100-skill) của Dustin Yuchen Teng. Bộ quy tắc tiếng Anh, linter gốc và phần parse Markdown là công của tác giả gốc.
+
+Một số bản chuyển thể độc lập khác có thể gộp vào `languages/` sau này: [tiếng Hebrew](https://github.com/g4lb/asd-ste100-hebrew-skill) · [tiếng Indonesia](https://github.com/jshsinaga/asd-ste100-indonesian-skill)
+
+## Giấy phép
+
+MIT — xem [LICENSE](LICENSE).

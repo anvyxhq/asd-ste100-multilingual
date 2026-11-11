@@ -1,7 +1,7 @@
 {
   "name": "asd-ste100",
-  "description": "Rewrite ambiguous English into ASD-STE100 Simplified Technical English",
+  "description": "Rewrite ambiguous technical text into ASD-STE100-style controlled language, in English, Vietnamese, and more",
   "author": { "name": "danyuchn" },
-  "repository": "https://github.com/danyuchn/asd-ste100-skill",
+  "repository": "https://github.com/anvyxhq/asd-ste100-multilingual",
   "license": "MIT"
 }
