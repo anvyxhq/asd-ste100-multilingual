@@ -1,31 +1,31 @@
 # Quy tắc STE cho tiếng Việt
 
-ASD-STE100 chỉ định nghĩa cho tiếng Anh. Tệp này chuyển các nguyên tắc của STE sang tiếng Việt. Đây là bản chuyển thể không chính thức. Nó không phải một chuẩn đã được ASD công nhận.
+ASD-STE100 là chuẩn dành riêng cho tiếng Anh. Tệp này đem các nguyên tắc của chuẩn đó áp dụng cho tiếng Việt. Đây là bản chuyển thể không chính thức, chưa được ASD công nhận.
 
-Mục tiêu vẫn giữ nguyên: một câu chỉ có một cách hiểu. Yêu cầu này không xa lạ với tiếng Việt. Quy định về soạn thảo văn bản pháp luật cũng đòi hỏi câu chữ "không làm phát sinh nhiều cách hiểu" và thuật ngữ phải "sử dụng thống nhất" (Nghị quyết 351/2017/UBTVQH14, Điều 18). Người đọc là một agent, một hệ thống, hoặc một người không thể hỏi lại tác giả.
+Mục tiêu vẫn như cũ: mỗi câu chỉ có một cách hiểu, vì người đọc là agent, hệ thống hoặc một người không thể hỏi lại tác giả. Yêu cầu này không xa lạ với tiếng Việt. Quy định về soạn thảo văn bản pháp luật cũng đòi hỏi câu chữ "không làm phát sinh nhiều cách hiểu" và thuật ngữ phải "sử dụng thống nhất" (Nghị quyết 351/2017/UBTVQH14, Điều 18).
 
 Đọc tệp này khi văn bản đầu vào là tiếng Việt. Khi viết tài liệu hoặc báo cáo, đọc thêm `style-docs.md`. Các phần còn lại của `SKILL.md` vẫn áp dụng: hai chế độ, giữ nguyên phỏng đoán, không thêm thông tin, định dạng đầu ra.
 
 ## Khác biệt chính so với tiếng Anh
 
-| Tiếng Anh | Tiếng Việt | Hệ quả cho quy tắc |
+| Tiếng Anh | Tiếng Việt | Quy tắc cần điều chỉnh |
 |---|---|---|
-| Động từ chia thì | Động từ không đổi. "đã/đang/sẽ" là tùy chọn | Thiếu "đã/đang/sẽ" có thể gây mơ hồ. Xem quy tắc 6 |
+| Động từ chia thì | Động từ không biến đổi. Người viết có thể thêm hoặc không thêm "đã/đang/sẽ" | Thiếu "đã/đang/sẽ" có thể gây mơ hồ. Xem quy tắc 6 |
 | Câu luôn có chủ ngữ | Chủ ngữ thường bị lược | Văn bản mô tả và trạng thái phải nêu chủ ngữ. Xem quy tắc 2 |
-| Phrasal verb là nguồn đa nghĩa | Không có phrasal verb | Nguồn đa nghĩa là các từ ngắn như "hay", "được", "rồi", "cho", "mà", "lại". Xem quy tắc 8 |
+| Phrasal verb dễ bị hiểu nhiều nghĩa | Không có phrasal verb | Dễ bị hiểu nhiều nghĩa là các từ ngắn như "hay", "được", "rồi", "cho", "mà", "lại". Xem quy tắc 8 |
 | Một từ là một token | Một âm tiết là một token | Giới hạn độ dài tính theo âm tiết. Xem quy tắc 4 |
 | Cụm danh từ: bổ ngữ đứng trước | Bổ ngữ đứng sau danh từ chính | Chuỗi bổ ngữ dài làm mơ hồ quan hệ sở hữu. Xem quy tắc 5 |
-| Không có dấu thanh | Dấu thanh mang nghĩa | Bắt buộc viết đủ dấu. Xem quy tắc 1 |
+| Không có dấu thanh | Đổi dấu thanh là đổi nghĩa của từ | Bắt buộc viết đủ dấu. Xem quy tắc 1 |
 
 ## Quy tắc cấu trúc — áp dụng đầy đủ
 
 ### 1. Viết đủ dấu
 
-Tiếng Việt không dấu là đa nghĩa. "ban" có thể là "bạn", "bán", "bàn", "bản" hoặc "bận". Một agent đọc "xoa tep" phải đoán.
+Tiếng Việt viết không dấu rất dễ bị hiểu sai. "ban" có thể là "bạn", "bán", "bàn", "bản" hoặc "bận". Agent đọc "xoa tep" thì phải đoán nghĩa.
 
 - Viết đủ dấu ở mọi chế độ.
-- Dùng Unicode dựng sẵn (NFC). Văn bản tổ hợp (NFD) hiển thị giống nhau nhưng so khớp chuỗi sẽ sai.
-- Chọn một kiểu đặt dấu ("xóa" hoặc "xoá") và dùng nó trong cả tài liệu. Cả hai kiểu đều đang được dùng. Sách giáo khoa theo kiểu mới ("hoà", "thuỷ") từ Quyết định 1989/QĐ-BGDĐT. Giao diện của Apple và Microsoft dùng kiểu cũ ("Hủy", "Xóa").
+- Dùng Unicode dựng sẵn (NFC). Văn bản ở dạng tổ hợp (NFD) trông giống hệt, nhưng khi so khớp chuỗi sẽ cho kết quả sai.
+- Chọn một kiểu đặt dấu ("xóa" hoặc "xoá") và dùng thống nhất trong cả tài liệu. Cả hai kiểu đều đang được dùng. Sách giáo khoa theo kiểu mới ("hoà", "thuỷ") từ Quyết định 1989/QĐ-BGDĐT. Giao diện của Apple và Microsoft dùng kiểu cũ ("Hủy", "Xóa").
 
 ### 2. Câu chủ động, có chủ ngữ rõ ràng
 
@@ -33,7 +33,7 @@ Tiếng Việt không dấu là đa nghĩa. "ban" có thể là "bạn", "bán",
 |---|---|
 | "Agent ghi dữ liệu vào tệp." | "Dữ liệu được ghi bởi agent." — kiểu bị động "được ... bởi", thường bị coi là câu văn "Tây" |
 | "Hệ thống đã xóa tệp." | "Đã xóa tệp." — trong văn bản mô tả, người đọc không biết ai xóa |
-| "Xóa tệp." | — câu mệnh lệnh không cần chủ ngữ. Lược chủ ngữ chỉ đúng với câu mệnh lệnh |
+| "Xóa tệp." | — câu mệnh lệnh không cần chủ ngữ. Chỉ câu mệnh lệnh mới được lược chủ ngữ |
 
 "Bị" thường mang sắc thái tiêu cực. "Được" thường mang sắc thái tích cực, và cũng dùng được ở nghĩa trung tính ("Trà được trồng ở Nhật Bản"). Sắc thái này tính theo góc nhìn của chủ ngữ: "Lạm phát bị đẩy lùi" là tin tốt. "Không được" là lời cấm, không phải bị động: "Không ai được vắng mặt". "Tệp bị xóa" ngầm báo một sự cố. Không dùng "bị" cho hành động bình thường của hệ thống.
 
@@ -56,23 +56,23 @@ Hai giới hạn trên dành cho văn bản agent đọc. Văn bản cho ngườ
 
 ### 5. Cụm danh từ ngắn, quan hệ rõ ràng
 
-Một danh từ chính, tối đa hai bổ ngữ. Khi chuỗi dài hơn, viết rõ quan hệ bằng "của", "cho", "dùng để", "trong".
+Mỗi cụm chỉ nên có một danh từ chính và tối đa hai bổ ngữ. Khi cụm dài hơn, hãy viết rõ quan hệ giữa các từ bằng "của", "cho", "dùng để", "trong".
 
 | Nên | Không nên |
 |---|---|
 | "bộ xử lý đặt độ ưu tiên cho hàng đợi tác vụ" | "bộ xử lý ưu tiên hàng đợi tác vụ agent" — không rõ "agent" bổ nghĩa cho từ nào |
 
-### 6. Thời gian: đủ nhưng không chồng
+### 6. Thời gian: nêu đủ, không nêu thừa
 
-Tiếng Việt không chia thì. Điều này dẫn tới hai lỗi ngược nhau.
+Tiếng Việt không chia thì, nên dễ mắc hai lỗi ngược nhau.
 
-- **Thiếu dấu hiệu thời gian.** "Tác vụ hoàn tất" có thể là "đã hoàn tất" hoặc "sẽ hoàn tất". Trong thông báo trạng thái, luôn viết rõ "đã", "đang" hoặc "sẽ". Đây là điểm ngược với tiếng Anh: STE bỏ thì phức, còn tiếng Việt cần thêm dấu hiệu thời gian để hết mơ hồ.
-- **Chồng dấu hiệu thời gian.** "đã từng", "đã đang", "sẽ đang". Dùng một từ.
+- **Thiếu từ chỉ thời gian.** "Tác vụ hoàn tất" có thể là "đã hoàn tất" hoặc "sẽ hoàn tất". Trong thông báo trạng thái, luôn viết rõ "đã", "đang" hoặc "sẽ". Đây là điểm ngược với tiếng Anh: STE bỏ thì phức, còn tiếng Việt phải thêm từ chỉ thời gian thì câu mới hết mơ hồ.
+- **Thừa từ chỉ thời gian.** "đã từng", "đã đang", "sẽ đang". Chỉ dùng một từ.
 - Không thêm "rồi" sau "đã" ("đã xong rồi"). "Rồi" vừa nghĩa là "đã xong" vừa nghĩa là "sau đó".
 
 Ngoại lệ: "có thể đã", "có lẽ đã từng" thể hiện người viết chưa chắc chắn. Giữ nguyên, vì bỏ đi là đổi nghĩa câu.
 
-### 7. Không lược thành phần
+### 7. Không lược bớt thành phần câu
 
 | Nên | Không nên |
 |---|---|
@@ -107,17 +107,17 @@ Giống STE Rule 8.1: không dùng dấu chấm phẩy. Tách thành câu riêng
 
 ### 11. Số, ngày, đơn vị
 
-Đây là lỗi riêng của văn bản tiếng Việt được máy đọc.
+Văn bản tiếng Việt cho máy đọc hay gặp ba lỗi sau.
 
 - "1.000" là một nghìn theo kiểu Việt Nam, nhưng là 1,0 theo kiểu tiếng Anh. Trong văn bản cho agent, không dùng dấu phân cách hàng nghìn, hoặc nêu rõ quy ước.
 - "03/04/2026" có thể là 3 tháng 4 hoặc 4 tháng 3. Dùng ISO 8601 (`2026-04-03`) hoặc viết "ngày 3 tháng 4 năm 2026".
 - Luôn ghi đơn vị: "30 giây", không phải "30".
 
-## Quy tắc từ vựng — chỉ là định hướng
+## Quy tắc từ vựng — chỉ là gợi ý
 
 ### Một khái niệm, một từ
 
-Chọn một từ và dùng nó trong cả tài liệu.
+Mỗi khái niệm chọn một từ, rồi dùng thống nhất trong cả tài liệu.
 
 | Nhóm hay bị trộn | Chọn một |
 |---|---|
@@ -131,13 +131,13 @@ Chọn một từ và dùng nó trong cả tài liệu.
 
 ### Thuật ngữ tiếng Anh
 
-Văn bản kỹ thuật tiếng Việt thường trộn thuật ngữ tiếng Anh. Điều đó được phép, nếu nhất quán.
+Văn bản kỹ thuật tiếng Việt thường dùng lẫn thuật ngữ tiếng Anh. Điều đó không sao, miễn là dùng nhất quán.
 
-- Nếu dùng từ tiếng Anh ("cache", "commit"), dùng nó mọi lần. Không đổi qua lại giữa "cache" và "bộ nhớ đệm".
+- Nếu đã dùng từ tiếng Anh ("cache", "commit") thì lần nào cũng dùng từ đó. Không đổi qua lại giữa "cache" và "bộ nhớ đệm".
 - Nếu dùng từ tiếng Việt, ghi từ tiếng Anh trong ngoặc ở lần đầu: "bộ nhớ đệm (cache)".
 - Tên hàm, tên biến, lệnh: đặt trong backtick và không dịch.
 
-### Động từ, không phải danh từ hóa
+### Dùng động từ, không danh từ hóa
 
 | Nên | Không nên |
 |---|---|
@@ -145,7 +145,7 @@ Văn bản kỹ thuật tiếng Việt thường trộn thuật ngữ tiếng An
 | "Cấu hình thay đổi." | "Có sự thay đổi trong cấu hình." |
 | "Công cụ hỗ trợ người dùng." | "Công cụ cung cấp sự hỗ trợ cho người dùng." |
 
-### Từ thường, không phải từ trang trọng
+### Dùng từ thông thường, không dùng từ trang trọng
 
 Ưu tiên từ phổ biến nhất có cùng nghĩa: "dùng" thay vì "vận dụng", "bắt đầu" thay vì "khởi xướng". Từ Hán Việt vẫn được dùng khi nó là thuật ngữ chuẩn ("cấu hình", "đồng bộ").
 
@@ -156,7 +156,7 @@ Rà soát sáu lỗi sau trước khi viết lại.
 1. **Đổi tên cho cùng một thứ.** "người dùng", "khách hàng", "user" trong cùng một tài liệu.
 2. **Chồng nhiều lớp "có thể".** "điều quan trọng cần lưu ý là việc này có thể có khả năng giúp cải thiện". Nói thẳng nội dung hoặc xóa.
 3. **Danh từ hóa.** "tiến hành", "thực hiện việc", "có sự", "cung cấp sự".
-4. **Từ ngữ quảng cáo.** liền mạch, mượt mà, vượt trội, đột phá, mạnh mẽ, hàng đầu, hoàn hảo, siêu nhanh. Xóa hoặc thay bằng số đo.
+4. **Từ ngữ quảng cáo.** liền mạch, mượt mà, vượt trội, đột phá, hàng đầu, siêu nhanh. Xóa hoặc thay bằng số đo.
 5. **Câu dài nối nhiều ý.** Nhiều ý nối bằng dấu phẩy, "và", "đồng thời", "trong khi đó". Mỗi câu một ý.
 6. **Câu văn "Tây".** "được ... bởi", "một cách + tính từ" ("một cách tự động" → "tự động"), "Nó là cần thiết để", "là một trong những".
 
@@ -195,6 +195,8 @@ Người viết dùng "có thể", "có lẽ", "có khả năng", "có thể đ�
 | `calque-term` | advisory | bản dịch ít người dùng của thuật ngữ: "yêu cầu kéo", "điểm cuối", "mã thông báo"... |
 | `mt-phrase` | advisory | cụm rườm rà (quy ước riêng): "được sử dụng để", "cho phép bạn", "là một trong những"... |
 | `title-case-heading` | advisory | tiêu đề tiếng Việt viết hoa mọi chữ |
+| `terse-pointer` | advisory | câu cụt kiểu ghi chú: "Muốn thêm ngôn ngữ? Xem README.", "MIT — xem LICENSE." |
+| `literal-idiom` | advisory | dịch sát câu nói gọn của tiếng Anh: "…là mục đích.", "…là chìa khóa." |
 
 Các mức này được chỉnh theo số liệu từ 102 bài viết tay của lập trình viên Việt. Xem [`evidence.md`](evidence.md).
 

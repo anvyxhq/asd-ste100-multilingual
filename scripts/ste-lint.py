@@ -160,6 +160,14 @@ VI_RULES = [
      re.compile(r"\b(?:được sử dụng để|cho phép bạn|đóng một vai trò quan trọng|là một trong những"
                 r"|nhằm mục đích)\b", re.I),
      "Cụm từ rườm rà (quy ước riêng của bộ quy tắc này). Viết thẳng: \"dùng để\", \"bạn có thể\", hoặc bỏ cụm."),
+    # Both patterns are absent from 102 hand-written developer articles (one hit).
+    ("terse-pointer", "advisory",
+     re.compile(r"(?:(?:^|[.!?]\s+)(?:Muốn|Cần|Bạn muốn|Bạn cần)[^.?!]{3,70}\?\s+(?:Xem|Đọc|Dùng|Chạy|Hãy xem)\b"
+                r"|\S\s+—\s+xem\b)", re.I),
+     "Câu cụt kiểu ghi chú. Viết thành câu đầy đủ (\"Nếu bạn muốn ..., hãy xem ...\")."),
+    ("literal-idiom", "advisory",
+     re.compile(r"\blà (?:mục đích|nội dung|chìa khóa|chìa khoá)\s*[.!]", re.I),
+     "Có thể là dịch sát một câu nói gọn của tiếng Anh (\"X is the point\", \"X is key\"). Nói ý đó bằng lời bình thường."),
     # Title Case is an English convention. Vietnamese headings capitalize the first word only.
     ("title-case-heading", "advisory",
      re.compile(rf"^#{{1,6}}[ \t]+(?=(?i:.*[{_VI_ONLY}]))(?:[{_VI_UPPER}]\w*[ \t]+){{2,}}"
@@ -2840,6 +2848,10 @@ def selftest():
     findings, _ = lint("Lỗi xảy ra do sự không khớp về định dạng. Dịch vụ dừng do sự cố mạng.", lang="vi")
     assert [(f["rule"], f["level"], f["match"]) for f in findings] == [
         ("nominalization", "advisory", "do sự không khớp")], findings
+    findings, _ = lint("Muốn thêm một ngôn ngữ? Xem README. Giấy phép MIT — xem LICENSE. "
+                       "Không dùng cho văn bản mà giọng văn là mục đích.", lang="vi")
+    assert [f["rule"] for f in findings] == ["terse-pointer", "terse-pointer", "literal-idiom"], findings
+    assert lint("Nếu bạn muốn thêm một ngôn ngữ, hãy xem README. Đây là nội dung của file.", lang="vi")[0] == []
     findings, _ = lint("Đã hoàn thành xong bản build tối ưu nhất.", lang="vi")
     assert [f["rule"] for f in findings] == ["redundant-word", "redundant-word"], findings
     # docs profile: a longer Vietnamese cap, "hay" allowed; strict flags both

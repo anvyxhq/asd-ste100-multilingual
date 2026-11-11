@@ -42,6 +42,8 @@ A language folder can hold a style profile for a kind of text. `languages/vi/sty
 
 For Vietnamese, the style profile replaces STE-flavored mode. Strict mode keeps short sentences and repeated nouns (cap: 24 syllables for instructions, 30 for descriptions). The style profile prefers natural prose: connectives, a dropped subject where the referent is clear, and a 45-syllable cap. Hedges, facts, and diacritics stay untouched in both.
 
+After you write Vietnamese prose for people, read it again against the table "Những chỗ gượng hay gặp khi AI viết tiếng Việt" in `languages/vi/style-docs.md`. The linter cannot find most of the items in that table. Look for an English idiom translated word for word. Look for a note-style fragment in place of a sentence. Look for a term you coined, and for grammar jargon. Rewrite each one the way a Vietnamese engineer says it.
+
 Before you rewrite, identify the language of the input.
 
 1. If `languages/<code>/rules.md` exists for that language, read it. Apply it in place of the English-specific rules in this file (tenses, phrasal verbs, word counts).

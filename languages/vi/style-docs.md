@@ -1,8 +1,8 @@
 # Văn phong tài liệu và báo cáo tiếng Việt
 
-Cấu hình này dùng khi **viết mới hoặc viết lại** tài liệu kỹ thuật bằng tiếng Việt. Ví dụ: README, tài liệu thiết kế, hướng dẫn, changelog, mô tả PR, báo cáo tiến độ, báo cáo sự cố, biên bản họp.
+Tài liệu này hướng dẫn cách **viết mới hoặc viết lại** tài liệu kỹ thuật bằng tiếng Việt, ví dụ README, tài liệu thiết kế, hướng dẫn, changelog, mô tả PR, báo cáo tiến độ, báo cáo sự cố, biên bản họp.
 
-Người đọc là lập trình viên, kỹ sư, PM, QA người Việt. Họ đọc thuật ngữ tiếng Anh hằng ngày. Văn bản cần đọc như một kỹ sư Việt viết, không như bản dịch máy từ tiếng Anh.
+Người đọc là lập trình viên, kỹ sư, PM, QA người Việt. Họ đọc thuật ngữ tiếng Anh hằng ngày. Vì vậy văn bản phải đọc lên như do một kỹ sư Việt viết, không giống bản dịch máy từ tiếng Anh.
 
 > **Không áp dụng cho chuỗi giao diện app** (UI strings, thông báo cho người dùng cuối, App Store). Người dùng cuối không đọc thuật ngữ kỹ thuật, nên app dùng cấu hình riêng.
 
@@ -12,13 +12,13 @@ Người đọc là lập trình viên, kỹ sư, PM, QA người Việt. Họ �
 |---|---|---|
 | Người đọc | Agent, hệ thống | Người: kỹ sư, PM, QA |
 | Loại văn bản | Error message, tool description, chỉ dẫn cho agent | README, tài liệu, mô tả PR, báo cáo |
-| Ưu tiên | Một cách hiểu duy nhất | Rõ nghĩa và đọc trôi |
+| Ưu tiên | Một cách hiểu duy nhất | Rõ nghĩa và dễ đọc |
 | Câu | Ngắn, mỗi câu một ý | Dài ngắn xen kẽ, nối ý bằng từ nối |
 | Chủ ngữ | Luôn nêu, lặp lại danh từ | Lược khi người đọc đã biết đang nói về ai |
 
 Văn bản cho người đọc mà viết theo mức Strict sẽ nghe như văn dịch: câu cụt, chủ ngữ lặp, ý rời rạc. Ở mức tự nhiên, chỉ tách câu hoặc lặp danh từ khi câu đó thật sự có hai cách hiểu.
 
-Những gì *không* nới lỏng ở mức tự nhiên: không đổi phỏng đoán thành khẳng định ("có thể" vẫn là "có thể"), không thêm thông tin, không dùng từ quảng cáo, viết đủ dấu.
+Có bốn điều mức tự nhiên vẫn giữ nghiêm như mức Strict: không đổi phỏng đoán thành khẳng định ("có thể" vẫn là "có thể"), không thêm thông tin, không dùng từ quảng cáo, viết đủ dấu.
 
 ## 1. Thuật ngữ: viết như dev Việt viết
 
@@ -133,16 +133,27 @@ Các điểm sau chưa tìm thấy nguồn tiếng Việt nào nêu tên. Chúng
 | Tính năng này cho phép bạn xuất PDF. | Bạn có thể xuất PDF bằng tính năng này. |
 | Cache đóng một vai trò quan trọng trong hiệu năng. | Cache ảnh hưởng lớn tới hiệu năng. |
 | Hàm này trả về giá trị một cách nhanh chóng. | Hàm này trả về giá trị nhanh. |
-| Không dùng cho văn bản mà giọng văn là mục đích. | Không dùng cho những văn bản cần giọng văn riêng. |
-| Mức độ chắc chắn là nội dung. | Bỏ chữ "có thể" là đổi nghĩa câu. |
 
 "Một cách + tính từ" không sai, và các nhà nghiên cứu vẫn dùng. Chỉ bỏ khi câu không đổi nghĩa.
 
-Hai dòng cuối là kiểu dịch sát một câu nói gọn của tiếng Anh ("where voice is the point", "confidence is content"). Từng chữ đều đúng, nhưng người Việt không nói như vậy. Hãy viết lại ý đó bằng lời của mình thay vì dịch từng chữ.
-
 Các cụm này có trong văn viết tay, nhưng hiếm. Ở nhóm bài đối chứng trong [`evidence.md`](evidence.md), chúng xuất hiện nhiều gấp 2–30 lần, cùng với tiêu đề viết hoa mọi chữ và số viết kiểu "1,000". Một văn bản dày đặc các cụm này sẽ đọc lên như bản dịch máy.
 
-### Viết cho trôi
+### Những chỗ gượng hay gặp khi AI viết tiếng Việt
+
+Các lỗi dưới đây đều do người đọc thật chỉ ra trong chính tài liệu của repo này. Từng chữ trong câu đều đúng, nhưng người Việt không nói như vậy. Linter chỉ bắt được hai kiểu đầu, nên sau khi viết xong hãy tự đọc lại theo bảng này.
+
+| Kiểu gượng | Ví dụ | Viết lại |
+|---|---|---|
+| Dịch sát một câu nói gọn của tiếng Anh | "văn bản mà giọng văn là mục đích", "Mức độ chắc chắn là nội dung", "…là chìa khóa" | Nói ý đó bằng lời bình thường: "những văn bản cần giọng văn riêng", "bỏ chữ 'có thể' là đổi nghĩa câu" |
+| Câu cụt kiểu ghi chú | "Muốn thêm một ngôn ngữ? Xem `languages/README.md`.", "MIT — xem LICENSE." | Viết thành câu đầy đủ: "Nếu bạn muốn thêm một ngôn ngữ mới, hãy làm theo hướng dẫn trong `languages/README.md`." |
+| Tự ghép ra thuật ngữ mới | "từ chỉ mức độ chắc chắn", "từ rào đón" | Gọi bằng ví dụ: những từ như "có thể", "có lẽ" |
+| Dùng thuật ngữ ngữ pháp với người đọc không chuyên | "hư từ", "tình thái" | Giải thích bằng lời thường hoặc nêu ví dụ |
+| Tiêu đề và nhãn dịch từng chữ | "Đầu ra sạch", "Hệ quả cho quy tắc", "nằm ở lõi", "số liệu đứng sau quy tắc" | "Kết quả gọn", "Quy tắc cần điều chỉnh", "dùng cho mọi ngôn ngữ", "số liệu làm căn cứ cho quy tắc" |
+| Ô bảng và gạch đầu dòng chỉ là chuỗi cụm từ | "Python 3, chỉ dùng thư viện chuẩn, không gọi mạng." | "Một script Python 3 chỉ dùng thư viện chuẩn và không kết nối mạng." |
+
+Cách tự kiểm tra: đọc to từng câu rồi tự hỏi "mình có nói câu này với đồng nghiệp không?". Nếu không thì viết lại ý đó đúng như khi nói.
+
+### Viết cho mạch lạc
 
 Văn dịch thường đúng từng câu nhưng rời rạc cả đoạn. Các cách sau giúp đoạn văn mạch lạc hơn:
 
@@ -179,7 +190,7 @@ Quy tắc chung:
 
 ## 4. Báo cáo
 
-Báo cáo tiến độ và báo cáo sự cố cần đọc nhanh. Đặt kết luận lên đầu.
+Người đọc báo cáo tiến độ và báo cáo sự cố thường chỉ lướt qua, nên hãy đặt kết luận lên đầu.
 
 **Báo cáo tiến độ:**
 
